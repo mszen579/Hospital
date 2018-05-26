@@ -1,7 +1,6 @@
 //App.js
 import React, { Component } from 'react';
 import './index.css';
-import Logreg from './components/Logreg';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";//this is for routing
 
 
