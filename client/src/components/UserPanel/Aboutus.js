@@ -1,16 +1,16 @@
-//Articles.js
+//Aboutus.js
 import React, { Component } from 'react';
 
 
 
-class Articles extends Component {
+class Aboutus extends Component {
   render() {
     return (
       <div className="App">
-        all Articles will show here
+         about us
       </div>
     );
   }
 }
 
-export default Articles;
+export default Aboutus;
