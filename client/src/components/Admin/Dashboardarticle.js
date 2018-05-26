@@ -10,9 +10,9 @@ class Dashboardarticle extends Component {
 
     this.state = {
 
-      students: null,
+      Articles: null,
       loading: true,
-      studentClass: null,
+      ArticleClass: null,
 
     }
     
@@ -28,14 +28,14 @@ class Dashboardarticle extends Component {
 
   componentDidMount() {
     let _this = this;
-    axios.get("http://localhost:8000/api/listofstudents")
+    axios.get("http://localhost:8000/api/listofArticles")
       .then((response) => {
 
         console.log(response);
         if (response.data.error) {
           _this.setState({ loading: false })
         } else {
-          _this.setState({ students: response.data, loading: false ,})
+          _this.setState({ Articles: response.data, loading: false ,})
         }
       })
       .catch((error) => {
@@ -47,7 +47,7 @@ class Dashboardarticle extends Component {
 
   render() {
     let _this = this;
-    console.log(this.state.students);
+    console.log(this.state.Articles);
     return (
       <div>
         <AdminNav />
@@ -66,18 +66,18 @@ class Dashboardarticle extends Component {
             </thead>
             <tbody>
 
-              {this.state.students && this.state.students.map(function (student) {
-                console.log(student);
+              {this.state.Articles && this.state.Articles.map(function (Article) {
+                console.log(Article);
                 return (
-                  <tr key={student._id}>
+                  <tr key={Article._id}>
                     <td>
-                      {student.profilePic &&
-                        <img src={`http://localhost:8000/uploads/${student.profilePic}`} width="100" height="120" />}
+                      {Article.profilePic &&
+                        <img src={`http://localhost:8000/uploads/${Article.profilePic}`} width="100" height="120" />}
                     </td>
-                    <td colSpan={3}>{student.FirstName} {student.LastName}</td>
+                    <td colSpan={3}>{Article.FirstName} {Article.LastName}</td>
 
-                    <td><Link className="btn btn-primary" to={`/admin/${student.StudentID}/editdetails`}>Edit</Link></td>
-                    <td><Link className="btn btn-primary" to={`/student/profile/${student.StudentID}`}>View Profile</Link></td>
+                    <td><Link className="btn btn-primary" to={`/Admin-Panel/${Article.ArticleID}/EditArticle`}>Edit</Link></td>
+                    <td><Link className="btn btn-primary" to={`/${Article.ArticleID}/SingleArticle`}>View details</Link></td>
                  </tr>
                 )
               }.bind(this))}

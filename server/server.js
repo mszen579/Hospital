@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 //modoles
-var Student = require('./Models/Student');
+var Article = require('./Models/Article');
 var { check, validationResult } = require('express-validator/check');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -66,14 +66,14 @@ app.get('/test', function (req, res) {
   res.send('Hello Server');
 })
 
-// Searching for student in db
+// Searching for Article in db
 
-validateStudentId= [
-  check('StudentID','Please enter a student ID ').not().isEmpty()
+validateArticleId= [
+  check('ArticleID','Please enter a Article ID ').not().isEmpty()
 
 ]
 
-app.post('/student/search', validateStudentId, function (req, res) {
+app.post('/Article/search', validateArticleId, function (req, res) {
   //console.log(req);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -82,10 +82,10 @@ app.post('/student/search', validateStudentId, function (req, res) {
   }
 
   //console.log(req.body);
-  Student.findOne(req.body)
+  Article.findOne(req.body)
     .then(function (user) {
       if (!user) {
-        return res.send({ status: 'error', message: 'Student not found' });
+        return res.send({ status: 'error', message: 'Article not found' });
       }
       //console.log(user);
       res.send(user);
@@ -97,17 +97,17 @@ app.post('/student/search', validateStudentId, function (req, res) {
 })
 
 
-// Getting the student profile using id
+// Getting the Article profile using id
 
 
-app.post('/student/profileinfo/:id', function (req, res) {
+app.post('/Article/profileinfo/:id', function (req, res) {
   console.log(req.params.id);
   console.log(req.body);
 
-  Student.findOne({"StudentID" : req.params.id})
+  Article.findOne({"ArticleID" : req.params.id})
     .then(function (user) {
       if (!user) {
-        return res.send({ status: 'error', message: 'Student not found' });
+        return res.send({ status: 'error', message: 'Article not found' });
       }
       console.log(user);
       res.send(user);
@@ -122,23 +122,23 @@ app.post('/student/profileinfo/:id', function (req, res) {
 ////////////////login user////////////////////
 app.post('/api/login', function (req, res) {
   console.log(req.body);
-  Student.findOne({
+  Article.findOne({
     Email: req.body.email,
     Password: req.body.password
   })
-    .then(function (student) {
-      if (!student) {
+    .then(function (Article) {
+      if (!Article) {
         let errors_value = {
           login: { msg: 'Wrong email or password' }
         }
        
         return res.send({ errors: errors_value })
       } else {
-        req.session.student = student;
+        req.session.Article = Article;
         return res.send({ msg: 'You are signed in' });
       }
 
-      res.send(student);
+      res.send(Article);
     })
     .catch(function (error) {
       console.log(error);
@@ -146,15 +146,15 @@ app.post('/api/login', function (req, res) {
     })
 })
 
-app.get('/api/current_student', function (req, res) {
+app.get('/api/current_Article', function (req, res) {
   console.log(req.session)
-  if (req.session.student) {
-    Student.findById(req.session.student._id)
-      .then(function (student) {
+  if (req.session.Article) {
+    Article.findById(req.session.Article._id)
+      .then(function (Article) {
         res.send({
-          _id: student._id,
-          email: student.email,
-          firstName: student.firstName,
+          _id: Article._id,
+          email: Article.email,
+          firstName: Article.firstName,
         })
       })
   } else {
@@ -171,7 +171,7 @@ app.get('/api/logout', function (req, res) {
 });
 
 //Admin registration / create User and Validation
-app.post('/api/student/register',
+app.post('/api/Article/register',
   upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
   [
     check('firstName').not().isEmpty().withMessage('First name is required')
@@ -190,9 +190,9 @@ app.post('/api/student/register',
     check('email')
       //.isEmail().withMessage('Invalid Email')
       .custom(value => {
-        return Student.findOne({ email: value })
-          .then(function (student) {
-            if (student) {
+        return Article.findOne({ email: value })
+          .then(function (Article) {
+            if (Article) {
               throw new Error('This email is already in use');
             }
             //return value;
@@ -204,16 +204,16 @@ app.post('/api/student/register',
     check('ID')
       .not().isEmpty()
       .custom(value => {
-        return Student.findOne({ StudentID: value })
-          .then(function (student) {
-            if (student) {
-              throw new Error('This student ID is already in use');
+        return Article.findOne({ ArticleID: value })
+          .then(function (Article) {
+            if (Article) {
+              throw new Error('This Article ID is already in use');
             }
             //return value;
           })
       }),
     check('status')
-      .not().isEmpty().withMessage('Please include student Status'),
+      .not().isEmpty().withMessage('Please include Article Status'),
 
   ],
   function (req, res) {
@@ -230,10 +230,10 @@ app.post('/api/student/register',
       filename = req.files.photo[0].filename
     }
 
-    Student.create({
+    Article.create({
       FirstName: req.body.firstName,
       LastName: req.body.lastName,
-      StudentID: req.body.ID,
+      ArticleID: req.body.ID,
       DateOfBirth: req.body.dateOfBirth,
       Email: req.body.email,
       Video: req.body.video,
@@ -248,7 +248,7 @@ app.post('/api/student/register',
       
 
     })
-      .then(function (student) {
+      .then(function (Article) {
         // Generate test SMTP service account from mailcatcher
         // Only needed if you don't have a real mail account for testing
         nodemailer.createTestAccount((err, account) => {
@@ -263,26 +263,26 @@ app.post('/api/student/register',
           // setup email data with unicode symbols
           let mailOptions = {
             from: '"Ted" <theodor@restart.network>', // sender address
-            to: student.Email,
-            subject: 'New student account', // Subject line
+            to: Article.Email,
+            subject: 'New Article account', // Subject line
             text: `
-            Welcome to Restart, ${student.FirstName}
+            Welcome to Restart, ${Article.FirstName}
 
             Your account is created.
             You can login at:
-            http://localhost:3000/student/login
+            http://localhost:3000/Article/login
 
-            Your password is: ${student.Password}
+            Your password is: ${Article.Password}
             `, // plain text body
             html: `
-            <p>Welcome to Restart, ${student.FirstName}</p>
+            <p>Welcome to Restart, ${Article.FirstName}</p>
 
             Your account is created.
             You can login at:
-            <a href="http://localhost:3000/student/login">here</a>
+            <a href="http://localhost:3000/Article/login">here</a>
 
-            Your Log In Id is : ${student.StudentID}
-            Your password is: ${student.Password}
+            Your Log In Id is : ${Article.ArticleID}
+            Your password is: ${Article.Password}
 
             ` // html body
           };
@@ -300,11 +300,11 @@ app.post('/api/student/register',
             // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
           });
         })
-        res.send(student);
+        res.send(Article);
       })
       .then(function() {
         Badge.create({
-          StudentID: req.body.ID,
+          ArticleID: req.body.ID,
           Badge1: false,
           Badge2: false,
           Badge3: false,
@@ -320,27 +320,27 @@ app.post('/api/student/register',
 
   })
 
-//Showing List of Students
-app.get('/api/listofstudents', function (req, res) {
-  Student.find({})
+//Showing List of Articles
+app.get('/api/listofArticles', function (req, res) {
+  Article.find({})
     .sort({
-      StudentId: 'desc'
+      ArticleId: 'desc'
     })
-     .then((students) => {
-      res.send(students);
+     .then((Articles) => {
+      res.send(Articles);
     }
     ).catch((error) => {
-      res.send({ status: error, message: 'Cannot find students' });
+      res.send({ status: error, message: 'Cannot find Articles' });
     })
 })
 
 
 
 
-//Admin Student View Profile
-app.get('/api/student/:StudentID/viewprofile', function (req, res) {
+//Admin Article View Profile
+app.get('/api/Article/:ArticleID/viewprofile', function (req, res) {
   console.log(req.params);
-  Student.findOne({ StudentID: req.params.StudentID })
+  Article.findOne({ ArticleID: req.params.ArticleID })
 
     .then(function (result) {
       res.send(result);
@@ -351,12 +351,12 @@ app.get('/api/student/:StudentID/viewprofile', function (req, res) {
     })
 })
 
-app.post('/api/admin/:StudentID/enablebadges',function(req,res){
+app.post('/api/admin/:ArticleID/enablebadges',function(req,res){
   console.log(req.body);
-  console.log(req.params.StudentID);
+  console.log(req.params.ArticleID);
   var badgeName=req.body.enablebadge;
   Badge.findOne({
-        StudentID:req.params.StudentID
+        ArticleID:req.params.ArticleID
       }).update({badgeName:1})
   .then(function (badges) {
     // console.log(badges)
@@ -372,15 +372,15 @@ app.post('/api/admin/:StudentID/enablebadges',function(req,res){
 
 
 
-//Admin Getting Student to Edit
+//Admin Getting Article to Edit
 
-app.get('/api/:StudentID/getedititem', function (req, res) {
+app.get('/api/:ArticleID/getedititem', function (req, res) {
 
   console.log('request get', req.body);
 
-  Student.findOne({ StudentID: req.params.StudentID })
-    .then(function (student) {
-   res.json(student)
+  Article.findOne({ ArticleID: req.params.ArticleID })
+    .then(function (Article) {
+   res.json(Article)
     })
     .catch(function (error) {
       console.log(error);
@@ -389,8 +389,8 @@ app.get('/api/:StudentID/getedititem', function (req, res) {
 
 
 
-//Admin Editting the student
-app.post('/api/:StudentID/update',
+//Admin Editting the Article
+app.post('/api/:ArticleID/update',
   upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
   [
     check('firstName').not().isEmpty().withMessage('First name is required')
@@ -403,9 +403,9 @@ app.post('/api/:StudentID/update',
     check('email')
       .isEmail()
       .custom(value => {
-        return Student.findOne({ email: value })
-          .then(function (student) {
-            if (student) {
+        return Article.findOne({ email: value })
+          .then(function (Article) {
+            if (Article) {
               throw new Error('this email is already in use');
             }
           })
@@ -418,10 +418,10 @@ app.post('/api/:StudentID/update',
     //??check('video')
     check('ID')
       .custom(value => {
-        return Student.findOne({ StudentID: value })
-          .then(function (student) {
-            if (student) {
-              throw new Error('This student ID is already in use');
+        return Article.findOne({ ArticleID: value })
+          .then(function (Article) {
+            if (Article) {
+              throw new Error('This Article ID is already in use');
             }
           })
         //return value;
@@ -437,28 +437,28 @@ app.post('/api/:StudentID/update',
       return res.send({ errors: errors.mapped() });
     }
 console.log(req.body)
-    Student.findOne({ StudentID: req.params.StudentID })
-      .then(function (student) {
-        student.FirstName = req.body.firstName
-        student.LastName = req.body.lastName
+    Article.findOne({ ArticleID: req.params.ArticleID })
+      .then(function (Article) {
+        Article.FirstName = req.body.firstName
+        Article.LastName = req.body.lastName
 
-        student.DateOfBirth = req.body.dateOfBirth
-        student.Email = req.body.email
-        student.Video = req.body.video
+        Article.DateOfBirth = req.body.dateOfBirth
+        Article.Email = req.body.email
+        Article.Video = req.body.video
         if (req.files.photo) {
-          student.profilePic = req.files.photo[0].filename
+          Article.profilePic = req.files.photo[0].filename
         }
-        student.LinkedIn_link = req.body.linkedinLink
-        student.hackerRank_link = req.body.hackerRankLink
-        student.Github_link = req.body.githubLink
-        student.CV_link = req.body.CVlink
-        student.ShortDescription = req.body.shortDescription
-        student.Status = req.body.status
+        Article.LinkedIn_link = req.body.linkedinLink
+        Article.hackerRank_link = req.body.hackerRankLink
+        Article.Github_link = req.body.githubLink
+        Article.CV_link = req.body.CVlink
+        Article.ShortDescription = req.body.shortDescription
+        Article.Status = req.body.status
         
 
-        student.save()
-          .then(function (student) {
-            res.send(student);
+        Article.save()
+          .then(function (Article) {
+            res.send(Article);
           })
           .catch(function (error) {
             console.log(error);

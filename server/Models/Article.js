@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var StudentSchema = new Schema({
+var ArticleSchema = new Schema({
 
     FirstName: {
         type: String,
@@ -11,7 +11,7 @@ var StudentSchema = new Schema({
         type: String,
         required: true
     },
-    StudentID: {
+    ArticleID: {
         type: String,
         required: true
     },
@@ -62,4 +62,4 @@ var StudentSchema = new Schema({
  
 })
 
-module.exports = mongoose.model('Student', StudentSchema);
+module.exports = mongoose.model('Article', ArticleSchema);

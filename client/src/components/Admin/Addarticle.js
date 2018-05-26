@@ -20,7 +20,7 @@ class Addarticle extends Component {
                 linkedinLink: '',
                 githubLink: '',
                 hackerRankLink: '',
-                StudentClass: '',
+                ArticleClass: '',
                 CVlink: ''
             },
             error: {
@@ -76,9 +76,9 @@ class Addarticle extends Component {
         formData.append('githubLink', this.state.data.githubLink);
         formData.append('hackerRankLink', this.state.data.hackerRankLink);
         formData.append('CVlink', this.state.data.CVlink);
-        formData.append('StudentClass', this.state.data.StudentClass);
+        formData.append('ArticleClass', this.state.data.ArticleClass);
 
-        axios.post("http://localhost:8000/api/student/register", formData)
+        axios.post("http://localhost:8000/api/Article/register", formData)
             .then(res => {
                 console.log(res.data);
                 if (res.data.errors) {
@@ -113,7 +113,7 @@ class Addarticle extends Component {
                             githubLink: '',
                             hackerRankLink: '',
                             CVlink: '',
-                            studentClass:"",
+                            ArticleClass:"",
                         },
                         error: {
                             firstName: '',
@@ -126,7 +126,7 @@ class Addarticle extends Component {
                             ID: '',
                             photo: '',
                         },
-                        success: 'Student Registered successfully'
+                        success: 'Article Registered successfully'
                     })
                 }
             })
@@ -154,20 +154,20 @@ class Addarticle extends Component {
     }
     // addBadges(event){
     //   event.preventDefault();
-    //   axios.post("http://localhost:8000/api/student/addbadge",this.state.data.
+    //   axios.post("http://localhost:8000/api/Article/addbadge",this.state.data.
     // }
 
     componentDidMount(){
         let _this = this;
-        axios.get("http://localhost:8000/api/admin/student/class/list")
+        axios.get("http://localhost:8000/api/admin/Article/class/list")
             .then((response) => {
                 console.log(response);
                 if (response.data.error) {
                     _this.setState({ loading: false })
                 } else {
                     let newData = this.state.data;
-                    newData.StudentClass = response.data[0]._id;
-                    _this.setState({ studentClasses: response.data, loading: false })
+                    newData.ArticleClass = response.data[0]._id;
+                    _this.setState({ ArticleClasses: response.data, loading: false })
                 }
             })
             .catch((error) => {
@@ -181,7 +181,7 @@ class Addarticle extends Component {
 
                 <AdminNav />
 
-                <h1>Student Register</h1>
+                <h1>Article Register</h1>
 
 
                 {this.state.success && <p>{this.state.success}</p>
@@ -218,8 +218,8 @@ class Addarticle extends Component {
                             <p className="text-danger">{this.state.error.dateOfBirth}</p>
 
                             <div className="form-group">
-                                <label htmlFor="exampleInputEmail">Student Email</label>
-                                <input type="email" name="email" value={this.state.data.email} onChange={this.handleChange} className="form-control" id="exampleInputEmail" placeholder="Student Email" />
+                                <label htmlFor="exampleInputEmail">Article Email</label>
+                                <input type="email" name="email" value={this.state.data.email} onChange={this.handleChange} className="form-control" id="exampleInputEmail" placeholder="Article Email" />
                             </div>
                             <p className="text-danger">{this.state.error.email}</p>
                             <div className="form-group">
@@ -256,12 +256,12 @@ class Addarticle extends Component {
                             <div className="form-group">
                                 <label htmlFor="exampleInputID"></label>
                                 <button className="btn btn-success" onClick={this.generateID}>Generate ID</button>
-                                <input type="text" value={this.state.data.ID} onChange={this.handleChange} className="form-control" id="exampleInputID" placeholder="StudentID" />
+                                <input type="text" value={this.state.data.ID} onChange={this.handleChange} className="form-control" id="exampleInputID" placeholder="ArticleID" />
                             </div>
                             <p className="text-danger">{this.state.error.ID}</p>
                             <div className="form-group">
                                 <label htmlFor="exampleInputLindeinLink">Linkedin Link</label>
-                                <input type="text" name="linkedinLink" value={this.state.data.linkedinLink} onChange={this.handleChange} className="form-control" id="exampleInputLindeinLink" placeholder="Student Linkedin (optinal)" />
+                                <input type="text" name="linkedinLink" value={this.state.data.linkedinLink} onChange={this.handleChange} className="form-control" id="exampleInputLindeinLink" placeholder="Article Linkedin (optinal)" />
                             </div>
                             <p></p>
                             <div className="form-group">

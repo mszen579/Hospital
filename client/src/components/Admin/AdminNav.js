@@ -31,7 +31,7 @@ class AdminNav extends Component {
 
     let _this = this;
 
-    axios.get('http://localhost:8000/api/current_student')
+    axios.get('http://localhost:8000/api/current_Article')
       .then(function (response) {
         if (response.data.error) {
           _this.setState({ loading: false })
@@ -52,8 +52,8 @@ class AdminNav extends Component {
 
           <ul className="nav navbar-nav">
 
-            <NavLink exact to="/Admin-panel/Dashboard-article" className="nav-item nav-link">List of Students</NavLink>
-            <NavLink exact to="/" className="nav-item nav-link">Registration</NavLink>
+            <NavLink exact to="/Admin-panel/DashboardArticle" className="nav-item nav-link">List of articles</NavLink>&nbsp;&nbsp;
+            <NavLink exact to="/Admin-panel/AddArticle" className="nav-item nav-link">Adding article</NavLink>&nbsp;&nbsp;
           
 
           </ul>

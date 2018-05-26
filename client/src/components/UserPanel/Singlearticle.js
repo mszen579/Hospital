@@ -8,12 +8,12 @@ class Singlearticle extends React.Component{
 
     if(props.location.state !== undefined){
             this.state = {
-                studentInfo: this.props.location.state.detail
+                ArticleInfo: this.props.location.state.detail
             }
         }
         else{
             this.state ={
-                studentInfo: 'No student'
+                ArticleInfo: 'No Article'
             }
         }
       this.handleBadgesClick = this.handleBadgesClick.bind(this);
@@ -22,10 +22,10 @@ class Singlearticle extends React.Component{
   componentDidMount(){
     let _this = this;
     console.log(this.props.match.params.id);
-    axios.post('http://localhost:8000/student/profileinfo/' + this.props.match.params.id)
+    axios.post('http://localhost:8000/Article/profileinfo/' + this.props.match.params.id)
     .then(function(response){
         _this.setState({
-            studentInfo: response.data
+            ArticleInfo: response.data
         })
     })
     .catch(function(error){
@@ -35,59 +35,59 @@ class Singlearticle extends React.Component{
 
   handleBadgesClick(){
     this.props.history.push({
-      pathname: '/student/badges',
-      state: { detail: this.state.studentInfo }
+      pathname: '/Admin-panel/DashboardArticle',
+      state: { detail: this.state.ArticleInfo }
     });
   }
 
   render(){
-        // if(this.state.studentInfo === 'No student')
-        // {return <p>Please enter a valid StudentID</p>
+        // if(this.state.ArticleInfo === 'No Article')
+        // {return <p>Please enter a valid ArticleID</p>
         // }
-        if(this.state.studentInfo !== 'No student'){
-        var DOBdate = new Date(this.state.studentInfo.DateOfBirth);
+        if(this.state.ArticleInfo !== 'No Article'){
+        var DOBdate = new Date(this.state.ArticleInfo.DateOfBirth);
         var DOBdateFormat = DOBdate.toISOString().substring(0, 10);
       }
     return(
         <div>
        
-            <a className="btn btn-danger btn-lg StudentProfile-button" onClick={this.handleBadgesClick}>Badges Earned</a>
-        <div className="container StudentProfile-container">
-            <h2> Student Profile </h2>
-                    <div className="StudentProfile-MainContainer">
-                        <div className="StudentProfile-leftContainer">
-                          <img src={`http://localhost:8000/uploads/${this.state.studentInfo.profilePic}`}
+            <a className="btn btn-danger btn-lg ArticleProfile-button" onClick={this.handleBadgesClick}>Back to Dashboard</a>
+        <div className="container ArticleProfile-container">
+            <h2> Article Profile </h2>
+                    <div className="ArticleProfile-MainContainer">
+                        <div className="ArticleProfile-leftContainer">
+                          <img src={`http://localhost:8000/uploads/${this.state.ArticleInfo.profilePic}`}
                           className="img-rounded img-responsive" alt="Profile Picture" />
                         </div>
 
-                        <div className="StudentProfile-rightContainer">
-                            <h3> {this.state.studentInfo.FirstName} {this.state.studentInfo.LastName} </h3>
-                            <ul className="StudentProfile-leftList">
+                        <div className="ArticleProfile-rightContainer">
+                            <h3> {this.state.ArticleInfo.FirstName} {this.state.ArticleInfo.LastName} </h3>
+                            <ul className="ArticleProfile-leftList">
                             <table>
                             <thead></thead>
                             <tbody>
                               <tr>
-                                <td className="StudentProfile-firstCol">  <li> Date of Birth : </li></td>
-                                <td className="StudentProfile-secCol"> <li> {DOBdateFormat} </li> </td>
+                                <td className="ArticleProfile-firstCol">  <li> Date of Birth : </li></td>
+                                <td className="ArticleProfile-secCol"> <li> {DOBdateFormat} </li> </td>
                                </tr>
 
                                <tr>
-                                  <td className="StudentProfile-firstCol"><li> Email: </li> </td>
-                                  <td className="StudentProfile-secCol"> <li> {this.state.studentInfo.Email} </li></td>
+                                  <td className="ArticleProfile-firstCol"><li> Email: </li> </td>
+                                  <td className="ArticleProfile-secCol"> <li> {this.state.ArticleInfo.Email} </li></td>
                                </tr>
                                <tr>
-                                  <td className="StudentProfile-firstCol"><li> Status: </li> </td>
-                                  <td className="StudentProfile-secCol"> <li> {this.state.studentInfo.Status} </li></td>
+                                  <td className="ArticleProfile-firstCol"><li> Status: </li> </td>
+                                  <td className="ArticleProfile-secCol"> <li> {this.state.ArticleInfo.Status} </li></td>
                                </tr>
                                <tr>
-                                  <td className="StudentProfile-firstCol"><li> Story of You: </li> </td>
-                                  <td className="StudentProfile-secCol">  <li> <a href= {this.state.studentInfo.Video}
-                                    className="StudentProfile-link-style"> {this.state.studentInfo.Video} </a> </li></td>
+                                  <td className="ArticleProfile-firstCol"><li> Story of You: </li> </td>
+                                  <td className="ArticleProfile-secCol">  <li> <a href= {this.state.ArticleInfo.Video}
+                                    className="ArticleProfile-link-style"> {this.state.ArticleInfo.Video} </a> </li></td>
                                </tr>
                                </tbody>
                             </table>
                             </ul>
-                            <p> {this.state.studentInfo.ShortDescription}</p>
+                            <p> {this.state.ArticleInfo.ShortDescription}</p>
                         </div>
                     </div>
   
