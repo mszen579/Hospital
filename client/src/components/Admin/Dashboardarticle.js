@@ -76,8 +76,8 @@ class Dashboardarticle extends Component {
                     </td>
                     <td colSpan={3}>{Article.FirstName} {Article.LastName}</td>
 
-                    <td><Link className="btn btn-primary" to={`/Admin-Panel/${Article.ArticleID}/EditArticle`}>Edit</Link></td>
-                    <td><Link className="btn btn-primary" to={`/${Article.ArticleID}/SingleArticle`}>View details</Link></td>
+                    <td><Link className="btn btn-primary" to={`/Admin-Panel/${Article._id}/EditArticle`}>Edit</Link></td>
+                    <td><Link className="btn btn-primary" to={`/${Article._id}/SingleArticle`}>View details</Link></td>
                  </tr>
                 )
               }.bind(this))}

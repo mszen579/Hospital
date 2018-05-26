@@ -18,7 +18,7 @@ var nodemailer = require('nodemailer');
 
 
 //mongoose.connect('mongodb://localhost:27017/one_mirror');
-mongoose.connect('mongodb://localhost/mirror');
+mongoose.connect('mongodb://localhost/hospital');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -174,47 +174,13 @@ app.get('/api/logout', function (req, res) {
 app.post('/api/Article/register',
   upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
   [
-    check('firstName').not().isEmpty().withMessage('First name is required')
-      .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
-      .matches(/^([A-z]|\s)+$/).withMessage('Firstname cannot have numbers'),
-    check('lastName')
-      .not().isEmpty().withMessage('Last name is required')
-      .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
-      .matches(/^([A-z]|\s)+$/).withMessage('Lastname cannot have numbers'),
-    check('password')
-      .not().isEmpty().withMessage('Password is required')
-      .isLength({ min: 5 }).withMessage('Password should be at least 6 characters'),
-    check('dateOfBirth')
-      .not().isEmpty().withMessage('Date of birth required'),
-
-    check('email')
-      //.isEmail().withMessage('Invalid Email')
-      .custom(value => {
-        return Article.findOne({ email: value })
-          .then(function (Article) {
-            if (Article) {
-              throw new Error('This email is already in use');
-            }
-            //return value;
-          })
-      }),
-    check('shortDescription')
-      .not().isEmpty().withMessage('Minimum 10 characters are required').isLength({ min: 10}),
-
-    check('ID')
-      .not().isEmpty()
-      .custom(value => {
-        return Article.findOne({ ArticleID: value })
-          .then(function (Article) {
-            if (Article) {
-              throw new Error('This Article ID is already in use');
-            }
-            //return value;
-          })
-      }),
-    check('status')
-      .not().isEmpty().withMessage('Please include Article Status'),
-
+    check('title').not().isEmpty().withMessage('Title is required')
+      .isLength({ min: 2 }).withMessage('Title should be at least 2 letters'),
+    check('location')
+      .not().isEmpty().withMessage('Location is required')
+      .isLength({ min: 2 }).withMessage('Location should be at least 2 letters'),
+     check('shortDescription')
+      .not().isEmpty().withMessage('Description is required').isLength({ min: 10}).withMessage('Minimum 10 characters are required'),
   ],
   function (req, res) {
     var errors = validationResult(req);
@@ -231,93 +197,17 @@ app.post('/api/Article/register',
     }
 
     Article.create({
-      FirstName: req.body.firstName,
-      LastName: req.body.lastName,
-      ArticleID: req.body.ID,
-      DateOfBirth: req.body.dateOfBirth,
-      Email: req.body.email,
+      title: req.body.title,
+      location: req.body.location,
       Video: req.body.video,
       profilePic: filename,
-      ShortDescription: req.body.shortDescription,
-      Password: req.body.password,
-      Status: req.body.status,
-      LinkedIn_link: req.body.linkedinLink,
-      Github_link: req.body.githubLink,
-      hackerRank_link: req.body.hackerRankLink,
-      CV_link: req.body.CVlink,
-      
+      ShortDescription: req.body.shortDescription,  
 
-    })
-      .then(function (Article) {
-        // Generate test SMTP service account from mailcatcher
-        // Only needed if you don't have a real mail account for testing
-        nodemailer.createTestAccount((err, account) => {
-          // create reusable transporter object using the default SMTP transport
-          let transporter = nodemailer.createTransport({
-            host: '127.0.0.1',// mailcatcher view mail at  http://localhost:1080
-            port: 1025,
-            secure: false, // true for 465, false for other ports
-
-          });
-
-          // setup email data with unicode symbols
-          let mailOptions = {
-            from: '"Ted" <theodor@restart.network>', // sender address
-            to: Article.Email,
-            subject: 'New Article account', // Subject line
-            text: `
-            Welcome to Restart, ${Article.FirstName}
-
-            Your account is created.
-            You can login at:
-            http://localhost:3000/Article/login
-
-            Your password is: ${Article.Password}
-            `, // plain text body
-            html: `
-            <p>Welcome to Restart, ${Article.FirstName}</p>
-
-            Your account is created.
-            You can login at:
-            <a href="http://localhost:3000/Article/login">here</a>
-
-            Your Log In Id is : ${Article.ArticleID}
-            Your password is: ${Article.Password}
-
-            ` // html body
-          };
-
-          // send mail with defined transport object
-          transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-              return console.log(error);
-            }
-            console.log('Message sent: %s', info.messageId);
-            // Preview only available when sending through an Ethereal account
-            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
-            // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-            // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-          });
-        })
-        res.send(Article);
-      })
-      .then(function() {
-        Badge.create({
-          ArticleID: req.body.ID,
-          Badge1: false,
-          Badge2: false,
-          Badge3: false,
-          Badge4: false,
-          Badge5: false,
-          Badge6: false,
-        })
-      })
+    }).then(res.send(article))
       .catch(function (error) {
         console.log(error);
         res.send(error);
       })
-
   })
 
 //Showing List of Articles
@@ -340,7 +230,7 @@ app.get('/api/listofArticles', function (req, res) {
 //Admin Article View Profile
 app.get('/api/Article/:ArticleID/viewprofile', function (req, res) {
   console.log(req.params);
-  Article.findOne({ ArticleID: req.params.ArticleID })
+  Article.findOne({ _id: req.params.id })
 
     .then(function (result) {
       res.send(result);
@@ -378,7 +268,7 @@ app.get('/api/:ArticleID/getedititem', function (req, res) {
 
   console.log('request get', req.body);
 
-  Article.findOne({ ArticleID: req.params.ArticleID })
+  Article.findOne({ _id: req.params.id })
     .then(function (Article) {
    res.json(Article)
     })
@@ -393,41 +283,15 @@ app.get('/api/:ArticleID/getedititem', function (req, res) {
 app.post('/api/:ArticleID/update',
   upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
   [
-    check('firstName').not().isEmpty().withMessage('First name is required')
-      .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
-      .matches(/^([A-z]|\s)+$/).withMessage('Firstname cannot have numbers'),
-    check('lastName')
-      .not().isEmpty().withMessage('Last name is required')
+    check('title').not().isEmpty().withMessage('Title is required')
+      .isLength({ min: 2 }).withMessage('Title should be at least 2 letters')
+      ,
+    check('location')
+      .not().isEmpty().withMessage('Location is required')
       .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
-      .matches(/^([A-z]|\s)+$/).withMessage('Lastname cannot have numbers'),
-    check('email')
-      .isEmail()
-      .custom(value => {
-        return Article.findOne({ email: value })
-          .then(function (Article) {
-            if (Article) {
-              throw new Error('this email is already in use');
-            }
-          })
-        //return value;
-      }),
-    check('shortDescription')
-      .not().isEmpty().withMessage('Please enter minimum of 100 words').isLength({ min: 100 }),
-    // ??check('photo')
-    // .not().isEmpty()
-    //??check('video')
-    check('ID')
-      .custom(value => {
-        return Article.findOne({ ArticleID: value })
-          .then(function (Article) {
-            if (Article) {
-              throw new Error('This Article ID is already in use');
-            }
-          })
-        //return value;
-      }),
-
-
+      ,
+       check('shortDescription')
+      .not().isEmpty().withMessage('Please enter minimum of 10 words').isLength({ min: 10 }),
   ],
 
   function (req, res) {
@@ -437,24 +301,16 @@ app.post('/api/:ArticleID/update',
       return res.send({ errors: errors.mapped() });
     }
 console.log(req.body)
-    Article.findOne({ ArticleID: req.params.ArticleID })
+    Article.findOne({ _id: req.params.id })
       .then(function (Article) {
-        Article.FirstName = req.body.firstName
-        Article.LastName = req.body.lastName
-
-        Article.DateOfBirth = req.body.dateOfBirth
-        Article.Email = req.body.email
+        Article.title = req.body.title
+        Article.location = req.body.location
         Article.Video = req.body.video
         if (req.files.photo) {
           Article.profilePic = req.files.photo[0].filename
         }
-        Article.LinkedIn_link = req.body.linkedinLink
-        Article.hackerRank_link = req.body.hackerRankLink
-        Article.Github_link = req.body.githubLink
-        Article.CV_link = req.body.CVlink
         Article.ShortDescription = req.body.shortDescription
-        Article.Status = req.body.status
-        
+      
 
         Article.save()
           .then(function (Article) {

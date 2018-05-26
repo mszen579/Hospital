@@ -11,33 +11,16 @@ class Editarticledetails extends Component {
             currentPicture: null,
             studentClasses: null,
             data: {
-                firstName: '',
-                lastName: '',
-                password: '',
-                dateOfBirth: '',
-                email: '',
+                title: '',
+                location: '',
                 shortDescription: '',
-                status: '',
                 video: '',
-                linkedinLink: '',
-                githubLink: '',
-                hackerRankLink: '',
-                CVlink: '',
-              
             },
             error: {
-                firstName: '',
-                lastName: '',
-                password: '',
-                dateOfBirth: '',
-                email: '',
+                title: '',
+                location: '',
                 shortDescription: '',
-                status: '',
                 video: '',
-                linkedinLink: '',
-                githubLink: '',
-                hackerRankLink: '',
-                CVlink: ''
             },
             success: '',
             loading: true,
@@ -53,39 +36,22 @@ class Editarticledetails extends Component {
         let _this = this;
 
         let formData = new FormData();
-        formData.append('firstName', this.state.data.firstName);
-        formData.append('lastName', this.state.data.lastName);
-        formData.append('password', this.state.data.password);
-        formData.append('dateOfBirth', this.state.data.dateOfBirth);
-        formData.append('email', this.state.data.email);
+        formData.append('title', this.state.data.title);
+        formData.append('Location', this.state.data.location);
         formData.append('shortDescription', this.state.data.shortDescription);
-        formData.append('status', this.state.data.status);
-        formData.append('video', this.state.data.video);
-        
+        formData.append('video', this.state.data.Video);
         formData.append('photo', this.state.data.photo);
-        formData.append('linkedinLink', this.state.data.linkedinLink);
-        formData.append('githubLink', this.state.data.githubLink);
-        formData.append('hackerRankLink', this.state.data.hackerRankLink);
-        formData.append('CVlink', this.state.data.CVlink);
 
-
-        axios.post(`http://localhost:8000/api/${this.props.match.params.StudentID}/update`, formData)
+        axios.post(`http://localhost:8000/api/${this.props.match.params.id}/update`, formData)
             .then(res => {
                 console.log('response update', res)
                 if (res.data.errors) {
                     let mainErr = res.data.errors;
                     let errMsg = {
-                        firstName: mainErr.firstName ? mainErr.firstName.msg : '',
-                        lastName: mainErr.lastName ? mainErr.lastName.msg : '',
-                        dateOfBirth: mainErr.dateOfBirth ? mainErr.dateOfBirth.msg : '',
-                        email: mainErr.email ? mainErr.email.msg : '',
-                        shortDescription: mainErr.shortDescription ? mainErr.shortDescription.msg : '',
-                        status: mainErr.status ? mainErr.status.msg : '',
-                        photo: mainErr.photo ? mainErr.photo.msg : '',
-                        linkedinLink: mainErr.linkedinLink ? mainErr.linkedinLink.msg : '',
-                        githubLink: mainErr.githubLink ? mainErr.linkedLink.msg : '',
-                        hackerRankLink: mainErr.hackerRankLink ? mainErr.hackerRankLink.msg : '',
-                        CVlink: mainErr.CVlink ? mainErr.CVlink.msg : ''
+                        title: mainErr.title ? mainErr.title.msg : '',
+                        Location: mainErr.location ? mainErr.location.msg : '',
+                       shortDescription: mainErr.shortDescription ? mainErr.shortDescription.msg : '',
+                       photo: mainErr.photo ? mainErr.photo.msg : '',
                     }
                     _this.setState({
                         error: errMsg
@@ -138,17 +104,11 @@ class Editarticledetails extends Component {
                     _this.setState({ loading: false })
                 } else {
                     let newData = _this.state.data;
-                    newData.firstName = response.data.FirstName;
-                    newData.lastName = response.data.LastName;
-                    newData.dateOfBirth = response.data.DateOfBirth;
-                    newData.email = response.data.Email;
+                    newData.title = response.data.title;
+                    newData.location = response.data.Location;
                     newData.shortDescription = response.data.ShortDescription;
-                    newData.status = response.data.Status;
                     newData.video = response.data.Video;
-                    newData.linkedinLink = response.data.LinkedIn_link;
-                    newData.githubLink = response.data.Github_link;
-                    newData.hackerRankLink = response.data.hackerRank_link;
-                    newData.CVlink = response.data.CV_link;
+
 
                     
                     _this.setState({
@@ -174,44 +134,22 @@ class Editarticledetails extends Component {
                 <form onSubmit={this.handleUpdate}>
                     <div className="left-side">
                         <div className="form-group">
-                            <label htmlFor="exampleInputFirstName">First Name</label>
-                            <input type="text" name="firstName" value={this.state.data.firstName} onChange={this.handleChange} className="form-control" id="exampleInputFirstName" placeholder="First Name" />
+                            <label htmlFor="exampleInputtitle">Title</label>
+                            <input type="text" name="title" value={this.state.data.title} onChange={this.handleChange} className="form-control" id="exampleInputtitle" placeholder="Title" />
                         </div>
-                        <p className="text-danger">{this.state.error.firstName}</p>
+                        <p className="text-danger">{this.state.error.title}</p>
                         <div className="form-group">
-                            <label htmlFor="exampleInputLastName">Last Name</label>
-                            <input type="text" name="lastName" value={this.state.data.lastName} onChange={this.handleChange} className="form-control" id="exampleInputLastName" placeholder="Last Name" />
+                            <label htmlFor="exampleInputLocation">Location</label>
+                            <input type="text" name="Location" value={this.state.data.Location} onChange={this.handleChange} className="form-control" id="exampleInputLocation" placeholder="Location" />
                         </div>
-                        <p className="text-danger">{this.state.error.lastName}</p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputDateOfBirth">Date of Birth</label>
-                            <input type="date" name="dateOfBirth" value={moment(this.state.data.dateOfBirth).format('YYYY-MM-DD')} onChange={this.handleChange} className="form-control" id="exampleInputDateOfBirth" />
-                        </div>
-                        <p className="text-danger">{this.state.error.dateOfBirth}</p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputEmail">Student Email</label>
-                            <input type="email" name="email" value={this.state.data.email} onChange={this.handleChange} className="form-control" id="exampleInputEmail" placeholder="Student Email" />
-                        </div>
-                        <p className="text-danger">{this.state.error.email}</p>
+                        <p className="text-danger">{this.state.error.Location}</p>
+                   
                         <div className="form-group">
                             <label htmlFor="exampleInputShortDescription">Short Description</label>
                             <textarea rows="4" cols="50" type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description" />
                         </div>
                         <p className="text-danger">{this.state.error.shortDescription}</p>
-
-
-                        <div className="form-group">
-                            <label htmlFor="exampleInputStatus">Status</label>
-
-                            <select name="status" id="exampleInputStatus" onChange={this.handleChange} value={this.state.data.status}>
-                                <option key={1} value='on probation'>on probation</option>
-                                <option key={2} value='graduated'>graduated</option>
-                                <option key={3} value='dropout'>dropout</option>
-                            </select>
-                            <p className="text-danger">{this.state.error.status}</p>
-
-                        </div>
-
+                      
                     </div>
 
                     <div className="right-side">
@@ -222,28 +160,7 @@ class Editarticledetails extends Component {
                             <input type="file" name="photo" accept="image/*" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
                         </div>
                         <p className="text-danger">{this.state.error.photo}</p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputLindeinLink">Linkedin Link</label>
-                            <input type="text" name="linkedinLink" value={this.state.data.linkedinLink} onChange={this.handleChange} className="form-control" id="exampleInputLindeinLink" placeholder="Student Linkedin (optinal)" />
-                        </div>
-                        <p className="text-danger">{this.state.error.linkedinLink}</p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputGithubLink">Github Link</label>
-                            <input type="text" name="githubLink" value={this.state.data.githubLink} onChange={this.handleChange} className="form-control" id="exampleInputGithubLink" placeholder="Github Link (optinal)" />
-                        </div>
-                        <p className="text-danger">{this.state.error.githubLink}</p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputhackerRankLink">HackerRank Link</label>
-                            <input type="text" name="hackerRankLink" value={this.state.data.hackerRankLink} onChange={this.handleChange} className="form-control" id="exampleInputhackerRankLink" placeholder="Hacker Rank Link (optinal)" />
-                        </div>
-                        <p></p>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputCVlink">CV Link</label>
-                            <input type="text" name="CVlink" value={this.state.data.CVlink} onChange={this.handleChange} className="form-control" id="exampleInputCVlink" placeholder="CV Link (optinal)" />
-                        </div>
-                        <p className="text-danger">{this.state.error.CVlink}</p>
-
-                    </div>
+                     </div>
                     <p className="text-success">{this.state.success}</p>
                     <button type="submit" className="btn btn-primary submit">Update</button>
                 </form>

@@ -3,23 +3,11 @@ var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
 
-    FirstName: {
+    title: {
         type: String,
         required: true
     },
-    LastName: {
-        type: String,
-        required: true
-    },
-    ArticleID: {
-        type: String,
-        required: true
-    },
-    DateOfBirth: {
-        type: Date,
-        required: true
-    },
-    Email: {
+    location: {
         type: String,
         required: true
     },
@@ -35,31 +23,6 @@ var ArticleSchema = new Schema({
         type: String,
         required: true
     },
-    Password: {
-        type: String,
-        required: true
-    },
-    Status: {
-        type: String,
-        required: true
-    },
-    LinkedIn_link: {
-        type: String,
-        required: false
-    },
-    Github_link: {
-        type: String,
-        required: false
-    },
-    hackerRank_link: {
-        type: String,
-        required: false
-    },
-    CV_link: {
-        type: String,
-        required: false
-    },
- 
-})
+},{ timestamps: true })
 
 module.exports = mongoose.model('Article', ArticleSchema);
