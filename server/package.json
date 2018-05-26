@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "One Mirror app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "connect-mongo": "^2.0.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.0.3",
+    "mime-types": "^2.1.18",
+    "mongoose": "^5.0.7",
+    "multer": "^1.3.0",
+    "nodemailer": "^4.6.2",
+    "nodemon": "^1.17.1",
+    "randomstring": "^1.1.5"
+  }
+}
