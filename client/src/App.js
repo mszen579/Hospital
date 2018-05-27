@@ -25,6 +25,8 @@ import Panel from './components/Admin/Panel';
 import Addarticle from './components/Admin/Addarticle';
 import Dashboardarticle from './components/Admin/Dashboardarticle';
 import Editarticledetails from './components/Admin/Editarticledetails';
+import Listofadmins from './components/Admin/Listofadmins';
+
 
 
 class App extends Component {
@@ -48,6 +50,9 @@ class App extends Component {
             <Route path='/Admin-panel/DashboardArticle' component={Dashboardarticle} />
             <Route path='/Admin-panel/:id/EditArticle' component={Editarticledetails} />
             <Route path='/:id/SingleArticle' component={Singlearticle} />
+            <Route path='/Admin-panel/allAdmins' component={Listofadmins} />
+            
+            
             <Route render={function(){
                 return (
                 <p> Not Found

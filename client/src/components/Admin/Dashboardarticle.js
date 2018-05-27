@@ -15,7 +15,7 @@ class Dashboardarticle extends Component {
       ArticleClass: null,
 
     }
-    
+  
   }
   handleAddscore() {
     window.location.href = '/admin/addscore';
@@ -57,10 +57,10 @@ class Dashboardarticle extends Component {
           <table className="table table-hover">
             <thead>
               <tr>
-                <th scope="col" colSpan={1}>#</th>
                 <th scope="col" colSpan={1}>Picture</th>
-                <th scope="col" colSpan={3}>Name</th>
-                <th scope="col" colSpan={4}>Actions</th>
+                <th scope="col" colSpan={1}>Title</th>
+                <th scope="col" colSpan={3}>Actions</th>
+                <th scope="col" colSpan={4}>More</th>
 
               </tr>
             </thead>

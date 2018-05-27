@@ -1,6 +1,7 @@
 var express = require('express');
 var routes = express.Router();
 var Article = require('../Models/Article');
+var Article = require('../Models/Admin');
 var { check, validationResult } = require('express-validator/check');
 
 // route: /api/admin/Article/class/list

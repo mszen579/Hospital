@@ -4,8 +4,12 @@ var app = express();
 var mongoose = require('mongoose');
 var cors = require('cors');
 var bodyParser = require('body-parser');
-//modoles
+
+//modoles db 
 var Article = require('./Models/Article');
+var Admin = require('./Models/Admin');
+
+///Models
 var { check, validationResult } = require('express-validator/check');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -119,58 +123,55 @@ app.post('/Article/profileinfo/:id', function (req, res) {
 })
 
 
-////////////////login user////////////////////
-app.post('/api/login', function (req, res) {
-  console.log(req.body);
-  Article.findOne({
-    Email: req.body.email,
-    Password: req.body.password
-  })
-    .then(function (Article) {
-      if (!Article) {
-        let errors_value = {
-          login: { msg: 'Wrong email or password' }
-        }
-       
-        return res.send({ errors: errors_value })
-      } else {
-        req.session.Article = Article;
-        return res.send({ msg: 'You are signed in' });
-      }
+/////////////Admin login
+var login = (req, res) => {
 
-      res.send(Article);
-    })
-    .catch(function (error) {
-      console.log(error);
+  Admin.findOne({ email: req.body.email, password: req.body.password })
+      .then(function (admin) {
+          // if user name or password is worng
+          if (!admin) { return res.json({ err: true, message: 'Wrong credential' }) }
 
-    })
-})
+          //user is found
+          console.log('before cookie');
+          req.session.admin = admin;
+          console.log(req.session.admin);
+          req.session.save();
+          res.status(200).json(admin);
+      })
+      .catch(error => {
+          console.log(error);
+          return res.status(422).json({ status: 'error', message: error })
+      })
+}
 
-app.get('/api/current_Article', function (req, res) {
+app.post('/api/admin/login', login);
+
+
+////////////////////////////
+app.get('/api/current_Admin', function (req, res) {
   console.log(req.session)
-  if (req.session.Article) {
-    Article.findById(req.session.Article._id)
-      .then(function (Article) {
+  if (req.session.admin) {
+    Admin.findById(req.session.admin._id)
+      .then(function (admin) {
         res.send({
-          _id: Article._id,
-          email: Article.email,
-          firstName: Article.firstName,
-        })
+          _id: admin._id,
+          email: admin.email,
+          firstName: admin.firstName,
+        }).populate(admin)
       })
   } else {
     res.send({ error: 'not logged in' })
   }
 });
 
-//Admin registration / create User and Validation
 
 ///Log Out
-app.get('/api/logout', function (req, res) {
+app.get('/api/admin/logout', function (req, res) {
   req.session.destroy();
   res.send({ message: 'session destroyed' })
 });
 
-//Admin registration / create User and Validation
+//Adding article/ create User and Validation
 app.post('/api/Article/register',
   upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
   [
@@ -326,6 +327,97 @@ console.log(req.body)
         res.send(error);
       })
   });
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//Uncomment the code below to add a super admin user
+                    // Admin.create({
+                    // name: 'Mohammad',
+                    // email: 'mmm@gmail.com',
+                    // password: '123123',
+                    // jobTitle: "super"
+                    // })
+////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////register Normal Admin with validations/////////////////////////////////////////////////////////
+// Registeration
+var register = (req, res) => {
+  const admin = new Admin(req.body);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.send({ status: "error", errors: errors.mapped() });
+  }
+  admin.password = admin.hashPassword(admin.password);
+  admin
+    .save()
+    .then(admin => {
+      return res.send({ status: "success", message: "registerd successfuly" });
+    })
+    .catch(error => {
+      console.log(error);
+      return res.send({ status: "error", message: error });
+    });
+};
+
+app.post(
+  "/api/admin/register",
+  [
+    check("name", "please enter your full name")
+      .not()
+      .isEmpty(),
+    check("name", "your name must not contain any numbers").matches(
+      /^[a-z''., ]+$/i
+    ),
+    check("name", "your name should be more than 4 charchters").isLength({
+      min: 4
+    }),
+
+    check("email", "your email is not valid").isEmail(),
+    check("email", "email already exist").custom(function(value) {
+      return Admin.findOne({ email: value }).then(Admin => !Admin);
+    }),
+    // check("jobTitle", "please enter your full description")
+    //   .not()
+    //   .isEmpty(),
+    // check("jobTitle", "your description must not contain any numbers").isAlpha(),
+    check(
+      "password",
+      "your password should be 5 or more charchters"
+    ).isLength({ min: 5 }),
+    check("con_password", "your password confirmation dose not match").custom(
+      (value, { req }) => value === req.body.password
+    )
+  ],
+  register
+);
+///////////////////////////////////////////////////////////////////////////////////////////
+///All Admins///////////////////////////////////////////////////////////////////////
+//all users
+app.get('/api/admin/alladmins', function (req, res, next) {
+  Admin.find({}, ['name', 'email', 'jobTitle'], (err, admins) => {
+      if (err) {
+          console.log("Error getting users" + err);
+          return next();
+      }
+      res.json(admins)
+  })
+})
+
+
+
+/////////////////////////////////////////////////////////////////////////
+///Delete admin/////////////////////////////////////////////////////////
+app.delete('/api/admin/delete/:id', function (req, res) {
+  Admin.findById(req.params.id)
+    .then(function (admin) {
+      admin.remove()
+        .then(function () {
+          res.send({ status: 'success', message: ' Admin removed ' })
+        });
+    });
+});
+////////////////////////////////////////////////////////////////////////
+
+
 
 
 

@@ -46,7 +46,7 @@ class Singlearticle extends React.Component{
         // }
         if(this.state.ArticleInfo !== 'No Article'){
         var DOBdate = new Date(this.state.ArticleInfo.DateOfBirth);
-        var DOBdateFormat = DOBdate.toISOString().substring(0, 10);
+        // var DOBdateFormat = DOBdate.toISOString().substring(0, 10);
       }
     return(
         <div>
@@ -61,27 +61,27 @@ class Singlearticle extends React.Component{
                         </div>
 
                         <div className="ArticleProfile-rightContainer">
-                            <h3> {this.state.ArticleInfo.FirstName} {this.state.ArticleInfo.LastName} </h3>
+                            <h3> {this.state.ArticleInfo.title} </h3>
                             <ul className="ArticleProfile-leftList">
                             <table>
                             <thead></thead>
                             <tbody>
-                              <tr>
-                                <td className="ArticleProfile-firstCol">  <li> Date of Birth : </li></td>
-                                <td className="ArticleProfile-secCol"> <li> {DOBdateFormat} </li> </td>
-                               </tr>
-
+                              
                                <tr>
-                                  <td className="ArticleProfile-firstCol"><li> Email: </li> </td>
-                                  <td className="ArticleProfile-secCol"> <li> {this.state.ArticleInfo.Email} </li></td>
+                                  <td className="ArticleProfile-firstCol"><li> Title: </li> </td>
+                                  <td className="ArticleProfile-secCol"> <li> {this.state.ArticleInfo.title} </li></td>
                                </tr>
                                <tr>
-                                  <td className="ArticleProfile-firstCol"><li> Status: </li> </td>
-                                  <td className="ArticleProfile-secCol"> <li> {this.state.ArticleInfo.Status} </li></td>
+                                  <td className="ArticleProfile-firstCol"><li> Description: </li> </td>
+                                  <td className="ArticleProfile-secCol"> <li> {this.state.ArticleInfo.ShortDescription} </li></td>
                                </tr>
                                <tr>
-                                  <td className="ArticleProfile-firstCol"><li> Story of You: </li> </td>
-                                  <td className="ArticleProfile-secCol">  <li> <a href= {this.state.ArticleInfo.Video}
+                                  <td className="ArticleProfile-firstCol"><li> Location: </li> </td>
+                                  <td className="ArticleProfile-secCol"> <li> {this.state.ArticleInfo.location} </li></td>
+                               </tr>
+                               <tr>
+                                  <td className="ArticleProfile-firstCol"><li> Photos: </li> </td>
+                                  <td className="ArticleProfile-secCol">  <li> <a href= {this.state.ArticleInfo.profilePic}
                                     className="ArticleProfile-link-style"> {this.state.ArticleInfo.Video} </a> </li></td>
                                </tr>
                                </tbody>
