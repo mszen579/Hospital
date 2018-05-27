@@ -6,7 +6,7 @@ import './index.css';
 import { BrowserRouter, Router, Route, Switch, Link } from "react-router-dom";//this is for routing
 
 
-//importing components cleint
+//importing components client
 import Home from './components/UserPanel/Home';
 import Donation from './components/UserPanel/Donation';
 import Volunteer from './components/UserPanel/Volunteer';
