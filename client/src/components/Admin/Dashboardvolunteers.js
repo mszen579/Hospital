@@ -12,30 +12,35 @@ class Dashboardarticle extends Component {
 
       Articles: null,
       loading: true,
-      ArticleClass: null,
 
     }
   
   }
-  handleAddscore() {
-    window.location.href = '/admin/addscore';
-  }
+
   handleEdit()
   {
     window.location.href='/admin/editdetails';
   }
 
 
+  
+  handleDelete()
+  {
+    
+  }
+
+
+
   componentDidMount() {
     let _this = this;
-    axios.get("http://localhost:8000/api/listofArticles")
+    axios.get("http://localhost:8000/api/admin/listofVolunteers")
       .then((response) => {
 
         console.log(response);
         if (response.data.error) {
           _this.setState({ loading: false })
         } else {
-          _this.setState({ Articles: response.data, loading: false ,})
+          _this.setState({ Forms: response.data, loading: false ,})
         }
       })
       .catch((error) => {
@@ -47,18 +52,18 @@ class Dashboardarticle extends Component {
 
   render() {
     let _this = this;
-    console.log(this.state.Articles);
+    console.log(this.state.Forms);
     return (
       <div>
         <AdminNav />
-        <h1>Admin Dashboard</h1>
+        <h1>Volunteer Dashboard</h1>
 
         <div className="table-responsive-md">
           <table className="table table-hover">
             <thead>
               <tr>
-                <th scope="col" colSpan={1}>Picture</th>
-                <th scope="col" colSpan={1}>Title</th>
+                <th scope="col" colSpan={1}>name</th>
+                <th scope="col" colSpan={2}>Received at</th>
                 <th scope="col" colSpan={3}>Actions</th>
                 <th scope="col" colSpan={4}>More</th>
 
@@ -66,18 +71,14 @@ class Dashboardarticle extends Component {
             </thead>
             <tbody>
 
-              {this.state.Articles && this.state.Articles.map(function (Article) {
-                console.log(Article);
+              {this.state.Forms && this.state.Forms.map(function (Form) {
+                console.log(Form);
                 return (
-                  <tr key={Article._id}>
-                    <td>
-                      {Article.profilePic &&
-                        <img src={`http://localhost:8000/uploads/${Article.profilePic}`} width="100" height="120" />}
-                    </td>
-                    <td colSpan={3}>{Article.FirstName} {Article.LastName}</td>
-
-                    <td><Link className="btn btn-primary" to={`/Admin-Panel/${Article._id}/EditArticle`}>Edit</Link></td>
-                    <td><Link className="btn btn-primary" to={`/${Article._id}/SingleArticle`}>View details</Link></td>
+                  <tr key={Form._id}>
+                  <td colSpan={1}>{Form.name} {Form.name}</td>
+                  <td colSpan={2}>{Form.createdAt} {Form.createdAt}</td>
+                    <td><button className="btn btn-danger" onClick={this.handleDelete}>Delete</button></td>
+                    <td><Link className="btn btn-primary" to={`/${Form._id}/SingleForm`}>View details</Link></td>
                  </tr>
                 )
               }.bind(this))}

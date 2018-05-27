@@ -4,8 +4,13 @@ var app = express();
 var mongoose = require('mongoose');
 var cors = require('cors');
 var bodyParser = require('body-parser');
-//modoles
-var Student = require('./Models/Student');
+
+//modoles db 
+var Article = require('./Models/Article');
+var Admin = require('./Models/Admin');
+var Form = require('./Models/Form');
+
+///Models
 var { check, validationResult } = require('express-validator/check');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -18,7 +23,7 @@ var nodemailer = require('nodemailer');
 
 
 //mongoose.connect('mongodb://localhost:27017/one_mirror');
-mongoose.connect('mongodb://localhost/mirror');
+mongoose.connect('mongodb://localhost/hospital');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -66,14 +71,14 @@ app.get('/test', function (req, res) {
   res.send('Hello Server');
 })
 
-// Searching for student in db
+// Searching for Article in db
 
-validateStudentId= [
-  check('StudentID','Please enter a student ID ').not().isEmpty()
+validateArticleId= [
+  check('ArticleID','Please enter a Article ID ').not().isEmpty()
 
 ]
 
-app.post('/student/search', validateStudentId, function (req, res) {
+app.post('/Article/search', validateArticleId, function (req, res) {
   //console.log(req);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -82,10 +87,10 @@ app.post('/student/search', validateStudentId, function (req, res) {
   }
 
   //console.log(req.body);
-  Student.findOne(req.body)
+  Article.findOne(req.body)
     .then(function (user) {
       if (!user) {
-        return res.send({ status: 'error', message: 'Student not found' });
+        return res.send({ status: 'error', message: 'Article not found' });
       }
       //console.log(user);
       res.send(user);
@@ -97,17 +102,17 @@ app.post('/student/search', validateStudentId, function (req, res) {
 })
 
 
-// Getting the student profile using id
+// Getting the Article profile using id
 
 
-app.post('/student/profileinfo/:id', function (req, res) {
+app.post('/Article/profileinfo/:id', function (req, res) {
   console.log(req.params.id);
   console.log(req.body);
 
-  Student.findOne({"StudentID" : req.params.id})
+  Article.findOne({"ArticleID" : req.params.id})
     .then(function (user) {
       if (!user) {
-        return res.send({ status: 'error', message: 'Student not found' });
+        return res.send({ status: 'error', message: 'Article not found' });
       }
       console.log(user);
       res.send(user);
@@ -119,102 +124,65 @@ app.post('/student/profileinfo/:id', function (req, res) {
 })
 
 
-////////////////login user////////////////////
-app.post('/api/login', function (req, res) {
-  console.log(req.body);
-  Student.findOne({
-    Email: req.body.email,
-    Password: req.body.password
-  })
-    .then(function (student) {
-      if (!student) {
-        let errors_value = {
-          login: { msg: 'Wrong email or password' }
-        }
-       
-        return res.send({ errors: errors_value })
-      } else {
-        req.session.student = student;
-        return res.send({ msg: 'You are signed in' });
-      }
+/////////////Admin login
+var login = (req, res) => {
 
-      res.send(student);
-    })
-    .catch(function (error) {
-      console.log(error);
+  Admin.findOne({ email: req.body.email, password: req.body.password })
+      .then(function (admin) {
+          // if user name or password is worng
+          if (!admin) { return res.json({ err: true, message: 'Wrong credential' }) }
 
-    })
-})
+          //user is found
+          console.log('before cookie');
+          req.session.admin = admin;
+          console.log(req.session.admin);
+          req.session.save();
+          res.status(200).json(admin);
+      })
+      .catch(error => {
+          console.log(error);
+          return res.status(422).json({ status: 'error', message: error })
+      })
+}
 
-app.get('/api/current_student', function (req, res) {
+app.post('/api/admin/login', login);
+
+
+////////////////////////////
+app.get('/api/current_Admin', function (req, res) {
   console.log(req.session)
-  if (req.session.student) {
-    Student.findById(req.session.student._id)
-      .then(function (student) {
+  if (req.session.admin) {
+    Admin.findById(req.session.admin._id)
+      .then(function (admin) {
         res.send({
-          _id: student._id,
-          email: student.email,
-          firstName: student.firstName,
-        })
+          _id: admin._id,
+          email: admin.email,
+          firstName: admin.firstName,
+        }).populate(admin)
       })
   } else {
     res.send({ error: 'not logged in' })
   }
 });
 
-//Admin registration / create User and Validation
 
 ///Log Out
-app.get('/api/logout', function (req, res) {
+app.get('/api/admin/logout', function (req, res) {
   req.session.destroy();
   res.send({ message: 'session destroyed' })
 });
 
-//Admin registration / create User and Validation
-app.post('/api/student/register',
+//Adding article/ create User and Validation
+app.post('/api/Article/register',
   upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
   [
-    check('firstName').not().isEmpty().withMessage('First name is required')
-      .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
-      .matches(/^([A-z]|\s)+$/).withMessage('Firstname cannot have numbers'),
-    check('lastName')
-      .not().isEmpty().withMessage('Last name is required')
-      .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
-      .matches(/^([A-z]|\s)+$/).withMessage('Lastname cannot have numbers'),
-    check('password')
-      .not().isEmpty().withMessage('Password is required')
-      .isLength({ min: 5 }).withMessage('Password should be at least 6 characters'),
-    check('dateOfBirth')
-      .not().isEmpty().withMessage('Date of birth required'),
-
-    check('email')
-      //.isEmail().withMessage('Invalid Email')
-      .custom(value => {
-        return Student.findOne({ email: value })
-          .then(function (student) {
-            if (student) {
-              throw new Error('This email is already in use');
-            }
-            //return value;
-          })
-      }),
-    check('shortDescription')
-      .not().isEmpty().withMessage('Minimum 10 characters are required').isLength({ min: 10}),
-
-    check('ID')
-      .not().isEmpty()
-      .custom(value => {
-        return Student.findOne({ StudentID: value })
-          .then(function (student) {
-            if (student) {
-              throw new Error('This student ID is already in use');
-            }
-            //return value;
-          })
-      }),
-    check('status')
-      .not().isEmpty().withMessage('Please include student Status'),
-
+    check('title').not().isEmpty().withMessage('Title is required')
+      .isLength({ min: 2 }).withMessage('Title should be at least 2 letters'),
+    check('location')
+      .not().isEmpty().withMessage('Location is required')
+      .isLength({ min: 2 }).withMessage('Location should be at least 2 letters'),
+     check('shortDescription')
+      .not().isEmpty().withMessage('Description is required').isLength({ min: 10}).withMessage('Minimum 10 characters are required'),
   ],
   function (req, res) {
     var errors = validationResult(req);
@@ -230,117 +198,41 @@ app.post('/api/student/register',
       filename = req.files.photo[0].filename
     }
 
-    Student.create({
-      FirstName: req.body.firstName,
-      LastName: req.body.lastName,
-      StudentID: req.body.ID,
-      DateOfBirth: req.body.dateOfBirth,
-      Email: req.body.email,
+    Article.create({
+      title: req.body.title,
+      location: req.body.location,
       Video: req.body.video,
       profilePic: filename,
-      ShortDescription: req.body.shortDescription,
-      Password: req.body.password,
-      Status: req.body.status,
-      LinkedIn_link: req.body.linkedinLink,
-      Github_link: req.body.githubLink,
-      hackerRank_link: req.body.hackerRankLink,
-      CV_link: req.body.CVlink,
-      
+      ShortDescription: req.body.shortDescription,  
 
-    })
-      .then(function (student) {
-        // Generate test SMTP service account from mailcatcher
-        // Only needed if you don't have a real mail account for testing
-        nodemailer.createTestAccount((err, account) => {
-          // create reusable transporter object using the default SMTP transport
-          let transporter = nodemailer.createTransport({
-            host: '127.0.0.1',// mailcatcher view mail at  http://localhost:1080
-            port: 1025,
-            secure: false, // true for 465, false for other ports
-
-          });
-
-          // setup email data with unicode symbols
-          let mailOptions = {
-            from: '"Ted" <theodor@restart.network>', // sender address
-            to: student.Email,
-            subject: 'New student account', // Subject line
-            text: `
-            Welcome to Restart, ${student.FirstName}
-
-            Your account is created.
-            You can login at:
-            http://localhost:3000/student/login
-
-            Your password is: ${student.Password}
-            `, // plain text body
-            html: `
-            <p>Welcome to Restart, ${student.FirstName}</p>
-
-            Your account is created.
-            You can login at:
-            <a href="http://localhost:3000/student/login">here</a>
-
-            Your Log In Id is : ${student.StudentID}
-            Your password is: ${student.Password}
-
-            ` // html body
-          };
-
-          // send mail with defined transport object
-          transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-              return console.log(error);
-            }
-            console.log('Message sent: %s', info.messageId);
-            // Preview only available when sending through an Ethereal account
-            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
-            // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-            // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-          });
-        })
-        res.send(student);
-      })
-      .then(function() {
-        Badge.create({
-          StudentID: req.body.ID,
-          Badge1: false,
-          Badge2: false,
-          Badge3: false,
-          Badge4: false,
-          Badge5: false,
-          Badge6: false,
-        })
-      })
+    }).then(res.send(article))
       .catch(function (error) {
         console.log(error);
         res.send(error);
       })
-
   })
 
-//Showing List of Students
-app.get('/api/listofstudents', function (req, res) {
-  Student.find({})
+//Showing List of Articles
+app.get('/api/listofArticles', function (req, res) {
+  Article.find({})
     .sort({
-      StudentId: 'desc'
+      ArticleId: 'desc'
     })
-     .then((students) => {
-      res.send(students);
+     .then((Articles) => {
+      res.send(Articles);
     }
     ).catch((error) => {
-      res.send({ status: error, message: 'Cannot find students' });
+      res.send({ status: error, message: 'Cannot find Articles' });
     })
 })
 
 
 
 
-//Admin Student View Profile
-app.get('/api/student/:StudentID/viewprofile', function (req, res) {
+//Admin Article View Profile
+app.get('/api/Article/:ArticleID/viewprofile', function (req, res) {
   console.log(req.params);
-  Student.findOne({ StudentID: req.params.StudentID })
+  Article.findOne({ _id: req.params.id })
 
     .then(function (result) {
       res.send(result);
@@ -351,12 +243,12 @@ app.get('/api/student/:StudentID/viewprofile', function (req, res) {
     })
 })
 
-app.post('/api/admin/:StudentID/enablebadges',function(req,res){
+app.post('/api/admin/:ArticleID/enablebadges',function(req,res){
   console.log(req.body);
-  console.log(req.params.StudentID);
+  console.log(req.params.ArticleID);
   var badgeName=req.body.enablebadge;
   Badge.findOne({
-        StudentID:req.params.StudentID
+        ArticleID:req.params.ArticleID
       }).update({badgeName:1})
   .then(function (badges) {
     // console.log(badges)
@@ -372,15 +264,15 @@ app.post('/api/admin/:StudentID/enablebadges',function(req,res){
 
 
 
-//Admin Getting Student to Edit
+//Admin Getting Article to Edit
 
-app.get('/api/:StudentID/getedititem', function (req, res) {
+app.get('/api/:ArticleID/getedititem', function (req, res) {
 
   console.log('request get', req.body);
 
-  Student.findOne({ StudentID: req.params.StudentID })
-    .then(function (student) {
-   res.json(student)
+  Article.findOne({ _id: req.params.id })
+    .then(function (Article) {
+   res.json(Article)
     })
     .catch(function (error) {
       console.log(error);
@@ -389,45 +281,19 @@ app.get('/api/:StudentID/getedititem', function (req, res) {
 
 
 
-//Admin Editting the student
-app.post('/api/:StudentID/update',
+//Admin Editting the Article
+app.post('/api/:ArticleID/update',
   upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
   [
-    check('firstName').not().isEmpty().withMessage('First name is required')
-      .isLength({ min: 2 }).withMessage('Firstname should be at least 2 letters')
-      .matches(/^([A-z]|\s)+$/).withMessage('Firstname cannot have numbers'),
-    check('lastName')
-      .not().isEmpty().withMessage('Last name is required')
+    check('title').not().isEmpty().withMessage('Title is required')
+      .isLength({ min: 2 }).withMessage('Title should be at least 2 letters')
+      ,
+    check('location')
+      .not().isEmpty().withMessage('Location is required')
       .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
-      .matches(/^([A-z]|\s)+$/).withMessage('Lastname cannot have numbers'),
-    check('email')
-      .isEmail()
-      .custom(value => {
-        return Student.findOne({ email: value })
-          .then(function (student) {
-            if (student) {
-              throw new Error('this email is already in use');
-            }
-          })
-        //return value;
-      }),
-    check('shortDescription')
-      .not().isEmpty().withMessage('Please enter minimum of 100 words').isLength({ min: 100 }),
-    // ??check('photo')
-    // .not().isEmpty()
-    //??check('video')
-    check('ID')
-      .custom(value => {
-        return Student.findOne({ StudentID: value })
-          .then(function (student) {
-            if (student) {
-              throw new Error('This student ID is already in use');
-            }
-          })
-        //return value;
-      }),
-
-
+      ,
+       check('shortDescription')
+      .not().isEmpty().withMessage('Please enter minimum of 10 words').isLength({ min: 10 }),
   ],
 
   function (req, res) {
@@ -437,28 +303,20 @@ app.post('/api/:StudentID/update',
       return res.send({ errors: errors.mapped() });
     }
 console.log(req.body)
-    Student.findOne({ StudentID: req.params.StudentID })
-      .then(function (student) {
-        student.FirstName = req.body.firstName
-        student.LastName = req.body.lastName
-
-        student.DateOfBirth = req.body.dateOfBirth
-        student.Email = req.body.email
-        student.Video = req.body.video
+    Article.findOne({ _id: req.params.id })
+      .then(function (Article) {
+        Article.title = req.body.title
+        Article.location = req.body.location
+        Article.Video = req.body.video
         if (req.files.photo) {
-          student.profilePic = req.files.photo[0].filename
+          Article.profilePic = req.files.photo[0].filename
         }
-        student.LinkedIn_link = req.body.linkedinLink
-        student.hackerRank_link = req.body.hackerRankLink
-        student.Github_link = req.body.githubLink
-        student.CV_link = req.body.CVlink
-        student.ShortDescription = req.body.shortDescription
-        student.Status = req.body.status
-        
+        Article.ShortDescription = req.body.shortDescription
+      
 
-        student.save()
-          .then(function (student) {
-            res.send(student);
+        Article.save()
+          .then(function (Article) {
+            res.send(Article);
           })
           .catch(function (error) {
             console.log(error);
@@ -470,6 +328,170 @@ console.log(req.body)
         res.send(error);
       })
   });
+
+////////////////////////////////////////////////////////////////////////////////////////////
+//Uncomment the code below to add a super admin user
+                    // Admin.create({
+                    // name: 'Mohammad',
+                    // email: 'mmm@gmail.com',
+                    // password: '123123',
+                    // jobTitle: "super"
+                    // })
+////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////register Normal Admin with validations/////////////////////////////////////////////////////////
+// Registeration
+var register = (req, res) => {
+  const admin = new Admin(req.body);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.send({ status: "error", errors: errors.mapped() });
+  }
+  admin.password = admin.hashPassword(admin.password);
+  admin
+    .save()
+    .then(admin => {
+      return res.send({ status: "success", message: "registerd successfuly" });
+    })
+    .catch(error => {
+      console.log(error);
+      return res.send({ status: "error", message: error });
+    });
+};
+
+app.post(
+  "/api/admin/register",
+  [
+    check("name", "please enter your full name")
+      .not()
+      .isEmpty(),
+    check("name", "your name must not contain any numbers").matches(
+      /^[A-z''., ]+$/i
+    ),
+    check("name", "your name should be more than 4 charchters").isLength({
+      min: 4
+    }),
+
+    check("email", "your email is not valid").isEmail(),
+    check("email", "email already exist").custom(function(value) {
+      return Admin.findOne({ email: value }).then(Admin => !Admin);
+    }),
+    // check("jobTitle", "please enter your full description")
+    //   .not()
+    //   .isEmpty(),
+    // check("jobTitle", "your description must not contain any numbers").isAlpha(),
+    check(
+      "password",
+      "your password should be 5 or more charchters"
+    ).isLength({ min: 5 }),
+    check("con_password", "your password confirmation dose not match").custom(
+      (value, { req }) => value === req.body.password
+    )
+  ],
+  register
+);
+///////////////////////////////////////////////////////////////////////////////////////////
+///All Admins///////////////////////////////////////////////////////////////////////
+//all users
+app.get('/api/admin/alladmins', function (req, res, next) {
+  Admin.find({}, ['name', 'email', 'jobTitle'], (err, admins) => {
+      if (err) {
+          console.log("Error getting users" + err);
+          return next();
+      }
+      res.json(admins)
+  })
+})
+
+
+
+/////////////////////////////////////////////////////////////////////////
+///Delete admin/////////////////////////////////////////////////////////
+app.delete('/api/admin/delete/:id', function (req, res) {
+  Admin.findById(req.params.id)
+    .then(function (admin) {
+      admin.remove()
+        .then(function () {
+          res.send({ status: 'success', message: ' Admin removed ' })
+        });
+    });
+});
+////////////////////////////////////////////////////////////////////////
+
+
+///Registering form/////////////////////////////////////////////////////////
+var register = (req, res) => {
+
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+      return res.send({ status: 'error', errors: errors.mapped() })
+  }
+  Form.create(req.body)
+      .then(form => { return res.send({ status: 'success', message: 'FORM registerd successfuly' }) })
+      .catch(error => {
+          console.log(error);
+          return res.send({ status: 'error', message: error })
+      })
+}
+
+app.post('/api/formRegister', [
+
+  check('name', 'please enter your full name').not().isEmpty(),
+  check('name', 'your name must not contain any numbers').matches(
+    /^[A-z''., ]+$/i),
+  check('name', 'your name should be more than 2 charchters').isLength({ min: 2 }),
+
+  check('dateOfBirth', 'please enter your dateOfBirth').not().isEmpty(),
+
+  check('address', 'please enter your Address').not().isEmpty(),
+
+  check('postCode', 'please enter your Post Code').not().isEmpty(),
+
+  check('city', 'please enter your Post City').not().isEmpty(),
+
+  check('email', 'your email is not valid').isEmail(),
+  check('email', 'email already exist').custom(
+      function (value) {
+          return Form.findOne({ email: value }).then(form => !form)
+      }),
+ 
+  check('mobile', 'please enter your Mobile number').not().isEmpty(),
+
+  check('occupation', 'please enter your Occupation').not().isEmpty(),
+
+  check('availability', 'please enter your Availability').not().isEmpty(),
+  
+  check('experience', 'please enter your Experience').not().isEmpty(),
+
+  ], register);
+
+////////////////////////////////////////////////////////////////////////
+//show all volunteers
+  app.get('/api/admin/listofVolunteers', function (req, res, next) {
+    Form.find({},  (err, forms) => {
+        if (err) {
+            console.log("Error getting forms" + err);
+            return next();
+        }
+        res.json(forms)
+    })
+  })
+////////////////////////////////////////////////////////////////////////
+
+
+///Delete volunteers/////////////////////////////////////////////////////
+// app.delete('/api/admin/delete/:id', function (req, res) {
+//   Admin.findById(req.params.id)
+//     .then(function (admin) {
+//       admin.remove()
+//         .then(function () {
+//           res.send({ status: 'success', message: ' Admin removed ' })
+//         });
+//     });
+// });
+////////////////////////////////////////////////////////////////////////
+
+
 
 
 

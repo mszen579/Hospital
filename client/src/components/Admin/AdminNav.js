@@ -12,18 +12,24 @@ class AdminNav extends Component {
       loading: true,
       admin: null
 
-    }
+    } 
+     
+    
     this.handleLogOut = this.handleLogOut.bind(this);
   }
+
+
   handleLogOut() {
     let _this = this;
-    axios.get('http://localhost:8000/api/logout')
+    axios.get('http://localhost:8000/api/admin/logout')
       .then(function (response) {
         _this.setState({ admin: null })
+       
       })
       .catch(function (error) {
         console.log(error);
       })
+      window.location.href = '/adminwsq'
   }
 
   componentDidMount() {
@@ -31,7 +37,7 @@ class AdminNav extends Component {
 
     let _this = this;
 
-    axios.get('http://localhost:8000/api/current_student')
+    axios.get('http://localhost:8000/api/current_Admin')
       .then(function (response) {
         if (response.data.error) {
           _this.setState({ loading: false })
@@ -43,6 +49,7 @@ class AdminNav extends Component {
         console.log(error);
       })
   }
+
   render() {
     if (this.state.loading) {
       return <p>Loading your information, please be patient</p>
@@ -51,25 +58,17 @@ class AdminNav extends Component {
         <nav className="navbar navbar-expand-lg navbar-dark">
 
           <ul className="nav navbar-nav">
-
-            <NavLink exact to="/Admin-panel/Dashboard-article" className="nav-item nav-link">List of Students</NavLink>
-            <NavLink exact to="/" className="nav-item nav-link">Registration</NavLink>
-          
-
+          {this.state.admin && <h1> Hello, {this.state.admin.id}</h1> }&nbsp;&nbsp;&nbsp;&nbsp;
+            <NavLink exact to="/Admin-panel/DashboardArticle" className="nav-item nav-link">List of articles</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+            <NavLink exact to="/Admin-panel/AddArticle" className="nav-item nav-link">Adding article</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+            <NavLink exact to="/Admin-panel/Register" className="nav-item nav-link">Add Admin</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+            <NavLink exact to="/Admin-panel/allAdmins" className="nav-item nav-link">List of Admins</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+            <NavLink exact to="/Admin-panel/Dashboardvolunteers" className="nav-item nav-link">List of Volunteer Aplications</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a style={{ cursor: 'pointer' }} className="text-danger" onClick={this.handleLogOut}>Logout</a>&nbsp;&nbsp;&nbsp;&nbsp;
           </ul>
 
           <ul className="nav navbar-nav ml-auto">
-
-            <li className="nav-item">
-              {this.state.admin && this.state.admin.firstName &&
-                <span className="nav-link">Admin {this.state.admin.firstName}</span>}
-            </li>
-
-            <li className="nav-item">
-
-              <span style={{ cursor: 'pointer' }} className="nav-link cursor-pointer" onClick={this.handleLogOut}>Logout</span>
-            </li>
-
+        
           </ul>
         </nav>
 
