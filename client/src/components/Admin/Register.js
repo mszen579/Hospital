@@ -2,6 +2,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import AdminNav from './AdminNav';
+
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const myswal = withReactContent(Swal);
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +47,16 @@ class Register extends Component {
       .post("http://localhost:8000/api/admin/register", this.state.data)
       .then(res => {
         console.log("res", res);
-        if (res.data.errors) {
+        if (!res.data.errors){
+          myswal.fire({
+            position: "top-end",
+            type: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+         if (res.data.errors) {
           let mainErrors = res.data.errors;
           let err_msg = {
             name: mainErrors.name ? mainErrors.name.msg : "",
@@ -74,11 +89,22 @@ class Register extends Component {
             },
             success: "Thank you for registering"
           });
+
+           
+
+
+
+
+
         }
       })
       .catch(error => {
         console.log(error);
       });
+
+
+
+   
   }
   render() {
     return (

@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
 import AdminNav from './AdminNav';
 import axios from 'axios';
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const swal = withReactContent(Swal);
+
+
+const swalWithBootstrapButtons = swal.mixin({
+    confirmButtonClass: 'btn btn-success',
+    cancelButtonClass: 'btn btn-danger',
+    buttonsStyling: false,
+})
 
 
 
@@ -40,14 +51,62 @@ export default class Singlevolunteer extends Component {
       //deleting vol
       deleteVol(event){
         event.preventDefault();
-    
-        axios.delete(`http://localhost:8000/api/admin/vol/delete/${this.props.match.params.id}`)
-        .then(function (response) {
-            window.location.href = "/Admin-panel/Dashboardvolunteers";
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
+         
+        
+          swalWithBootstrapButtons({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Yes, delete it!',
+              cancelButtonText: 'No, cancel!',
+              reverseButtons: true,
+             
+          }).then((result) => {
+              if (result.value) {
+                  axios
+                      .delete(`http://localhost:8000/api/admin/vol/delete/${this.props.match.params.id}`)
+                      .then(function (response) {
+                        
+                          
+                        
+                      })
+                      .catch(function (error) {
+                          console.log(error);
+                      });
+
+
+                  swalWithBootstrapButtons(
+                      'Deleted!',
+                      'Your file has been deleted.',
+                      'success',
+                      window.location.href = "/Admin-panel/Dashboardvolunteers"
+                  )
+
+                      
+
+                  
+               
+              } else if 
+              
+              (
+                  // Read more about handling dismissals
+                  result.dismiss === swal.DismissReason.cancel
+              ) {
+                  swalWithBootstrapButtons(
+                      'Cancelled',
+                      'Your imaginary file is safe :)',
+                      'error'
+                  )
+                  
+
+              }
+
+
+          })
+
+         
+        
       }
 
       componentDidMount() {
