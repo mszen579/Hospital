@@ -125,27 +125,46 @@ app.post('/Article/profileinfo/:id', function (req, res) {
 
 
 /////////////Admin login
+const logValidation = [
+    check("email")
+        .not()
+        .isEmpty()
+        .withMessage("Email is required"),
+    check("password")
+        .not()
+        .isEmpty()
+        .withMessage("Password is required")
+];
+
 var login = (req, res) => {
+    var errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.send({ err: errors.mapped() });
+    }
+    Admin.findOne({ 
+        email: req.body.email
+    }).then(function (admin) {
+        // if user name or password is wrong
+        if (!admin) {
+            return res.json({ err: true, message: 'Wrong credential' })
+        }
+        if (!admin.comparePassword(req.body.password, admin.password)) {
+            return res.send({ err: true, message: "Wrong password!" });
+        }
 
-  Admin.findOne({ email: req.body.email, password: req.body.password })
-      .then(function (admin) {
-          // if user name or password is worng
-          if (!admin) { return res.json({ err: true, message: 'Wrong credential' }) }
-
-          //user is found
-          console.log('before cookie');
-          req.session.admin = admin;
-          console.log(req.session.admin);
-          req.session.save();
-          res.status(200).json(admin);
-      })
-      .catch(error => {
-          console.log(error);
-          return res.status(422).json({ status: 'error', message: error })
-      })
+        //user is found
+        console.log('before cookie');
+        req.session.admin = admin;
+        console.log(req.session.admin);
+        req.session.save();
+        res.status(200).json(admin);
+    }).catch(error => {
+        console.log(error);
+        return res.status(422).json({ status: 'error', message: error })
+    })
 }
 
-app.post('/api/admin/login', login);
+app.post('/api/admin/login', logValidation, login);
 
 
 ////////////////////////////
