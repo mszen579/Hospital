@@ -1,7 +1,7 @@
-//Newlising.js
+//Volform.js
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";//this is for routing
+
 
 
 
@@ -15,7 +15,7 @@ export default class Volform extends Component {
                 name: '',
                 callName: '',
                 dateOfBirth: '',
-                gender: '',
+                gender: 'Man',
                 address: '',
                 postCode: '',
                 city: '',
@@ -24,7 +24,7 @@ export default class Volform extends Component {
                 mobile: '',
                 occupation: '',
                 believe: '',
-                marigeStatus: '',
+                marigeStatus: 'Getrouwdt',
                 availability: '',
                 motivation: '',
                 experience: '',
@@ -187,12 +187,26 @@ export default class Volform extends Component {
               id="exampleInputname"
               placeholder="(Required) Please add Your Full Name"
             />
-            <h3 className="text-danger">{this.state.error.title}</h3>
+            <h3 className="text-danger">{this.state.error.name}</h3>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="exampleInputname">Call Name</label>
+            <input
+              type="text"
+              name="callName"
+              value={this.state.data.callName}
+              onChange={this.handleChange}
+              className="form-control"
+              id="exampleInputcallName"
+              placeholder="(Required) Please add Your Call Name"
+            />
+            <h3 className="text-danger">{this.state.error.callName}</h3>
           </div>
 
           
           <div className="form-group">
-            <label htmlFor="exampleInputcalldateOfBirth">Your call name</label>
+            <label htmlFor="exampleInputcalldateOfBirth">Your DOB</label>
             <input
               type="date"
               name="dateOfBirth"
@@ -361,25 +375,11 @@ export default class Volform extends Component {
           </div>
 
 
-         <div className="form-group">
-            <label htmlFor="exampleInputcallavailability">Availability</label>
-            <input
-              type="text"
-              name="availability"
-              value={this.state.data.availability}
-              onChange={this.handleChange}
-              className="form-control"
-              id="exampleInputcallavailability"
-              placeholder="(optional) please add Your availability"
-            />
-            <h3 className="text-danger">{this.state.error.availability}</h3>
-          </div>
-
         <div className="form-group">
             <label htmlFor="exampleInputcallmotivation">Motivation</label>
             <textarea
-              row='4'
-              cols='50'
+              row='5'
+              cols='100'
               name="motivation"
               value={this.state.data.motivation}
               onChange={this.handleChange}
@@ -393,8 +393,8 @@ export default class Volform extends Component {
         <div className="form-group">
             <label htmlFor="exampleInputcallexperience">Experience</label>
             <textarea
-              row='4'
-              cols='50'
+              row='5'
+              cols='100'
               name="experience"
               value={this.state.data.experience}
               onChange={this.handleChange}
@@ -406,10 +406,10 @@ export default class Volform extends Component {
           </div>
 
           <div className="form-group">
-            <label htmlFor="exampleInputcallhealthExper">HealthExper</label>
+            <label htmlFor="exampleInputcallhealthExper">Health Exper</label>
             <textarea
-              row='4'
-              cols='50'
+              row='5'
+              cols='100'
               name="healthExper"
               value={this.state.data.healthExper}
               onChange={this.handleChange}
@@ -423,8 +423,8 @@ export default class Volform extends Component {
            <div className="form-group">
             <label htmlFor="exampleInputcallemotionalExper">Emotional Exper</label>
             <textarea
-              row='4'
-              cols='50'
+              row='5'
+              cols='100'
               name="emotionalExper"
               value={this.state.data.emotionalExper}
               onChange={this.handleChange}
@@ -435,26 +435,12 @@ export default class Volform extends Component {
             <h3 className="text-danger">{this.state.error.emotionalExper}</h3>
           </div>
 
-         <div className="form-group">
-            <label htmlFor="exampleInputcallemotionalExper">Emotional Exper</label>
-            <textarea
-              row='4'
-              cols='50'
-              name="emotionalExper"
-              value={this.state.data.emotionalExper}
-              onChange={this.handleChange}
-              className="form-control"
-              id="exampleInputcallaeemotionalExper"
-              placeholder="(optional) please add Your Emotional Exper"
-            />
-            <h3 className="text-danger">{this.state.error.emotionalExper}</h3>
-          </div>
 
            <div className="form-group">
             <label htmlFor="exampleInputcallcompassion">Compassion </label>
             <textarea
-              row='4'
-              cols='50'
+              row='5'
+              cols='100'
               name="compassion"
               value={this.state.data.compassion}
               onChange={this.handleChange}
@@ -469,8 +455,8 @@ export default class Volform extends Component {
            <div className="form-group">
             <label htmlFor="exampleInputcallworkPreferences">Work Preferences </label>
             <textarea
-              row='4'
-              cols='50'
+              row='5'
+              cols='100'
               name="workPreferences"
               value={this.state.data.workPreferences}
               onChange={this.handleChange}
@@ -484,8 +470,8 @@ export default class Volform extends Component {
           <div className="form-group">
             <label htmlFor="exampleInputcallworkExpectations">workExpectations </label>
             <textarea
-              row='4'
-              cols='50'
+              row='5'
+              cols='100'
               name="workExpectations"
               value={this.state.data.workExpectations}
               onChange={this.handleChange}
@@ -497,7 +483,7 @@ export default class Volform extends Component {
           </div>
 
           <button type="submit" className="btn btn-primary">
-            Post listing
+            Submit form
           </button>
         </form>
         {this.state.success === "" ? (

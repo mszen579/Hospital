@@ -63,6 +63,7 @@ class AdminNav extends Component {
             <NavLink exact to="/Admin-panel/AddArticle" className="nav-item nav-link">Adding article</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
             <NavLink exact to="/Admin-panel/Register" className="nav-item nav-link">Add Admin</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
             <NavLink exact to="/Admin-panel/allAdmins" className="nav-item nav-link">List of Admins</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+            <NavLink exact to="/Admin-panel/Dashboardvolunteers" className="nav-item nav-link">List of Volunteer Aplications</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
             <a style={{ cursor: 'pointer' }} className="text-danger" onClick={this.handleLogOut}>Logout</a>&nbsp;&nbsp;&nbsp;&nbsp;
           </ul>
 

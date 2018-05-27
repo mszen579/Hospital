@@ -57,8 +57,9 @@ class Listofadmins extends Component {
     render() {
         return (
             <div>
+             <AdminNav />
             <h1>All Registered admins</h1>            
-            <AdminNav />
+           
             {this.state.admins && <Result admins ={this.state.admins} />}
             </div>
         );

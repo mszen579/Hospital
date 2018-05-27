@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 //modoles db 
 var Article = require('./Models/Article');
 var Admin = require('./Models/Admin');
+var Form = require('./Models/Form');
 
 ///Models
 var { check, validationResult } = require('express-validator/check');
@@ -425,8 +426,8 @@ var register = (req, res) => {
   if (!errors.isEmpty()) {
       return res.send({ status: 'error', errors: errors.mapped() })
   }
-  User.create(req.body)
-      .then(user => { return res.send({ status: 'success', message: 'FORM registerd successfuly' }) })
+  Form.create(req.body)
+      .then(form => { return res.send({ status: 'success', message: 'FORM registerd successfuly' }) })
       .catch(error => {
           console.log(error);
           return res.send({ status: 'error', message: error })
@@ -451,7 +452,7 @@ app.post('/api/formRegister', [
   check('email', 'your email is not valid').isEmail(),
   check('email', 'email already exist').custom(
       function (value) {
-          return User.findOne({ email: value }).then(user => !user)
+          return Form.findOne({ email: value }).then(form => !form)
       }),
  
   check('mobile', 'please enter your Mobile number').not().isEmpty(),
@@ -463,7 +464,34 @@ app.post('/api/formRegister', [
   check('experience', 'please enter your Experience').not().isEmpty(),
 
   ], register);
+
 ////////////////////////////////////////////////////////////////////////
+//show all volunteers
+  app.get('/api/admin/listofVolunteers', function (req, res, next) {
+    Form.find({},  (err, forms) => {
+        if (err) {
+            console.log("Error getting forms" + err);
+            return next();
+        }
+        res.json(forms)
+    })
+  })
+////////////////////////////////////////////////////////////////////////
+
+
+///Delete volunteers/////////////////////////////////////////////////////
+// app.delete('/api/admin/delete/:id', function (req, res) {
+//   Admin.findById(req.params.id)
+//     .then(function (admin) {
+//       admin.remove()
+//         .then(function () {
+//           res.send({ status: 'success', message: ' Admin removed ' })
+//         });
+//     });
+// });
+////////////////////////////////////////////////////////////////////////
+
+
 
 
 
