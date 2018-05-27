@@ -4,31 +4,20 @@ import { Link } from 'react-router-dom';
 import AdminNav from './AdminNav';
 
 
-class Dashboardarticle extends Component {
+class Dashboardvolunteers extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-
-      Articles: null,
+ 
+      Forms: null,
       loading: true,
 
     }
   
   }
-
-  handleEdit()
-  {
-    window.location.href='/admin/editdetails';
-  }
-
-
+ 
   
-  handleDelete()
-  {
-    
-  }
-
 
 
   componentDidMount() {
@@ -64,8 +53,7 @@ class Dashboardarticle extends Component {
               <tr>
                 <th scope="col" colSpan={1}>name</th>
                 <th scope="col" colSpan={2}>Received at</th>
-                <th scope="col" colSpan={3}>Actions</th>
-                <th scope="col" colSpan={4}>More</th>
+                <th scope="col" colSpan={3}>More</th>
 
               </tr>
             </thead>
@@ -77,8 +65,7 @@ class Dashboardarticle extends Component {
                   <tr key={Form._id}>
                   <td colSpan={1}>{Form.name} {Form.name}</td>
                   <td colSpan={2}>{Form.createdAt} {Form.createdAt}</td>
-                    <td><button className="btn btn-danger" onClick={this.handleDelete}>Delete</button></td>
-                    <td><Link className="btn btn-primary" to={`/${Form._id}/SingleForm`}>View details</Link></td>
+                    <td><Link className="btn btn-primary" to={`/Admin-panel/${Form._id}/Singlevolunteer`}>View details</Link></td>
                  </tr>
                 )
               }.bind(this))}
@@ -90,4 +77,4 @@ class Dashboardarticle extends Component {
 
   }
 }
-export default Dashboardarticle;
+export default Dashboardvolunteers;
