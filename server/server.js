@@ -139,7 +139,7 @@ const logValidation = [
 var login = (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.send({ errors: errors.mapped() });
+        return res.send({ err: errors.mapped() });
     }
     Admin.findOne({ 
         email: req.body.email
@@ -164,7 +164,7 @@ var login = (req, res) => {
     })
 }
 
-app.post('/api/admin/login', login);
+app.post('/api/admin/login', logValidation, login);
 
 
 ////////////////////////////
