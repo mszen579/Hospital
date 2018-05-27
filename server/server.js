@@ -365,7 +365,7 @@ app.post(
       .not()
       .isEmpty(),
     check("name", "your name must not contain any numbers").matches(
-      /^[a-z''., ]+$/i
+      /^[A-z''., ]+$/i
     ),
     check("name", "your name should be more than 4 charchters").isLength({
       min: 4
@@ -418,6 +418,52 @@ app.delete('/api/admin/delete/:id', function (req, res) {
 ////////////////////////////////////////////////////////////////////////
 
 
+///Registering form/////////////////////////////////////////////////////////
+var register = (req, res) => {
+
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+      return res.send({ status: 'error', errors: errors.mapped() })
+  }
+  User.create(req.body)
+      .then(user => { return res.send({ status: 'success', message: 'FORM registerd successfuly' }) })
+      .catch(error => {
+          console.log(error);
+          return res.send({ status: 'error', message: error })
+      })
+}
+
+app.post('/api/formRegister', [
+
+  check('name', 'please enter your full name').not().isEmpty(),
+  check('name', 'your name must not contain any numbers').matches(
+    /^[A-z''., ]+$/i),
+  check('name', 'your name should be more than 2 charchters').isLength({ min: 2 }),
+
+  check('dateOfBirth', 'please enter your dateOfBirth').not().isEmpty(),
+
+  check('address', 'please enter your Address').not().isEmpty(),
+
+  check('postCode', 'please enter your Post Code').not().isEmpty(),
+
+  check('city', 'please enter your Post City').not().isEmpty(),
+
+  check('email', 'your email is not valid').isEmail(),
+  check('email', 'email already exist').custom(
+      function (value) {
+          return User.findOne({ email: value }).then(user => !user)
+      }),
+ 
+  check('mobile', 'please enter your Mobile number').not().isEmpty(),
+
+  check('occupation', 'please enter your Occupation').not().isEmpty(),
+
+  check('availability', 'please enter your Availability').not().isEmpty(),
+  
+  check('experience', 'please enter your Experience').not().isEmpty(),
+
+  ], register);
+////////////////////////////////////////////////////////////////////////
 
 
 
