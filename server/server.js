@@ -480,15 +480,26 @@ app.post('/api/formRegister', [
 
 
 ///Delete volunteers/////////////////////////////////////////////////////
-// app.delete('/api/admin/delete/:id', function (req, res) {
-//   Admin.findById(req.params.id)
-//     .then(function (admin) {
-//       admin.remove()
-//         .then(function () {
-//           res.send({ status: 'success', message: ' Admin removed ' })
-//         });
-//     });
-// });
+app.delete('/api/admin/vol/delete/:id', function (req, res) {
+  Form.findById(req.params.id)
+    .then(function (form) {
+      form.remove()
+        .then(function () {
+          res.send({ status: 'success', message: ' Volunteer removed ' })
+        });
+    });
+});
+
+///Single volunteers/////////////////////////////////////////////////////
+app.get('/api/admin/singleVolunteer/:_id', (req, res, next) => {
+  Form.findOne({ _id: req.params._id }, (err, form) => {
+      if (err) {
+          console.log("Error getting the user", form);
+          return next();
+      }
+      res.json(form);
+  })
+})
 ////////////////////////////////////////////////////////////////////////
 
 
