@@ -299,12 +299,6 @@ app.get('/api/:ArticleID/getedititem', function (req, res) {
 })
 
 
-// app.get("/api/post/:_id", function findOneUser(req, res, next) {
-//   Post.findOne({ _id: req.params._id })
-//   .populate('user')
-//   .then(user=>{res.send(user)})
-//   .catch(err=>res.send(err))
-//   });
 
 
 //Admin Editting the Article
