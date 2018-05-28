@@ -3,7 +3,7 @@ import AdminNav from './AdminNav';
 import axios from 'axios';
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-
+import Moment from "react-moment";
 const swal = withReactContent(Swal);
 
 
@@ -127,7 +127,10 @@ export default class Singlevolunteer extends Component {
                 <div>
                 {this.state.data && <h1>{this.state.data.name}</h1>}
                 {this.state.data && <p>{this.state.data.callName}</p>}
-                {this.state.data && <p>{this.state.data.dateOfBirth}</p>}
+               
+                    {this.state.data && <Moment className="text-muted" format="Do MMM YYYY">
+                        {this.state.data.dateOfBirth}
+                    </Moment>}
                 {this.state.data && <p>{this.state.data.gender}</p>}
                 {this.state.data && <p>{this.state.data.address}</p>}
                 {this.state.data && <p>{this.state.data.postCode}</p>}
