@@ -52,6 +52,7 @@ class Dashboardvolunteers extends Component {
           <table className="table table-hover">
             <thead>
               <tr>
+              
                 <th scope="col" colSpan={1}>name</th>
                 <th scope="col" colSpan={2}>Received at</th>
                 <th scope="col" colSpan={3}>More</th>
@@ -71,7 +72,7 @@ class Dashboardvolunteers extends Component {
                       </Moment>
                     
                   </td>
-                    <td><Link className="btn btn-primary" to={`/Admin-panel/${Form._id}/Singlevolunteer`}>View details</Link></td>
+                    <td colSpan={3}><Link className="btn btn-primary" to={`/Admin-panel/${Form._id}/Singlevolunteer`}>View details</Link></td>
                  </tr>
                 )
               }.bind(this))}
