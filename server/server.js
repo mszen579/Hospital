@@ -224,7 +224,7 @@ app.post('/api/Article/register',
       profilePic: filename,
       ShortDescription: req.body.shortDescription,  
 
-    }).then(res.send(article))
+    }).then(res.send(Article))
       .catch(function (error) {
         console.log(error);
         res.send(error);
@@ -285,18 +285,35 @@ app.post('/api/admin/:ArticleID/enablebadges',function(req,res){
 
 //Admin Getting Article to Edit
 
-app.get('/api/:ArticleID/getedititem', function (req, res) {
+// app.get('/api/:ArticleID/getedititem', function (req, res) {
 
-  console.log('request get', req.body);
+//   console.log('request get', req.body);
 
-  Article.findOne({ ArticleID: req.params.id })
-    .then(function (article) {
-   res.json(article)
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-})
+//   Article.findOne({ArticleID:req.params.id})
+//     .then(article => {
+//       res.json(article);
+//     })
+//     .catch(function(error) {
+//       console.log(error);
+//     });
+// })
+
+
+
+app.get("/api/update/:_id", function findOneUser(req, res, next) {
+  Article.findOne({ _id: req.params._id })
+    .then(user => { res.send(user) })
+    .catch(err => res.send(err))
+});
+
+
+
+  // .then(function (admin) {
+  //   res.send({
+  //     _id: admin._id,
+  //     email: admin.email,
+  //     firstName: admin.firstName,
+  //   }).populate(admin)
 
 
 // app.get("/api/post/:_id", function findOneUser(req, res, next) {
@@ -309,19 +326,19 @@ app.get('/api/:ArticleID/getedititem', function (req, res) {
 
 //Admin Editting the Article
 app.post('/api/:ArticleID/update',
-  upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
-  [
-    check('title').not().isEmpty().withMessage('Title is required')
-      .isLength({ min: 2 }).withMessage('Title should be at least 2 letters')
-      ,
-    check('location')
-      .not().isEmpty().withMessage('Location is required')
-      .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
-      ,
-       check('shortDescription')
-      .not().isEmpty().withMessage('Please enter minimum of 10 words').isLength({ min: 10 }),
+  // upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
+  // [
+  //   check('title').not().isEmpty().withMessage('Title is required')
+  //     .isLength({ min: 2 }).withMessage('Title should be at least 2 letters')
+  //     ,
+  //   check('location')
+  //     .not().isEmpty().withMessage('Location is required')
+  //     .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
+  //     ,
+  //      check('shortDescription')
+  //     .not().isEmpty().withMessage('Please enter minimum of 10 words').isLength({ min: 10 }),
       
-  ],
+  // ],
 
   function (req, res) {
     var errors = validationResult(req);
@@ -342,8 +359,8 @@ console.log(req.body)
       
 
         Article.save()
-          .then(function (Article) {
-            res.send(Article);
+          .then(function (article) {
+            res.send(article);
           })
           .catch(function (error) {
             console.log(error);
