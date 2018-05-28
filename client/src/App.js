@@ -29,7 +29,7 @@ import Dashboardvolunteers from './components/Admin/Dashboardvolunteers';
 import Editarticledetails from './components/Admin/Editarticledetails';
 import Listofadmins from './components/Admin/Listofadmins';
 import Singlevolunteer from './components/Admin/Singlevolunteer';
-
+import Contactus from './components/UserPanel/Contactus';
 
 class App extends Component {
   render() {
@@ -45,6 +45,7 @@ class App extends Component {
             <Route path='/Volform' component={Volform} />
             <Route path='/News' component={Articles} />
             <Route path='/Aboutus' component={Aboutus} />
+            <Route path='/Contactus' component={Contactus} />
             <Route path='/Adminwsq' component={Login} />
             <Route exact path='/Admin-panel' component={Panel} />
             <Route path='/Admin-panel/Register' component={Register} />

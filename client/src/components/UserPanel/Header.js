@@ -35,6 +35,11 @@ class Header extends Component {
               </Link>
               </li>
               <li>
+              <Link className="" to={"/Contactus"}>
+                Contact us
+              </Link>
+              </li>
+              <li>
               <Link className="" to={"/Donation"}>
               Donation
               </Link>
