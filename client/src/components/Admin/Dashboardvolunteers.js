@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AdminNav from './AdminNav';
+import Moment from "react-moment";
 
 
 class Dashboardvolunteers extends Component {
@@ -63,8 +64,13 @@ class Dashboardvolunteers extends Component {
                 console.log(Form);
                 return (
                   <tr key={Form._id}>
-                  <td colSpan={1}>{Form.name} {Form.name}</td>
-                  <td colSpan={2}>{Form.createdAt} {Form.createdAt}</td>
+                  <td colSpan={1}>{Form.name}</td>
+                  <td colSpan={2}>
+                      <Moment className="text-muted" format="Do MMM YYYY">
+                        {Form.createdAt}
+                      </Moment>
+                    
+                  </td>
                     <td><Link className="btn btn-primary" to={`/Admin-panel/${Form._id}/Singlevolunteer`}>View details</Link></td>
                  </tr>
                 )
