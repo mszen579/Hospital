@@ -9,17 +9,16 @@ class Editarticledetails extends Component {
 
         this.state = {
             currentPicture: null,
-            studentClasses: null,
             data: {
                 title: '',
                 location: '',
-                shortDescription: '',
+                ShortDescription: '',
                 video: '',
             },
             error: {
                 title: '',
                 location: '',
-                shortDescription: '',
+                ShortDescription: '',
                 video: '',
             },
             success: '',
@@ -30,7 +29,9 @@ class Editarticledetails extends Component {
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
     }
 
-
+   componentDidMount=()=>{
+    axios.get(`http://localhost:8000/api/${this.props.match.params.id}/getedititem`).then((res)=>this.setState({data:res.data}))
+   };
     handleUpdate(event) {
         event.preventDefault();
         let _this = this;
@@ -38,9 +39,9 @@ class Editarticledetails extends Component {
         let formData = new FormData();
         formData.append('title', this.state.data.title);
         formData.append('Location', this.state.data.location);
-        formData.append('shortDescription', this.state.data.shortDescription);
-        formData.append('video', this.state.data.Video);
-        formData.append('photo', this.state.data.photo);
+        formData.append('shortDescription', this.state.data.ShortDescription);
+        formData.append('video', this.state.data.video);
+        formData.append('profilePic', this.state.data.profilePic);
 
         axios.post(`http://localhost:8000/api/${this.props.match.params.id}/update`, formData)
             .then(res => {
@@ -105,15 +106,14 @@ class Editarticledetails extends Component {
                 } else {
                     let newData = _this.state.data;
                     newData.title = response.data.title;
-                    newData.location = response.data.Location;
+                    newData.location = response.data.location;
                     newData.shortDescription = response.data.ShortDescription;
-                    newData.video = response.data.Video;
+                    newData.video = response.data.video;
 
-
-                    
                     _this.setState({
                         data: newData,
-                        currentPicture: `http://localhost:8000/uploads/${response.data.profilePic}`
+                        currentPicture: `http://localhost:8000/uploads/${response.data.article.profilePic}`
+
                     })
                 }
 
@@ -129,7 +129,6 @@ class Editarticledetails extends Component {
             <div className="editStudentDetails">
 
                 <AdminNav />
-
                 <h3>Edit your message</h3>
                 <form onSubmit={this.handleUpdate}>
                     <div className="left-side">
@@ -140,22 +139,28 @@ class Editarticledetails extends Component {
                         <p className="text-danger">{this.state.error.title}</p>
                         <div className="form-group">
                             <label htmlFor="exampleInputLocation">Location</label>
-                            <input type="text" name="Location" value={this.state.data.Location} onChange={this.handleChange} className="form-control" id="exampleInputLocation" placeholder="Location" />
+                            <input type="text" name="location" value={this.state.data.location} onChange={this.handleChange} className="form-control" id="exampleInputLocation" placeholder="Location" />
                         </div>
-                        <p className="text-danger">{this.state.error.Location}</p>
+                        <p className="text-danger">{this.state.error.location}</p>
                    
                         <div className="form-group">
                             <label htmlFor="exampleInputShortDescription">Short Description</label>
-                            <textarea rows="4" cols="50" type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description" />
+                            <textarea rows="4" cols="50" type="text" name="ShortDescription" value={this.state.data. ShortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description" />
                         </div>
-                        <p className="text-danger">{this.state.error.shortDescription}</p>
+
+                          <div className="form-group">
+                            <label htmlFor="exampleInputtitle">Video</label>
+                            <input type="text" name="Video" value={this.state.data.Video} onChange={this.handleChange} className="form-control" id="exampleInputtitle" placeholder="Video" />
+                        </div>
+
+                        <p className="text-danger">{this.state.error.ShortDescription}</p>
                       
                     </div>
 
                     <div className="right-side">
                         <div className="form-group">
-                            {this.state.currentPicture &&
-                                <img src={this.state.currentPicture} width="100" height="100" />}
+                            {
+                                <img src={this.state.data.currentPicture} width="50" height="50" />}
                             <label htmlFor="exampleInputPhoto">Profile Photo</label>
                             <input type="file" name="photo" accept="image/*" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
                         </div>

@@ -289,15 +289,22 @@ app.get('/api/:ArticleID/getedititem', function (req, res) {
 
   console.log('request get', req.body);
 
-  Article.findOne({ _id: req.params.id })
-    .then(function (Article) {
-   res.json(Article)
+  Article.findOne({ ArticleID: req.params.id })
+    .then(function (article) {
+   res.json(article)
     })
     .catch(function (error) {
       console.log(error);
     })
 })
 
+
+// app.get("/api/post/:_id", function findOneUser(req, res, next) {
+//   Post.findOne({ _id: req.params._id })
+//   .populate('user')
+//   .then(user=>{res.send(user)})
+//   .catch(err=>res.send(err))
+//   });
 
 
 //Admin Editting the Article
@@ -313,6 +320,7 @@ app.post('/api/:ArticleID/update',
       ,
        check('shortDescription')
       .not().isEmpty().withMessage('Please enter minimum of 10 words').isLength({ min: 10 }),
+      
   ],
 
   function (req, res) {
@@ -326,11 +334,11 @@ console.log(req.body)
       .then(function (Article) {
         Article.title = req.body.title
         Article.location = req.body.location
-        Article.Video = req.body.video
+        Article.Video = req.body.Video
         if (req.files.photo) {
           Article.profilePic = req.files.photo[0].filename
         }
-        Article.ShortDescription = req.body.shortDescription
+        Article.ShortDescription = req.body.ShortDescription
       
 
         Article.save()

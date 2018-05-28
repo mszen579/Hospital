@@ -5,47 +5,93 @@ import { BrowserRouter as Router, Link } from "react-router-dom"; //this is for 
 class Header extends Component {
   render() {
     return (
-      <div className="Header">
-        <nav className="navbar navbar-inverse">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <Link className="navbar-brand" to={"/"}>
-                WebSiteName
-              </Link>
-            </div>
+      <div>
+        <nav className="">
+          <div className="">
             <ul className="nav navbar-nav">
+            <li className="active">
+              <Link className="" to={"/"}>
+              [LOGO]
+              </Link>
+              </li>
               <li className="active">
-              <Link className="navbar-brand" to={"/"}>
+              <Link className="" to={"/"}>
                 Home
               </Link>
               </li>
               <li>
-              <Link className="navbar-brand" to={"/Volunteer"}>
+              <Link className="" to={"/Volunteer"}>
                 Volunteer
               </Link>
               </li>
               <li>
-              <Link className="navbar-brand" to={"/News"}>
+              <Link className="" to={"/News"}>
                 News
               </Link>
               </li>
               <li>
-              <Link className="navbar-brand" to={"/Aboutus"}>
+              <Link className="" to={"/Aboutus"}>
                 About us
               </Link>
               </li>
               <li>
-              <Link className="navbar-brand" to={"/Donation"}>
+              <Link className="" to={"/Donation"}>
               Donation
               </Link>
               </li>
+              <li>
+              <a style={{color: "white"}} href="https://www.doneeractie.nl/stichting-hospice-amsterdam-zuidoost/-28298" className="btn btn-danger">DONATE</a>
+              </li>
             </ul>
-            <button className="btn btn-danger navbar-btn">Button</button>
           </div>
         </nav>
+        <br />
+        <br />
+        <br />
       </div>
     );
   }
 }
 
 export default Header;
+
+
+// <nav className="navbar navbar-inverse">
+// <div className="container-fluid">
+//   <div className="navbar-header">
+//     <Link className="navbar-brand" to={"/"}>
+//       WebSiteName
+//     </Link>
+//   </div>
+//   <ul className="nav navbar-nav">
+//     <li className="active">
+//     <Link className="navbar-brand" to={"/"}>
+//       Home
+//     </Link>
+//     </li>
+//     <li>
+//     <Link className="navbar-brand" to={"/Volunteer"}>
+//       Volunteer
+//     </Link>
+//     </li>
+//     <li>
+//     <Link className="navbar-brand" to={"/News"}>
+//       News
+//     </Link>
+//     </li>
+//     <li>
+//     <Link className="navbar-brand" to={"/Aboutus"}>
+//       About us
+//     </Link>
+//     </li>
+//     <li>
+//     <Link className="navbar-brand" to={"/Donation"}>
+//     Donation
+//     </Link>
+//     </li>
+//     <li>
+//     <a style={{color: "white"}} href="https://www.doneeractie.nl/stichting-hospice-amsterdam-zuidoost/-28298" className="btn btn-danger">DONATE</a>
+//     </li>
+//   </ul>
+// </div>
+// </nav>
