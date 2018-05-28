@@ -74,7 +74,7 @@ class Dashboardarticle extends Component {
                       {Article.profilePic &&
                         <img src={`http://localhost:8000/uploads/${Article.profilePic}`} width="100" height="120" />}
                     </td>
-                    <td colSpan={3}>{Article.FirstName} {Article.LastName}</td>
+                    <td colSpan={3}>{Article.title}</td>
 
                     <td><Link className="btn btn-primary" to={`/Admin-Panel/${Article._id}/EditArticle`}>Edit</Link></td>
                     <td><Link className="btn btn-primary" to={`/${Article._id}/SingleArticle`}>View details</Link></td>
