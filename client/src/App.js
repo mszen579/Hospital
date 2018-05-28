@@ -66,7 +66,8 @@ class App extends Component {
                 </p>
                 )
             }} />
-            </Switch> 
+            </Switch>
+                
             <Footer/>    
       </div>
       </BrowserRouter>
