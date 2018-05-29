@@ -23,14 +23,14 @@ class Editarticledetails extends Component {
                 location: '',
                 ShortDescription: '',
                 Video: '',
-                profilePic:''
+                profilePic: ''
             },
             error: {
                 title: '',
                 location: '',
                 ShortDescription: '',
                 video: '',
-                profilePic:''
+                profilePic: ''
             },
             success: '',
             loading: true,
@@ -38,58 +38,60 @@ class Editarticledetails extends Component {
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
         this.deleteArt = this.deleteArt.bind(this);
     }
 
-  
 
-  //deleting Article
-  deleteArt(event){
-    event.preventDefault();
-     
-    
-      swalWithBootstrapButtons({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Yes, delete it!',
-          cancelButtonText: 'No, cancel!',
-          reverseButtons: true,
-         
-      }).then((result) => {
-          if (result.value) {
-              axios
-                  .delete(`http://localhost:8000/api/admin/article/delete/${this.props.match.params.id}`)
-                  .then(function (response) {
 
-                  })
-                  .catch(function (error) {
-                      console.log(error);
-                  });
-              swalWithBootstrapButtons(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success',
-                  window.location.href = "/Admin-panel/DashboardArticle"
-              )
-          
-          } else if 
-          
-          (
-              // Read more about handling dismissals
-              result.dismiss === swal.DismissReason.cancel
-          ) {
-              swalWithBootstrapButtons(
-                  'Cancelled',
-                  'Your imaginary file is safe :)',
-                  'error'
-              )
-              
-          }
-      })
 
-  }
+    //deleting Article
+    deleteArt(event) {
+        event.preventDefault();
+
+
+        swalWithBootstrapButtons({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true,
+
+        }).then((result) => {
+            if (result.value) {
+                axios
+                    .delete(`http://localhost:8000/api/admin/article/delete/${this.props.match.params.id}`)
+                    .then(function (response) {
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                swalWithBootstrapButtons(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success',
+                    window.location.href = "/Admin-panel/DashboardArticle"
+                )
+
+            } else if
+
+            (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                )
+
+            }
+        })
+
+    }
 
 
 
@@ -98,7 +100,6 @@ class Editarticledetails extends Component {
 
     handleUpdate(event) {
         event.preventDefault();
-        let _this = this;
 
         let formData = new FormData();
         formData.append('title', this.state.data.title);
@@ -106,7 +107,7 @@ class Editarticledetails extends Component {
         formData.append('shortDescription', this.state.data.ShortDescription);
         formData.append('video', this.state.data.video);
         formData.append("profilePic", this.state.data.profilePic);
-      
+
         axios.post(`http://localhost:8000/api/${this.props.match.params.id}/update`, formData)
             .then(res => {
                 console.log('response update', res)
@@ -115,13 +116,13 @@ class Editarticledetails extends Component {
                     let errMsg = {
                         title: mainErr.title ? mainErr.title.msg : '',
                         location: mainErr.location ? mainErr.location.msg : '',
-                       ShortDescription: mainErr.ShortDescription ? mainErr.ShortDescription.msg : ''
+                        ShortDescription: mainErr.ShortDescription ? mainErr.ShortDescription.msg : ''
                     }
-                    _this.setState({
+                    this.setState({
                         error: errMsg
                     });
                 } else {
-                    _this.setState({
+                    this.setState({
 
                         success: 'Article details updated successfully'
                     })
@@ -158,90 +159,99 @@ class Editarticledetails extends Component {
     }
 
     componentDidMount() {
-        let _this = this;
-        axios
-          .get(`http://localhost:8000/api/update/${this.props.match.params.id}`)
-          .then(function(response) {
-            console.log(response.data);
+        axios.get(`http://localhost:8000/api/update/${this.props.match.params.id}`)
+            .then(function (response) {
+                console.log(response.data);
                 // _this.setState({data:response.data})
-            if (response.data.error) {
-              _this.setState({ loading: false });
-            } else {
-              let newData = _this.state.data;
-              newData.title = response.data.title;
-              newData.location = response.data.location;
-              newData.ShortDescription = response.data.ShortDescription;
-              newData.Video = response.data.Video;
+                if (response.data.error) {
+                    this.setState({ loading: false });
+                } else {
+                    let newData = this.state.data;
+                    newData.title = response.data.title;
+                    newData.location = response.data.location;
+                    newData.ShortDescription = response.data.ShortDescription;
+                    newData.Video = response.data.Video;
 
-              _this.setState({
-                data: newData,
-                currentPicture: `http://localhost:8000/uploads/${
-                  response.data.profilePic
-                }`
-              });
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
+                    this.setState({
+                        data: newData,
+                        currentPicture: `http://localhost:8000/uploads/${
+                            response.data.profilePic
+                            }`
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        axios.get('http://localhost:8000/api/isloggedin')
+            .then((res) => {
+                console.log(res);
+                if (res.data.error) {
+                    this.setState({ loading: false })
+                } else if (res.data.jobTitle === 'SuperAdmin' || res.data.jobTitle === 'Admin') {
+                    this.setState({ admin: res.data, loading: false })
+                } else {
+                    window.location.href = "/adminwsq"
+                }
+            });
 
     }
     render() {
-        
+
         return <div className="editStudentDetails">
             <AdminNav />
             <h3>Edit your message</h3>
             <form onSubmit={this.handleUpdate}>
-              <div className="left-side">
-                <div className="form-group">
-                  <label htmlFor="exampleInputtitle">Title</label>
-                  <input type="text" name="title" value={this.state.data.title} onChange={this.handleChange} className="form-control" id="exampleInputtitle" placeholder="Title" />
-                </div>
-                <p className="text-danger">{this.state.error.title}</p>
-                <div className="form-group">
-                  <label htmlFor="exampleInputLocation">Location</label>
-                  <input type="text" name="location" value={this.state.data.location} onChange={this.handleChange} className="form-control" id="exampleInputLocation" placeholder="Location" />
-                </div>
-                <p className="text-danger">
-                  {this.state.error.location}
-                </p>
+                <div className="left-side">
+                    <div className="form-group">
+                        <label htmlFor="exampleInputtitle">Title</label>
+                        <input type="text" name="title" value={this.state.data.title} onChange={this.handleChange} className="form-control" id="exampleInputtitle" placeholder="Title" />
+                    </div>
+                    <p className="text-danger">{this.state.error.title}</p>
+                    <div className="form-group">
+                        <label htmlFor="exampleInputLocation">Location</label>
+                        <input type="text" name="location" value={this.state.data.location} onChange={this.handleChange} className="form-control" id="exampleInputLocation" placeholder="Location" />
+                    </div>
+                    <p className="text-danger">
+                        {this.state.error.location}
+                    </p>
 
-                <div className="form-group">
-                  <label htmlFor="exampleInputShortDescription">
-                    Short Description
+                    <div className="form-group">
+                        <label htmlFor="exampleInputShortDescription">
+                            Short Description
                   </label>
-                  <textarea rows="4" cols="50" type="text" name="ShortDescription" value={this.state.data.ShortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description" />
+                        <textarea rows="4" cols="50" type="text" name="ShortDescription" value={this.state.data.ShortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description" />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="exampleInputtitle">Video</label>
+                        <input type="text" name="Video" value={this.state.data.Video} onChange={this.handleChange} className="form-control" id="exampleInputtitle" placeholder="Video" />
+                    </div>
+
+                    <p className="text-danger">
+                        {this.state.error.ShortDescription}
+                    </p>
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="exampleInputtitle">Video</label>
-                  <input type="text" name="Video" value={this.state.data.Video} onChange={this.handleChange} className="form-control" id="exampleInputtitle" placeholder="Video" />
-                </div>
-
-                <p className="text-danger">
-                  {this.state.error.ShortDescription}
-                </p>
-              </div>
-
-              <div className="right-side">
-                <div className="form-group">
-                  {this.state.currentPicture && <img src={this.state.currentPicture} width="100" height="100" />}
-                  <label htmlFor="exampleInputPhoto">
-                    Profile Photo
+                <div className="right-side">
+                    <div className="form-group">
+                        {this.state.currentPicture && <img src={this.state.currentPicture} width="100" height="100" />}
+                        <label htmlFor="exampleInputPhoto">
+                            Profile Photo
                   </label>
-                  <input type="file" name="photo" accept="image/*" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
+                        <input type="file" name="photo" accept="image/*" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
+                    </div>
+                    <p className="text-danger">
+                        {this.state.error.profilePic}
+                    </p>
                 </div>
-                <p className="text-danger">
-                  {this.state.error.profilePic}
-                </p>
-              </div>
-              <p className="text-success">{this.state.success}</p>
-              <button type="submit" className="btn btn-primary submit">
-                Update
+                <p className="text-success">{this.state.success}</p>
+                <button type="submit" className="btn btn-primary submit">
+                    Update
               </button>
-              <button className="btn btn-danger" onClick={this.deleteArt}>Delete</button>
+                <button className="btn btn-danger" onClick={this.deleteArt}>Delete</button>
             </form>
-          </div>;
+        </div>;
     }
 }
 

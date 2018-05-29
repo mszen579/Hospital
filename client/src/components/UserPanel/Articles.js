@@ -6,14 +6,15 @@ import Moment from "react-moment";
 
 
 class Articles extends Component {
-  constructor(props){
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
+        this.state = {
 
-      Articles: null,
-      loading: true,
-     
+            Articles: null,
+            loading: true,
+
+
 
     }
   
@@ -74,5 +75,6 @@ class Articles extends Component {
   </div>
   )
   }
+
 }
 export default Articles;

@@ -39,6 +39,23 @@ export default class Contactus extends Component {
     
   }
 
+  // componentDidMount(){
+  //   function myMap() {
+  //    var myCenter=new google.maps.LatLng(41.878114, -87.629798);
+  //     var mapOptions= {
+  //       center:myCenter,
+  //       zoom:12, scrollwheel: false, draggable: false,
+  //       mapTypeId:google.maps.MapTypeId.ROADMAP
+  //     };
+  //     var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
+    
+  //     var marker = new google.maps.Marker({
+  //       position: myCenter,
+  //     });
+  //     marker.setMap(map);
+  //   }
+  // }
+
 
 
 
@@ -142,8 +159,9 @@ export default class Contactus extends Component {
           </div>
         
           <button type="submit" className="btn btn-primary">
-            Post listing
+            Send message
           </button>
+          <div id="googleMap" style={{height:"400px"}} ></div>
         </form>
         <section id="googleMap">
           <iframe width="100%" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=200+Lincoln+Ave,+Salinas,+CA,+USA&amp;aq=&amp;sll=30.977609,-95.712891&amp;sspn=42.157377,86.572266&amp;ie=UTF8&amp;hq=&amp;hnear=200+Lincoln+Ave,+Salinas,+California+93901-2639&amp;t=m&amp;z=14&amp;ll=36.674837,-121.657691&amp;output=embed"></iframe>
