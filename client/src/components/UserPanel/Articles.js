@@ -64,14 +64,14 @@ class Articles extends Component {
                       {Article.profilePic &&
                         <img src={`http://localhost:8000/uploads/${Article.profilePic}`} width="100" height="120" />}
                     </div>
-                    <div>Added on: <Moment className="text-muted" format="Do MMM YYYY">
+                    <Moment className="text-muted" format="DD MMM YYYY">
                     {Article.createdAt}
                     </Moment>
-                    </div>
-                    <div><strong>Video link: </strong> {Article.Video}</div>
+                    
+                    {/* <div><strong>Video link: </strong> {Article.Video}</div>
                     <div><strong>Event location:</strong> {Article.location}</div>
-                    <div><strong>Article:</strong> {Article.ShortDescription}</div>
-                    <div><Link className="btn btn-primary" to={`/${Article._id}/SingleArticle`}>View details</Link></div><br/><hr/>
+                    <div><strong>Article:</strong> {Article.ShortDescription}</div> */}
+                    <div><Link className="btn btn-primary" to={`/${Article._id}/SingleArticle`}>Read this article</Link></div><br/><hr/>
                  </div>
                 )
           }.bind(this))}
