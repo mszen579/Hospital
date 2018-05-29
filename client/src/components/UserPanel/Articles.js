@@ -13,7 +13,7 @@ class Articles extends Component {
 
       Articles: null,
       loading: true,
-      ArticleClass: null,
+     
 
     }
   
@@ -48,7 +48,10 @@ class Articles extends Component {
   }
 
  render() {
+<<<<<<< HEAD
   
+=======
+>>>>>>> cecc0a0d4c196234c486ab38bcb024ac05acb4e2
     // console.log(this.state.Articles);
     return (
 
@@ -56,22 +59,18 @@ class Articles extends Component {
       <div>
         <h1>All News</h1>
         <div className="table-responsive-md">
-              {this.state.Articles && this.state.Articles.map(function (Article) {
+              {this.state.Articles && this.state.Articles.map(function (article) {
                 return (
-                  <div key={Article._id}>
+                  <div key={article._id}>
                     <div>
-                    <h3 style={{color: "red"}}>Title: {Article.title}</h3>
-                      {Article.profilePic &&
-                        <img src={`http://localhost:8000/uploads/${Article.profilePic}`} width="100" height="120" />}
+                    <h3 style={{color: "red"}}>Title: {article.title}</h3>
+                      {article.profilePic &&
+                        <img src={`http://localhost:8000/uploads/${article.profilePic}`} width="100" height="120" />}
                     </div>
                     <Moment className="text-muted" format="DD MMM YYYY">
-                    {Article.createdAt}
+                    {article.createdAt}
                     </Moment>
-                    
-                    {/* <div><strong>Video link: </strong> {Article.Video}</div>
-                    <div><strong>Event location:</strong> {Article.location}</div>
-                    <div><strong>Article:</strong> {Article.ShortDescription}</div> */}
-                    <div><Link className="btn btn-primary" to={`/${Article._id}/SingleArticle`}>Read this article</Link></div><br/><hr/>
+                    <div><Link className="btn btn-primary" to={`/${article._id}/SingleArticle`}>Read this article</Link></div><br/><hr/>
                  </div>
                 )
           }.bind(this))}

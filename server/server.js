@@ -248,7 +248,7 @@ app.post('/api/Article/register',
 app.get('/api/listofArticles', function (req, res) {
   Article.find({})
     .sort({
-      ArticleId: 'desc'
+      createdAt: 'desc'
     })
      .then((Articles) => {
       res.send(Articles);
@@ -257,7 +257,6 @@ app.get('/api/listofArticles', function (req, res) {
       res.send({ status: error, message: 'Cannot find Articles' });
     })
 })
-
 
 
 
