@@ -168,7 +168,14 @@ app.post('/api/admin/login', logValidation, login);
 
 
 // Login checker
-
+isLoggedIn = (req, res, next) => {
+    if (req.session.admin) {
+        res.status(200).json(req.session.admin);
+    } else {
+        res.send(false);
+    }
+}
+app.get("/api/isloggedin", isLoggedIn);
 
 
 ////////////////////////////
@@ -383,54 +390,54 @@ app.post('/api/:ArticleID/update',
 
 /////////////register Normal Admin with validations/////////////////////////////////////////////////////////
 // Registeration
-var register = (req, res) => {
-  const admin = new Admin(req.body);
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.send({ status: "error", errors: errors.mapped() });
-  }
-  admin.password = admin.hashPassword(admin.password);
-  admin
-    .save()
-    .then(admin => {
-      return res.send({ status: "success", message: "registerd successfuly" });
-    })
-    .catch(error => {
-      console.log(error);
-      return res.send({ status: "error", message: error });
-    });
+var registerAdmin = (req, res) => {
+    const admin = new Admin(req.body);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.send({ status: "error", errors: errors.mapped() });
+    }
+    admin.jobTitle = "Admin";
+    admin.password = admin.hashPassword(admin.password);
+    admin
+        .save()
+        .then(admin => {
+            return res.send({ status: "success", message: "registerd successfuly" });
+        })
+        .catch(error => {
+            console.log(error);
+            return res.send({ status: "error", message: error });
+        });
 };
 
-app.post(
-  "/api/admin/register",
-  [
-    check("name", "please enter your full name")
-      .not()
-      .isEmpty(),
-    check("name", "your name must not contain any numbers").matches(
-      /^[A-z''., ]+$/i
-    ),
-    check("name", "your name should be more than 4 charchters").isLength({
-      min: 4
-    }),
+app.post("/api/admin/register",
+    [
+        check("name", "please enter your full name")
+            .not()
+            .isEmpty(),
+        check("name", "Your name can not contain any numbers").matches(
+            /^[A-z''., ]+$/i
+        ),
+        check("name", "Your name should be more than 4 characters").isLength({
+            min: 4
+        }),
 
-    check("email", "your email is not valid").isEmail(),
-    check("email", "email already exist").custom(function(value) {
-      return Admin.findOne({ email: value }).then(Admin => !Admin);
-    }),
-    // check("jobTitle", "please enter your full description")
-    //   .not()
-    //   .isEmpty(),
-    // check("jobTitle", "your description must not contain any numbers").isAlpha(),
-    check(
-      "password",
-      "your password should be 5 or more charchters"
-    ).isLength({ min: 5 }),
-    check("con_password", "your password confirmation dose not match").custom(
-      (value, { req }) => value === req.body.password
-    )
-  ],
-  register
+        check("email", "your email is not valid").isEmail(),
+        check("email", "email already exist").custom(function (value) {
+            return Admin.findOne({ email: value }).then(Admin => !Admin);
+        }),
+        // check("jobTitle", "please enter your full description")
+        //   .not()
+        //   .isEmpty(),
+        // check("jobTitle", "your description must not contain any numbers").isAlpha(),
+        check(
+            "password",
+            "your password should be 5 or more characters"
+        ).isLength({ min: 5 }),
+        check("con_password", "your password confirmation dose not match").custom(
+            (value, { req }) => value === req.body.password
+        )
+    ],
+    registerAdmin
 );
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///All Admins///////////////////////////////////////////////////////////////////////
@@ -462,18 +469,18 @@ app.delete('/api/admin/delete/:id', function (req, res) {
 
 
 ///Registering form/////////////////////////////////////////////////////////
-var register = (req, res) => {
+var registerForm = (req, res) => {
 
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-      return res.send({ status: 'error', errors: errors.mapped() })
-  }
-  Form.create(req.body)
-      .then(form => { return res.send({ status: 'success', message: 'FORM registerd successfuly' }) })
-      .catch(error => {
-          console.log(error);
-          return res.send({ status: 'error', message: error })
-      })
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.send({ status: 'error', errors: errors.mapped() })
+    }
+    Form.create(req.body)
+    .then(form => { return res.send({ status: 'success', message: 'FORM registerd successfuly' }) })
+    .catch(error => {
+        console.log(error);
+        return res.send({ status: 'error', message: error })
+    })
 }
 
 app.post('/api/formRegister', [
@@ -481,7 +488,7 @@ app.post('/api/formRegister', [
   check('name', 'please enter your full name').not().isEmpty(),
   check('name', 'your name must not contain any numbers').matches(
     /^[A-z''., ]+$/i),
-  check('name', 'your name should be more than 2 charchters').isLength({ min: 2 }),
+  check('name', 'your name should be more than 2 characters').isLength({ min: 2 }),
 
   check('dateOfBirth', 'please enter your dateOfBirth').not().isEmpty(),
 
@@ -505,7 +512,7 @@ app.post('/api/formRegister', [
   
   check('experience', 'please enter your Experience').not().isEmpty(),
 
-  ], register);
+], registerForm);
 
 ////////////////////////////////////////////////////////////////////////
 //show all volunteers
