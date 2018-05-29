@@ -102,20 +102,20 @@ app.post('/Article/search', validateArticleId, function (req, res) {
 })
 
 
-// Getting the Article profile using id
+// Getting the Article details using id/////////////////////////
 
 
-app.post('/Article/profileinfo/:id', function (req, res) {
+app.get('/Article/profileinfo/:id', function (req, res) {
   console.log(req.params.id);
   console.log(req.body);
 
-  Article.findOne({"ArticleID" : req.params.id})
-    .then(function (user) {
-      if (!user) {
+  Article.findOne({"_id" : req.params.id})
+    .then(function (article) {
+      if (!article) {
         return res.send({ status: 'error', message: 'Article not found' });
       }
-      console.log(user);
-      res.send(user);
+      console.log(article);
+      res.send(article);
     })
     .catch(function (error) {
       console.log(error);
@@ -124,7 +124,7 @@ app.post('/Article/profileinfo/:id', function (req, res) {
 })
 
 
-/////////////Admin login
+/////////////Admin login////////////////////////////
 const logValidation = [
     check("email")
         .not()
