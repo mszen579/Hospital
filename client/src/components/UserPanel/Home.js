@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 
 import "../UserStyling/home.css";
 
- import {name} from'../UserStyling/home.js'
+//  import {name} from'../UserStyling/home.js'
 
-import { $, jQuery} from "jquery";
-import {env} from "jsdom";
+// import { $, jQuery} from "jquery";
+// import {env} from "jsdom";
 
 // const $ = require("jquery");
 
@@ -18,12 +18,12 @@ class Home extends Component {
 
 
 
-    componentDidMount = () => {
+    // componentDidMount = () => {
     
   
-    name();
+
     
-    }
+    // }
     render() {
 
         return (

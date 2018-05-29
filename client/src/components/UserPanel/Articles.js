@@ -17,7 +17,7 @@ class Articles extends Component {
 
     }
   
-<<<<<<< HEAD
+
   }
   handleAddscore() {
     window.location.href = '/admin/addscore';
@@ -35,9 +35,9 @@ class Articles extends Component {
 
         // console.log(response);
         if (response.data.error) {
-          _this.setState({ loading: false })
+          this.setState({ loading: false })
         } else {
-          _this.setState({ Articles: response.data, loading: false ,})
+          this.setState({ Articles: response.data, loading: false ,})
         }
       })
       .catch((error) => {
@@ -48,10 +48,6 @@ class Articles extends Component {
   }
 
  render() {
-<<<<<<< HEAD
-  
-=======
->>>>>>> cecc0a0d4c196234c486ab38bcb024ac05acb4e2
     // console.log(this.state.Articles);
     return (
 
