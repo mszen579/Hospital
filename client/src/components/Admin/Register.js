@@ -39,73 +39,62 @@ class Register extends Component {
     });
   }
 
-  handleSubmit(event) {
+handleSubmit(event) {
     event.preventDefault();
     console.log(this.state);
     let _this = this;
     axios
-      .post("http://localhost:8000/api/admin/register", this.state.data)
-      .then(res => {
+    .post("http://localhost:8000/api/admin/register", this.state.data)
+    .then(res => {
         console.log("res", res);
-        if (!res.data.errors){
-          myswal.fire({
-            position: "top-end",
-            type: "success",
-            title: "Your work has been saved",
-            showConfirmButton: false,
-            timer: 1500
-          });
+        if (!res.data.errors) {
+            myswal.fire({
+                position: "top-end",
+                type: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500
+            });
         }
-         if (res.data.errors) {
-          let mainErrors = res.data.errors;
-          let err_msg = {
-            name: mainErrors.name ? mainErrors.name.msg : "",
-            email: mainErrors.email ? mainErrors.email.msg : "",
-            jobTitle: mainErrors.jobTitle ? mainErrors.jobTitle.msg : "",
-            password: mainErrors.password ? mainErrors.password.msg : "",
-            con_password: mainErrors.con_password
-              ? mainErrors.con_password.msg
-              : ""
-          };
-          _this.setState({
-            error: err_msg,
-            success: ""
-          });
+        if (res.data.errors) {
+            let mainErrors = res.data.errors;
+            let err_msg = {
+                name: mainErrors.name ? mainErrors.name.msg : "",
+                email: mainErrors.email ? mainErrors.email.msg : "",
+                jobTitle: mainErrors.jobTitle ? mainErrors.jobTitle.msg : "",
+                password: mainErrors.password ? mainErrors.password.msg : "",
+                con_password: mainErrors.con_password
+                    ? mainErrors.con_password.msg
+                    : ""
+            };
+            _this.setState({
+                error: err_msg,
+                success: ""
+            });
         } else {
-          _this.setState({
-            data: {
-              name: "",
-              email: "",
-              jobTitle: "",
-              password: "",
-              con_password: ""
-            },
-            error: {
-              name: "",
-              email: "",
-              jobTitle: "",
-              password: "",
-              con_password: ""
-            },
-            success: "Thank you for registering"
-          });
-
-           
-
-
-
-
-
+            _this.setState({
+                data: {
+                    name: "",
+                    email: "",
+                    jobTitle: "",
+                    password: "",
+                    con_password: ""
+                },
+                error: {
+                    name: "",
+                    email: "",
+                    jobTitle: "",
+                    password: "",
+                    con_password: ""
+                },
+                success: "Thank you for registering"
+            });
         }
-      })
-      .catch(error => {
+    })
+    .catch(error => {
         console.log(error);
-      });
-
-
-
-   
-  }
+    });
+}
   render() {
     return (
       <div>

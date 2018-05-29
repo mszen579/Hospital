@@ -169,6 +169,17 @@ var login = (req, res) => {
 app.post('/api/admin/login', logValidation, login);
 
 
+// Login checker
+isLoggedIn = (req, res, next) => {
+    if (req.session.admin) {
+        res.status(200).json(req.session.admin);
+    } else {
+        res.send(false);
+    }
+}
+app.get("/api/isloggedin", isLoggedIn);
+
+
 ////////////////////////////
 app.get('/api/current_Admin', function (req, res) {
   console.log(req.session)
@@ -310,64 +321,64 @@ app.get("/api/update/:_id", function findOneUser(req, res, next) {
 
 
 
-  // .then(function (admin) {
-  //   res.send({
-  //     _id: admin._id,
-  //     email: admin.email,
-  //     firstName: admin.firstName,
-  //   }).populate(admin)
+// .then(function (admin) {
+//   res.send({
+//     _id: admin._id,
+//     email: admin.email,
+//     firstName: admin.firstName,
+//   }).populate(admin)
 
 
 
 
 //Admin Editting the Article
 app.post('/api/:ArticleID/update',
-  // upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
-  // [
-  //   check('title').not().isEmpty().withMessage('Title is required')
-  //     .isLength({ min: 2 }).withMessage('Title should be at least 2 letters')
-  //     ,
-  //   check('location')
-  //     .not().isEmpty().withMessage('Location is required')
-  //     .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
-  //     ,
-  //      check('shortDescription')
-  //     .not().isEmpty().withMessage('Please enter minimum of 10 words').isLength({ min: 10 }),
-      
-  // ],
+    // upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
+    // [
+    //   check('title').not().isEmpty().withMessage('Title is required')
+    //     .isLength({ min: 2 }).withMessage('Title should be at least 2 letters')
+    //     ,
+    //   check('location')
+    //     .not().isEmpty().withMessage('Location is required')
+    //     .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
+    //     ,
+    //      check('shortDescription')
+    //     .not().isEmpty().withMessage('Please enter minimum of 10 words').isLength({ min: 10 }),
 
-  function (req, res) {
-    var errors = validationResult(req);
+    // ],
 
-    if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
-    }
-console.log(req.body)
-    Article.findOne({ _id: req.params.id })
-      .then(function (Article) {
-        Article.title = req.body.title
-        Article.location = req.body.location
-        Article.Video = req.body.Video
-        if (req.files.photo) {
-          Article.profilePic = req.files.photo[0].filename
+    function (req, res) {
+        var errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.send({ errors: errors.mapped() });
         }
-        Article.ShortDescription = req.body.ShortDescription
-      
+        console.log(req.body)
+        Article.findOne({ _id: req.params.id })
+        .then(function (Article) {
+            Article.title = req.body.title
+            Article.location = req.body.location
+            Article.Video = req.body.Video
+            if (req.files.photo) {
+                Article.profilePic = req.files.photo[0].filename
+            }
+            Article.ShortDescription = req.body.ShortDescription
 
-        Article.save()
-          .then(function (article) {
-            res.send(article);
-          })
-          .catch(function (error) {
-            console.log(error);
-            res.send(error);
-          })
-      })
-      .catch(function (error) {
+
+            Article.save()
+                .then(function (article) {
+                    res.send(article);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    res.send(error);
+                })
+        })
+    .catch(function (error) {
         console.log(error);
         res.send(error);
-      })
-  });
+    })
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //Uncomment the code below to add a super admin user
@@ -381,54 +392,54 @@ console.log(req.body)
 
 /////////////register Normal Admin with validations/////////////////////////////////////////////////////////
 // Registeration
-var register = (req, res) => {
-  const admin = new Admin(req.body);
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.send({ status: "error", errors: errors.mapped() });
-  }
-  admin.password = admin.hashPassword(admin.password);
-  admin
-    .save()
-    .then(admin => {
-      return res.send({ status: "success", message: "registerd successfuly" });
-    })
-    .catch(error => {
-      console.log(error);
-      return res.send({ status: "error", message: error });
-    });
+var registerAdmin = (req, res) => {
+    const admin = new Admin(req.body);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.send({ status: "error", errors: errors.mapped() });
+    }
+    admin.jobTitle = "Admin";
+    admin.password = admin.hashPassword(admin.password);
+    admin
+        .save()
+        .then(admin => {
+            return res.send({ status: "success", message: "registerd successfuly" });
+        })
+        .catch(error => {
+            console.log(error);
+            return res.send({ status: "error", message: error });
+        });
 };
 
-app.post(
-  "/api/admin/register",
-  [
-    check("name", "please enter your full name")
-      .not()
-      .isEmpty(),
-    check("name", "your name must not contain any numbers").matches(
-      /^[A-z''., ]+$/i
-    ),
-    check("name", "your name should be more than 4 charchters").isLength({
-      min: 4
-    }),
+app.post("/api/admin/register",
+    [
+        check("name", "please enter your full name")
+            .not()
+            .isEmpty(),
+        check("name", "Your name can not contain any numbers").matches(
+            /^[A-z''., ]+$/i
+        ),
+        check("name", "Your name should be more than 4 characters").isLength({
+            min: 4
+        }),
 
-    check("email", "your email is not valid").isEmail(),
-    check("email", "email already exist").custom(function(value) {
-      return Admin.findOne({ email: value }).then(Admin => !Admin);
-    }),
-    // check("jobTitle", "please enter your full description")
-    //   .not()
-    //   .isEmpty(),
-    // check("jobTitle", "your description must not contain any numbers").isAlpha(),
-    check(
-      "password",
-      "your password should be 5 or more charchters"
-    ).isLength({ min: 5 }),
-    check("con_password", "your password confirmation dose not match").custom(
-      (value, { req }) => value === req.body.password
-    )
-  ],
-  register
+        check("email", "your email is not valid").isEmail(),
+        check("email", "email already exist").custom(function (value) {
+            return Admin.findOne({ email: value }).then(Admin => !Admin);
+        }),
+        // check("jobTitle", "please enter your full description")
+        //   .not()
+        //   .isEmpty(),
+        // check("jobTitle", "your description must not contain any numbers").isAlpha(),
+        check(
+            "password",
+            "your password should be 5 or more characters"
+        ).isLength({ min: 5 }),
+        check("con_password", "your password confirmation dose not match").custom(
+            (value, { req }) => value === req.body.password
+        )
+    ],
+    registerAdmin
 );
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///All Admins///////////////////////////////////////////////////////////////////////
@@ -460,18 +471,18 @@ app.delete('/api/admin/delete/:id', function (req, res) {
 
 
 ///Registering form/////////////////////////////////////////////////////////
-var register = (req, res) => {
+var registerForm = (req, res) => {
 
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-      return res.send({ status: 'error', errors: errors.mapped() })
-  }
-  Form.create(req.body)
-      .then(form => { return res.send({ status: 'success', message: 'FORM registerd successfuly' }) })
-      .catch(error => {
-          console.log(error);
-          return res.send({ status: 'error', message: error })
-      })
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.send({ status: 'error', errors: errors.mapped() })
+    }
+    Form.create(req.body)
+    .then(form => { return res.send({ status: 'success', message: 'FORM registerd successfuly' }) })
+    .catch(error => {
+        console.log(error);
+        return res.send({ status: 'error', message: error })
+    })
 }
 
 app.post('/api/formRegister', [
@@ -479,7 +490,7 @@ app.post('/api/formRegister', [
   check('name', 'please enter your full name').not().isEmpty(),
   check('name', 'your name must not contain any numbers').matches(
     /^[A-z''., ]+$/i),
-  check('name', 'your name should be more than 2 charchters').isLength({ min: 2 }),
+  check('name', 'your name should be more than 2 characters').isLength({ min: 2 }),
 
   check('dateOfBirth', 'please enter your dateOfBirth').not().isEmpty(),
 
@@ -503,7 +514,7 @@ app.post('/api/formRegister', [
   
   check('experience', 'please enter your Experience').not().isEmpty(),
 
-  ], register);
+], registerForm);
 
 ////////////////////////////////////////////////////////////////////////
 //show all volunteers
