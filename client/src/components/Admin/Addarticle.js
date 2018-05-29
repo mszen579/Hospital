@@ -125,31 +125,31 @@ class Addarticle extends Component {
                     <form onSubmit={this.handleSubmit} className="register-form">
                         <div className="left-side">
                             <div className="form-group">
-                                <label htmlFor="exampleInputTitle">Title</label>
-                                <input type="text" name="title" value={this.state.data.title} onChange={this.handleChange} className="form-control" id="exampleInputTitle" placeholder="Title" />
+                                <label htmlFor="exampleInputTitle">Titel</label>
+                                <input type="text" name="title" value={this.state.data.title} onChange={this.handleChange} className="form-control" id="exampleInputTitle" placeholder="Titel" />
                             </div>
                             <p className="text-danger">{this.state.error.title}</p>
                             <div className="form-group">
-                                <label htmlFor="exampleInputLocation">Location</label>
-                                <input type="text" name="location" value={this.state.data.location} onChange={this.handleChange} className="form-control" id="exampleInputLocation" placeholder="Location" />
+                                <label htmlFor="exampleInputLocation">Plaats</label>
+                                <input type="text" name="location" value={this.state.data.location} onChange={this.handleChange} className="form-control" id="exampleInputLocation" placeholder="Plaats" />
                             </div>
                             <p className="text-danger">{this.state.error.location}</p>
  
                             <div className="form-group">
-                                <label htmlFor="exampleInputShortDescription">Description</label>
-                                <textarea type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description"></textarea>
+                                <label htmlFor="exampleInputShortDescription">Nieuwsartikel</label>
+                                <textarea type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Schrijf uw nieuwsartikel hier"></textarea>
                             </div>
                             <p className="text-danger">{this.state.error.shortDescription}</p>
                             </div>
                         <div className="right-side">
                             <div className="form-group">
-                                <label htmlFor="exampleInputPhoto">Photo</label>
-                                <input type="file" name="photo"  onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
+                                <label htmlFor="exampleInputPhoto">Foto</label>
+                                <input type="file" name="photo"  onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" />
                             </div>
                             <p className="text-danger">{this.state.error.photo}</p>
                             <div className="form-group">
-                                <label htmlFor="exampleInputVideo">Video Link</label>
-                                <input type="text" name="video" value={this.state.video} onChange={this.handleChange} className="form-control" id="exampleInputVideo" placeholder="(Optional) Add video Link" />
+                                <label htmlFor="exampleInputVideo">Video-Link</label>
+                                <input type="text" name="video" value={this.state.video} onChange={this.handleChange} className="form-control" id="exampleInputVideo" placeholder="Video-link toevoegen (optioneel)" />
                             </div>
                             <p className="text-danger">{this.state.error.video}</p>
                         </div>

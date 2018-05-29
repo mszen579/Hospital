@@ -1,27 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import AdminNav from './AdminNav';
+import DeleteAdmin from './DeleteAdmin';
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const swal = withReactContent(Swal);
+const swalWithBootstrapButtons = swal.mixin({
+    confirmButtonClass: 'btn btn-success',
+    cancelButtonClass: 'btn btn-danger',
+    buttonsStyling: false,
+})
 
 
-function Result(props) {
-    return (
-
-        props.admins.map((admin) => {
-            return (
-
-                <ul className='admins' key={admin._id}>
-                    <div className="card-body">
-                        <h2 className="card-title">Admin name: {admin.name}</h2>
-                        <h3 className="card-title">Email: {admin.email}</h3>
-                        {/* <button className="btn btn-danger" onClick={this.deleteadmin} to="/">Delete</button> */}
-                        <hr />
-                    </div>
-                </ul>
-
-            )
-        })
-    )
-}
 
 
 class Listofadmins extends Component {
@@ -30,23 +20,12 @@ class Listofadmins extends Component {
         this.state = {
             admins: null
         }
-        this.deleteadmin = this.deleteadmin.bind(this);
+        
     }
 
 
     //deleting admin
-    deleteadmin(event) {
-        event.preventDefault();
-        let _this = this;
-        axios.delete("http://localhost:8000/api/admin/delete/" + this.props.match.params._id)
-            .then(function (response) {
-                _this.setState({ user: null })
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-        window.location.href = "/";
-    }
+    
 
 
     componentDidMount() {
@@ -60,7 +39,20 @@ class Listofadmins extends Component {
                 <AdminNav />
                 <h1>All Registered admins</h1>
 
-                {this.state.admins && <Result admins={this.state.admins} />}
+                {this.state.admins && this.state.admins.map((admin =>{
+                    return(
+                        <ul className='admins' key={admin._id}>
+                            <div className="card-body">
+                                <h3 className="card-title">Admin name: {admin.name}
+                                    <br />Email: {admin.email}
+                                    <br />Admin Rank: {admin.jobTitle}</h3>
+                                <DeleteAdmin key={admin._id} id={admin._id} />
+                                
+                                <hr />
+                            </div>
+                        </ul>
+                    )
+                }))}
             </div>
         );
     }

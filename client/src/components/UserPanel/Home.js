@@ -1,7 +1,7 @@
-//Home.js
-import React, { Component } from 'react';
+import 'react-bootstrap';
 import '../UserStyling/home.js';
 import '../UserStyling/home.css';
+import React, { Component } from 'react';
 
 
 class Home extends Component {

@@ -204,43 +204,44 @@ app.get('/api/admin/logout', function (req, res) {
 
 //Adding article/ create User and Validation
 app.post('/api/Article/register',
-  upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
-  [
-    check('title').not().isEmpty().withMessage('Title is required')
-      .isLength({ min: 2 }).withMessage('Title should be at least 2 letters'),
-    check('location')
-      .not().isEmpty().withMessage('Location is required')
-      .isLength({ min: 2 }).withMessage('Location should be at least 2 letters'),
-     check('shortDescription')
-      .not().isEmpty().withMessage('Description is required').isLength({ min: 10}).withMessage('Minimum 10 characters are required'),
-  ],
-  function (req, res) {
-    var errors = validationResult(req);
-    console.log(errors.mapped());
-    if (!errors.isEmpty()) {
-      // console.log('errors')
-      // console.log(errors.mapped());
-      return res.send({ errors: errors.mapped() });
+    upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
+    [
+        check('title').not().isEmpty().withMessage('Title is required')
+            .isLength({ min: 2 }).withMessage('Title should be at least 2 letters'),
+        check('location')
+            .not().isEmpty().withMessage('Location is required')
+            .isLength({ min: 2 }).withMessage('Location should be at least 2 letters'),
+        check('shortDescription')
+            .not().isEmpty().withMessage('Description is required').isLength({ min: 10 }).withMessage('Minimum 10 characters are required'),
+    ],
+    function (req, res) {
+        var errors = validationResult(req);
+        console.log(errors.mapped());
+        if (!errors.isEmpty()) {
+            // console.log('errors')
+            // console.log(errors.mapped());
+            return res.send({ errors: errors.mapped() });
+        }
+
+        filename = null
+        if (req.files && req.files.photo && req.files.photo[0]) {
+            filename = req.files.photo[0].filename
+        }
+
+        Article.create({
+            title: req.body.title,
+            location: req.body.location,
+            Video: req.body.video,
+            profilePic: filename,
+            ShortDescription: req.body.shortDescription,
+
+        }).then(res.send(Article))
+            .catch(function (error) {
+                console.log(error);
+                res.send(error);
+            })
     }
-
-    filename = null
-    if (req.files && req.files.photo && req.files.photo[0]) {
-      filename = req.files.photo[0].filename
-    }
-
-    Article.create({
-      title: req.body.title,
-      location: req.body.location,
-      Video: req.body.video,
-      profilePic: filename,
-      ShortDescription: req.body.shortDescription,  
-
-    }).then(res.send(Article))
-      .catch(function (error) {
-        console.log(error);
-        res.send(error);
-      })
-  })
+)
 
 //Showing List of Articles
 app.get('/api/listofArticles', function (req, res) {
@@ -516,15 +517,16 @@ app.post('/api/formRegister', [
 
 ////////////////////////////////////////////////////////////////////////
 //show all volunteers
-  app.get('/api/admin/listofVolunteers', function (req, res, next) {
-    Form.find({},  (err, forms) => {
-        if (err) {
-            console.log("Error getting forms" + err);
-            return next();
-        }
-        res.json(forms)
+app.get('/api/admin/listofVolunteers', (req, res, next) => {
+    Form.find()
+    .sort({ createdAt: "desc" })
+    .then(req => {
+        res.json(req);
     })
-  })
+    .catch(error => {
+        res.json(error);
+    })
+})
 ////////////////////////////////////////////////////////////////////////
 
 
