@@ -4,6 +4,9 @@ html, body {
 	margin: 0;
 }
 body {
+
+	background-color: #f0f0f0;
+	min-height: 700px;
     background-image: url("./medical.jpg");
     margin-right: 5px;
     margin-left: 5px;
@@ -15,6 +18,7 @@ body {
       left: 0px; 
       top: 0px; 
       z-index: -1; 
+
 }
 body * {
 	font-family: Arial, Geneva, SunSans-Regular, sans-serif;

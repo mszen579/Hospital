@@ -3,6 +3,12 @@ import '../UserStyling/home.js';
 import '../UserStyling/home.css';
 import React, { Component } from 'react';
 
+
+import "../UserStyling/home.css";
+
+//  import {name} from'../UserStyling/home.js'
+
+
 // import { $, jQuery} from "jquery";
 // import {env} from "jsdom";
 
@@ -16,12 +22,12 @@ class Home extends Component {
 
 
 
-    componentDidMount = () => {
+    // componentDidMount = () => {
     
   
-    // name();
+
     
-    }
+    // }
     render() {
 
         return (

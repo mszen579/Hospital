@@ -1,4 +1,6 @@
 
+
+
 // import { jQuery,$ } from 'jquery';
 
 //   export  function name() {
@@ -20,3 +22,4 @@
 //          pagination: "#pager"
 //      })
 //  } 
+
