@@ -386,7 +386,7 @@ app.post('/api/:ArticleID/update',
                     // name: 'Mohammad',
                     // email: 'mmm@gmail.com',
                     // password: '123123',
-                    // jobTitle: "super"
+                    // jobTitle: "SuperAdmin"
                     // })
 ////////////////////////////////////////////////////////////////////////////////////////////
 

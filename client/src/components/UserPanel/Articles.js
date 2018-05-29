@@ -19,9 +19,7 @@ class Articles extends Component {
         this.componentDidMount = this.componentDidMount.bind(this)
         
     }
-    handleAddscore() {
-        window.location.href = '/admin/addscore';
-    }
+  
     handleEdit() {
         window.location.href = '/admin/editdetails';
     }
