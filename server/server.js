@@ -167,6 +167,10 @@ var login = (req, res) => {
 app.post('/api/admin/login', logValidation, login);
 
 
+// Login checker
+
+
+
 ////////////////////////////
 app.get('/api/current_Admin', function (req, res) {
   console.log(req.session)
@@ -308,64 +312,64 @@ app.get("/api/update/:_id", function findOneUser(req, res, next) {
 
 
 
-  // .then(function (admin) {
-  //   res.send({
-  //     _id: admin._id,
-  //     email: admin.email,
-  //     firstName: admin.firstName,
-  //   }).populate(admin)
+// .then(function (admin) {
+//   res.send({
+//     _id: admin._id,
+//     email: admin.email,
+//     firstName: admin.firstName,
+//   }).populate(admin)
 
 
 
 
 //Admin Editting the Article
 app.post('/api/:ArticleID/update',
-  // upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
-  // [
-  //   check('title').not().isEmpty().withMessage('Title is required')
-  //     .isLength({ min: 2 }).withMessage('Title should be at least 2 letters')
-  //     ,
-  //   check('location')
-  //     .not().isEmpty().withMessage('Location is required')
-  //     .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
-  //     ,
-  //      check('shortDescription')
-  //     .not().isEmpty().withMessage('Please enter minimum of 10 words').isLength({ min: 10 }),
-      
-  // ],
+    // upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
+    // [
+    //   check('title').not().isEmpty().withMessage('Title is required')
+    //     .isLength({ min: 2 }).withMessage('Title should be at least 2 letters')
+    //     ,
+    //   check('location')
+    //     .not().isEmpty().withMessage('Location is required')
+    //     .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
+    //     ,
+    //      check('shortDescription')
+    //     .not().isEmpty().withMessage('Please enter minimum of 10 words').isLength({ min: 10 }),
 
-  function (req, res) {
-    var errors = validationResult(req);
+    // ],
 
-    if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
-    }
-console.log(req.body)
-    Article.findOne({ _id: req.params.id })
-      .then(function (Article) {
-        Article.title = req.body.title
-        Article.location = req.body.location
-        Article.Video = req.body.Video
-        if (req.files.photo) {
-          Article.profilePic = req.files.photo[0].filename
+    function (req, res) {
+        var errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.send({ errors: errors.mapped() });
         }
-        Article.ShortDescription = req.body.ShortDescription
-      
+        console.log(req.body)
+        Article.findOne({ _id: req.params.id })
+        .then(function (Article) {
+            Article.title = req.body.title
+            Article.location = req.body.location
+            Article.Video = req.body.Video
+            if (req.files.photo) {
+                Article.profilePic = req.files.photo[0].filename
+            }
+            Article.ShortDescription = req.body.ShortDescription
 
-        Article.save()
-          .then(function (article) {
-            res.send(article);
-          })
-          .catch(function (error) {
-            console.log(error);
-            res.send(error);
-          })
-      })
-      .catch(function (error) {
+
+            Article.save()
+                .then(function (article) {
+                    res.send(article);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    res.send(error);
+                })
+        })
+    .catch(function (error) {
         console.log(error);
         res.send(error);
-      })
-  });
+    })
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //Uncomment the code below to add a super admin user
