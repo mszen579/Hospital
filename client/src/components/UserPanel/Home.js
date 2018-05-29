@@ -3,8 +3,8 @@ import '../UserStyling/home.js';
 import '../UserStyling/home.css';
 import React, { Component } from 'react';
 
-import { $, jQuery} from "jquery";
-import {env} from "jsdom";
+// import { $, jQuery} from "jquery";
+// import {env} from "jsdom";
 
 // const $ = require("jquery");
 
@@ -19,7 +19,7 @@ class Home extends Component {
     componentDidMount = () => {
     
   
-    name();
+    // name();
     
     }
     render() {

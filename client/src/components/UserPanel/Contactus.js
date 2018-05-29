@@ -39,6 +39,23 @@ export default class Contactus extends Component {
     
   }
 
+  // componentDidMount(){
+  //   function myMap() {
+  //    var myCenter=new google.maps.LatLng(41.878114, -87.629798);
+  //     var mapOptions= {
+  //       center:myCenter,
+  //       zoom:12, scrollwheel: false, draggable: false,
+  //       mapTypeId:google.maps.MapTypeId.ROADMAP
+  //     };
+  //     var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
+    
+  //     var marker = new google.maps.Marker({
+  //       position: myCenter,
+  //     });
+  //     marker.setMap(map);
+  //   }
+  // }
+
 
 
 
@@ -142,8 +159,9 @@ export default class Contactus extends Component {
           </div>
         
           <button type="submit" className="btn btn-primary">
-            Post listing
+            Send message
           </button>
+          <div id="googleMap" style={{height:"400px"}} ></div>
         </form>
             </div>
     );

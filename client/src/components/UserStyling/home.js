@@ -1,22 +1,22 @@
 
-import { jQuery,$ } from 'jquery';
+// import { jQuery,$ } from 'jquery';
 
-  export  function name() {
+//   export  function name() {
      
-var $=require('jquery');
-      $.noConflict();
+// var $=require('jquery');
+//       $.noConflict();
 
   
-     $("#carousel").carouFredSel({
-         width: 800,
-         items: 3,
-         scroll: 1,
-         auto: {
-             duration: 1250,
-             timeoutDuration: 2500
-         },
-         prev: "#prev",
-         next: "#next",
-         pagination: "#pager"
-     })
- } 
+//      $("#carousel").carouFredSel({
+//          width: 800,
+//          items: 3,
+//          scroll: 1,
+//          auto: {
+//              duration: 1250,
+//              timeoutDuration: 2500
+//          },
+//          prev: "#prev",
+//          next: "#next",
+//          pagination: "#pager"
+//      })
+//  } 
