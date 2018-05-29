@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import Moment from "react-moment";
 import {Link} from 'react-router-dom';
+
+
+
 export default class Singlearticle extends Component {
     constructor(props) {
         super(props);
@@ -15,10 +18,12 @@ export default class Singlearticle extends Component {
             }
         }
         
-
-    }
+     }
      
       
+
+
+
 
       componentDidMount() {
         axios.get('http://localhost:8000/Article/profileinfo/'+this.props.match.params.id)
@@ -46,7 +51,9 @@ export default class Singlearticle extends Component {
                 {this.state.data && <p>{this.state.data.ShortDescription}</p>}
                 <button className="btn btn-secondary" onClick={() => window.print()}>PRINT</button>
                 <Link className="btn btn-warning" to="/News">Back</Link>
+               
                 <br />
+                
                 <br />
                 </div>
             </div>

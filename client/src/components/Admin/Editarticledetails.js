@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import AdminNav from './AdminNav';
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const swal = withReactContent(Swal);
+const swalWithBootstrapButtons = swal.mixin({
+    confirmButtonClass: 'btn btn-success',
+    cancelButtonClass: 'btn btn-danger',
+    buttonsStyling: false,
+})
+
 
 class Editarticledetails extends Component {
     constructor(props) {
@@ -29,9 +38,64 @@ class Editarticledetails extends Component {
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
+        this.deleteArt = this.deleteArt.bind(this);
     }
 
   
+
+  //deleting Article
+  deleteArt(event){
+    event.preventDefault();
+     
+    
+      swalWithBootstrapButtons({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          reverseButtons: true,
+         
+      }).then((result) => {
+          if (result.value) {
+              axios
+                  .delete(`http://localhost:8000/api/admin/article/delete/${this.props.match.params.id}`)
+                  .then(function (response) {
+
+                  })
+                  .catch(function (error) {
+                      console.log(error);
+                  });
+              swalWithBootstrapButtons(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success',
+                  window.location.href = "/Admin-panel/DashboardArticle"
+              )
+          
+          } else if 
+          
+          (
+              // Read more about handling dismissals
+              result.dismiss === swal.DismissReason.cancel
+          ) {
+              swalWithBootstrapButtons(
+                  'Cancelled',
+                  'Your imaginary file is safe :)',
+                  'error'
+              )
+              
+          }
+      })
+
+  }
+
+
+
+
+
+
     handleUpdate(event) {
         event.preventDefault();
         let _this = this;
@@ -59,7 +123,7 @@ class Editarticledetails extends Component {
                 } else {
                     _this.setState({
 
-                        success: 'Student details updated successfully'
+                        success: 'Article details updated successfully'
                     })
                 }
             })
@@ -175,6 +239,7 @@ class Editarticledetails extends Component {
               <button type="submit" className="btn btn-primary submit">
                 Update
               </button>
+              <button className="btn btn-danger" onClick={this.deleteArt}>Delete</button>
             </form>
           </div>;
     }

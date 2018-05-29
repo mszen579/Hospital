@@ -4,7 +4,8 @@ var app = express();
 var mongoose = require('mongoose');
 var cors = require('cors');
 var bodyParser = require('body-parser');
-
+//for email sending purposes
+app.use(bodyParser.urlencoded({extended: true}));
 //modoles db 
 var Article = require('./Models/Article');
 var Admin = require('./Models/Admin');
@@ -19,6 +20,7 @@ var mime = require('mime-types');
 var randomstring = require('randomstring');
 var path = require('path');
 var nodemailer = require('nodemailer');
+
 
 
 
@@ -540,10 +542,51 @@ app.get('/api/admin/singleVolunteer/:_id', (req, res, next) => {
 })
 ////////////////////////////////////////////////////////////////////////
 
+///Delete Article/////////////////////////////////////////////////////
+app.delete('/api/admin/article/delete/:id', function (req, res) {
+  Article.findById(req.params.id)
+    .then(function (form) {
+      form.remove()
+        .then(function () {
+          res.send({ status: 'success', message: ' Article removed ' })
+        });
+    });
+});
+/////////////////////////////////////////////////////////////////////////
+//sending a contact form..
+
+// POST route from contact form
+app.post('/api/contactus', function (req, res) {
+  let mailOpts, smtpTrans;
+  smtpTrans = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: "ibrahimwho579@gmail.com",
+      pass: "@sdf1234"
+     }
+  });
+  mailOpts = {
+    from: req.body.name + ' &lt;' + req.body.email + '&gt;',
+    to: "ibrahimwho579@gmail.com",
+    subject: 'New message from contact form',
+    text: `${req.body.name} (${req.body.email}) says: ${req.body.desc}`
+  };
+  smtpTrans.sendMail(mailOpts, function (error, response) {
+    if (error) {
+      res.render('contact-failure');
+    }
+    else {
+      res.render('contact-success');
+    }
+  });
+});
 
 
 
 
+////////////////////////////////////////////////////////////////////////
 app.listen(8000, function () {
   console.log('listening on port 8000');
 })
