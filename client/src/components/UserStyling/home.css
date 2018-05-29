@@ -1,112 +1,94 @@
-html,
+html, body {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
 body {
-    height: 100%;
-    padding: 0;
-    margin: 0;
-}
-
-body {
-    background: #def;
-    min-height: 600px;
-}
-
-body * {
-    font-family: Arial, Geneva, SunSans-Regular, sans-serif;
-    font-size: 14px;
-    color: #333;
-    line-height: 22px;
-}
-
-#wrapper {
-    width: 960px;
-    height: 560px;
-    margin: -280px 0 0 -480px;
-    overflow: hidden;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-}
-
-#overlay {
-    background: #def;
-    width: 300px;
-    height: 560px;
-    overflow: hidden;
-    position: absolute;
-    left: -300px;
-    top: 0;
-    z-index: 1;
-    -webkit-transition: left .5s ease;
-    -moz-transition: left .5s ease;
-    transition: left .5s ease;
-}
-
-#wrapper:hover #overlay {
-    left: 0px;
-}
-
-#description {
-    padding-top: 40px;
-    width: 250px;
-    margin-left: 450px;
-    -webkit-transition: margin .5s ease;
-    -moz-transition: margin .5s ease;
-    transition: margin .5s ease;
-}
-
-#wrapper:hover #description {
-    margin-left: 0px;
-}
-
-#description h3 {
-    color: #69c;
-    font-size: 35px;
-    font-weight: normal;
-    text-align: right;
-    line-height: 30px;
-    margin: 30px 0;
-}
-
-#description p {
-    font-size: 13px;
-    text-align: justify;
-}
-
-#wrapper .caroufredsel_wrapper {
-    margin-left: 0px !important;
-    -webkit-transition: margin .5s ease;
-    -moz-transition: margin .5s ease;
-    transition: margin .5s ease;
-}
-
-#wrapper:hover .caroufredsel_wrapper {
-    margin-left: 150px !important;
-}
-
-#carousel img {
-    display: block;
-    float: left;
-}
-
-#pager {
+<<<<<<< HEAD
+	background-color: #f0f0f0;
+	min-height: 700px;
+=======
+    background-image: url("./medical.jpg");
+    margin-right: 5px;
+    margin-left: 5px;
+    padding: 5px;
+    font-family: sans-serif;
     text-align: center;
-    padding: 40px 20px 0 0;
+      width: 100%; 
+      height: 100%; 
+      left: 0px; 
+      top: 0px; 
+      z-index: -1; 
+>>>>>>> 8b3a3f129e2edee80a26fbe813d84c9d03bc3bc5
 }
-
+body * {
+	font-family: Arial, Geneva, SunSans-Regular, sans-serif;
+	font-size: 14px;
+	color: #333;
+	line-height: 22px;
+}
+ 
+#wrapper {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 100px;
+	width: 800px;
+	height: 127px;
+	padding: 10px;
+	margin: -75px 0 0 -410px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+}
+.caroufredsel_wrapper {
+	border-radius: 90px;
+}
+#carousel img {
+	width: 201px;
+	height: 127px;
+	margin: 0 5px;
+	float: left;
+}
+#prev, #next {
+	/*  */
+	text-indent: -999px;
+	display: block;
+	overflow: hidden;
+	width: 15px;
+	height: 21px;
+	position: absolute;
+	top: 65px;
+}
+#prev {
+	background-position: 0 0;
+	left: 30px;
+}
+#prev:hover {
+	left: 29px;
+}			
+#next {
+	background-position: -18px 0;
+	right: 30px;
+}
+#next:hover {
+	right: 29px;
+}				
+#pager {
+	text-align: center;
+	margin: 0 auto;
+	padding-top: 20px;
+}
 #pager a {
-    border-radius: 5px;
-    background: #69c;
-    display: block;
-    width: 10px;
-    height: 10px;
-    margin: 0 5px;
-    float: right;
+	
+	text-decoration: none;
+	text-indent: -999px;
+	display: inline-block;
+	overflow: hidden;
+	width: 8px;
+	height: 8px;
+	margin: 0 5px 0 0;
 }
-
 #pager a.selected {
-    background: #333;
-}
 
-#pager span {
-    display: none;
+	text-decoration: underline;				
 }

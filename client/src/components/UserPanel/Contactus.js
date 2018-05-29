@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+//apply confirmation
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const swal = withReactContent(Swal);
+const swalWithBootstrapButtons = swal.mixin({
+    confirmButtonClass: 'btn btn-success',
+    cancelButtonClass: 'btn btn-danger',
+    buttonsStyling: false,
+})
 
 
 
@@ -26,7 +35,7 @@ export default class Contactus extends Component {
       success: ""
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitEmail = this.handleSubmitEmail.bind(this);
     
   }
 
@@ -41,58 +50,57 @@ export default class Contactus extends Component {
     });
   }
 
-  handleSubmit(event) {
+ 
+
+  //send message
+  handleSubmitEmail(event){
     event.preventDefault();
-    console.log(this.state);
-    let _this = this;
-    axios
-      .post("https://formspree.io/ibrahimwho579@gmail.com", this.state.data)
-      .then(res => {
-        console.log("res", res);
-        if (res.data.errors) {
-          let mainErrors = res.data.errors;
-          let err_msg = {
-            name: mainErrors.name ? mainErrors.name.msg : "",
-            desc: mainErrors.desc ? mainErrors.desc.msg : "",
-            email: mainErrors.email ? mainErrors.email.msg : "",
-
-          };
-          _this.setState({
-            error: err_msg,
-            success: ""
-          });
-        } else {
-          _this.setState({
-           
-            data: {
-              name: "",
-              desc: "",
-              email: "",
-
-            },
-            error: {
-             
-              name: "",
-              desc: "",
-              email: "",
-
-            },
-            success: "Thank you"
-          });
-        }
+     
+    
+      swalWithBootstrapButtons({
+          title: 'Notification!!!',
+          text: "Your message will be sent!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No, cancel!',
+          reverseButtons: true,
+         
+      }).then((result) => {
+          if (result.value) {
+               let _this = this;
+                      axios
+                        .post("http://localhost:8000/api/contactus", this.state.data).then(function (response) {
+                  })
+                  .catch(function (error) {
+                      console.log(error);
+                  });
+              swalWithBootstrapButtons(
+                  'Success',
+                  'Your message has been sent to us. We will get back to you shorlty',
+                  'success',
+                  window.location.href = '/Contactus'
+              )
+          } else if 
+          (
+              // Read more about handling dismissals
+              result.dismiss === swal.DismissReason.cancel
+          ) {
+              swalWithBootstrapButtons(
+                  'Cancelled',
+                  'Your message did not sent:)',
+                  'error'
+              )
+          }
       })
-      .catch(error => {
-        console.log(error);
-      });
   }
 
   render() {
     return (
       <div>
-       
         <br />
         <h1>Contact us...</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmitEmail}>
           <div className="form-group">
             <label htmlFor="exampleInputname">Name</label>
             <input
@@ -102,7 +110,7 @@ export default class Contactus extends Component {
               onChange={this.handleChange}
               className="form-control"
               id="exampleInputname"
-              placeholder="Name"
+              placeholder="Name" required
             />
             <h3 className="text-danger">{this.state.error.name}</h3>
           </div>
@@ -115,7 +123,7 @@ export default class Contactus extends Component {
               onChange={this.handleChange}
               className="form-control"
               id="exampleInputdesc"
-              placeholder="Message"
+              placeholder="Message" required
             />
             <h3 className="text-danger">{this.state.error.desc}</h3>
           </div>
@@ -128,7 +136,7 @@ export default class Contactus extends Component {
               onChange={this.handleChange}
               className="form-control"
               id="exampleInputjobemail"
-              placeholder="Email"
+              placeholder="Email" required
             />
             <h3 className="text-danger">{this.state.error.email}</h3>
           </div>
@@ -137,15 +145,7 @@ export default class Contactus extends Component {
             Post listing
           </button>
         </form>
-        {this.state.success === "" ? (
-          <p />
-        ) : (
-          <p className="text-success">{this.state.success}</p>
-        )}
-        <br />
-        <br />
-      
-      </div>
+            </div>
     );
   }
 }

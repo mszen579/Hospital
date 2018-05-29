@@ -4,10 +4,8 @@ body {
   padding: 5px;
   font-family: sans-serif;
   text-align: center;
-  background-image: url("http://drexel.edu/~/media/Images/medicine/backgrounds/backgroundGrayMolecule.ashx");
-  width: 100%; 
+    width: 100%; 
     height: 100%; 
-    
     left: 0px; 
     top: 0px; 
     z-index: -1; /* Ensure div tag stays behind content; -999 might work, too. */
@@ -18,7 +16,7 @@ hr{
 }
 h1{
   color: gray;
-  font-weight: bold;
+  font-weight: 1000;
 }
 h3{
   color: red;
@@ -49,7 +47,7 @@ ul {
   margin: auto;
   padding: auto;
   overflow: hidden;
-  background-color: lightslategray;
+  background-color: gray;
   opacity: 0.8;
   border-radius: 8px;
   width: 98%

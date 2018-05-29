@@ -4,7 +4,8 @@ var app = express();
 var mongoose = require('mongoose');
 var cors = require('cors');
 var bodyParser = require('body-parser');
-
+//for email sending purposes
+app.use(bodyParser.urlencoded({extended: true}));
 //modoles db 
 var Article = require('./Models/Article');
 var Admin = require('./Models/Admin');
@@ -19,6 +20,7 @@ var mime = require('mime-types');
 var randomstring = require('randomstring');
 var path = require('path');
 var nodemailer = require('nodemailer');
+
 
 
 
@@ -102,20 +104,20 @@ app.post('/Article/search', validateArticleId, function (req, res) {
 })
 
 
-// Getting the Article profile using id
+// Getting the Article details using id/////////////////////////
 
 
-app.post('/Article/profileinfo/:id', function (req, res) {
+app.get('/Article/profileinfo/:id', function (req, res) {
   console.log(req.params.id);
   console.log(req.body);
 
-  Article.findOne({"ArticleID" : req.params.id})
-    .then(function (user) {
-      if (!user) {
+  Article.findOne({"_id" : req.params.id})
+    .then(function (article) {
+      if (!article) {
         return res.send({ status: 'error', message: 'Article not found' });
       }
-      console.log(user);
-      res.send(user);
+      console.log(article);
+      res.send(article);
     })
     .catch(function (error) {
       console.log(error);
@@ -124,7 +126,7 @@ app.post('/Article/profileinfo/:id', function (req, res) {
 })
 
 
-/////////////Admin login
+/////////////Admin login////////////////////////////
 const logValidation = [
     check("email")
         .not()
@@ -247,7 +249,7 @@ app.post('/api/Article/register',
 app.get('/api/listofArticles', function (req, res) {
   Article.find({})
     .sort({
-      ArticleId: 'desc'
+      createdAt: 'desc'
     })
      .then((Articles) => {
       res.send(Articles);
@@ -256,7 +258,6 @@ app.get('/api/listofArticles', function (req, res) {
       res.send({ status: error, message: 'Cannot find Articles' });
     })
 })
-
 
 
 
@@ -553,8 +554,48 @@ app.get('/api/admin/singleVolunteer/:_id', (req, res, next) => {
 })
 ////////////////////////////////////////////////////////////////////////
 
+///Delete Article/////////////////////////////////////////////////////
+app.delete('/api/admin/article/delete/:id', function (req, res) {
+  Article.findById(req.params.id)
+    .then(function (form) {
+      form.remove()
+        .then(function () {
+          res.send({ status: 'success', message: ' Article removed ' })
+        });
+    });
+});
+/////////////////////////////////////////////////////////////////////////
+//sending a contact form..
 
+// POST route from contact form
+app.post('/api/contactus', function (req, res) {
+  let mailOpts, smtpTrans;
+  smtpTrans = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: "ibrahimwho579@gmail.com",
+      pass: "@sdf1234"
+     }
+  });
+  mailOpts = {
+    from: req.body.name + ' &lt;' + req.body.email + '&gt;',
+    to: "ibrahimwho579@gmail.com",
+    subject: 'New message from contact form',
+    text: `${req.body.name} (${req.body.email}) says: ${req.body.desc}`
+  };
+  smtpTrans.sendMail(mailOpts, function (error, response) {
+    if (error) {
+      res.render('contact-failure');
+    }
+    else {
+      res.render('contact-success');
+    }
+  });
+});
 
+////////////////////////////////////////////////////////////////////////
 
 
 app.listen(8000, function () {
