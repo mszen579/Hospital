@@ -307,15 +307,6 @@ app.get("/api/update/:_id", function findOneUser(req, res, next) {
 });
 
 
-
-
-// .then(function (admin) {
-//   res.send({
-//     _id: admin._id,
-//     email: admin.email,
-//     firstName: admin.firstName,
-//   }).populate(admin)
-//Admin Editting the Article
 app.post('/api/:_id/update',
     upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
     [

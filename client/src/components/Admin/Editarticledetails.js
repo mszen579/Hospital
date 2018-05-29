@@ -124,8 +124,9 @@ class Editarticledetails extends Component {
                     this.setState({
 
                         success: 'Article details updated successfully'
+                        
                     })
-                }
+                }window.location.href = '/Admin-panel/DashboardArticle'
             })
             .catch(error => console.log(error))
 
