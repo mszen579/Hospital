@@ -307,7 +307,7 @@ app.get("/api/update/:_id", function findOneUser(req, res, next) {
 });
 
 
-<<<<<<< HEAD
+
 
 // .then(function (admin) {
 //   res.send({
@@ -332,10 +332,9 @@ app.post('/api/:_id/update',
 
    
 
-=======
+
 //Admin Editting the Article
-app.post('/api/update/:ArticleID',
->>>>>>> 35714c98657a7d0e01621dab36455d93e2a03a54
+
 
 
     function (req, res,next) {
