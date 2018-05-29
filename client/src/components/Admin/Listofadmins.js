@@ -18,8 +18,12 @@ class Listofadmins extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            admin:{
+
+            },
             admins: null
         }
+        this.componentDidMount = this.componentDidMount.bind(this);
         
     }
 
@@ -30,7 +34,20 @@ class Listofadmins extends Component {
 
     componentDidMount() {
         axios.get('http://localhost:8000/api/admin/alladmins')
-            .then((res) => this.setState({ admins: res.data }))
+        .then((res) => this.setState({ admins: res.data }))
+
+        axios.get('http://localhost:8000/api/isloggedin')
+        .then((res) => {
+            if (res.data.error) {
+                this.setState({ loading: false })
+            } else if (res.data.jobTitle === 'SuperAdmin') {
+                this.setState({ admin: res.data, loading: false })
+            } else if (res.data.jobTitle === 'Admin'){
+                window.location.href = "/Admin-panel/DashboardArticle"
+            } else {
+                window.location.href = "/adminwsq"
+            }
+        });
     }
 
     render() {

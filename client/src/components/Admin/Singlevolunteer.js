@@ -46,7 +46,7 @@ export default class Singlevolunteer extends Component {
             }
         }
         
-
+        this.componentDidMount = this.componentDidMount.bind(this);
         this.deleteVol = this.deleteVol.bind(this);
     }
 
@@ -100,6 +100,18 @@ export default class Singlevolunteer extends Component {
             .then((res) => {
                 this.setState({ data: res.data })
             });
+
+        axios.get('http://localhost:8000/api/isloggedin')
+        .then((res) => {
+            console.log(res);
+            if (res.data.error) {
+                this.setState({ loading: false })
+            } else if (res.data.jobTitle === 'SuperAdmin' || res.data.jobTitle === 'Admin') {
+                this.setState({ admin: res.data, loading: false })
+            } else {
+                window.location.href = "/adminwsq"
+            }
+        });
     }
 
       

@@ -25,7 +25,8 @@ class Addarticle extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
-        }
+        this.componentDidMount = this.componentDidMount.bind(this);
+    }
 
     handlePhotoChange(event) {
         var formData = this.state.data;
@@ -42,7 +43,6 @@ class Addarticle extends Component {
     }
     handleSubmit(event) {
         event.preventDefault();
-        let _this = this;
 
         let formData = new FormData();
         formData.append('title', this.state.data.title);
@@ -63,11 +63,11 @@ class Addarticle extends Component {
                         shortDescription: mainErr.shortDescription ? mainErr.shortDescription.msg : '',
                         photo: mainErr.photo ? mainErr.photo.msg : ''
                     };
-                    _this.setState({
+                    this.setState({
                         error: errMsg
                     });
                 } else {
-                    _this.setState({
+                    this.setState({
                         data: {
                             title: '',
                             location: '',
@@ -81,6 +81,9 @@ class Addarticle extends Component {
                             video: '',
                             photo: '',
                         },
+                        admin: {
+
+                        },
                         success: 'Article Registered successfully'
                     })
                 }
@@ -88,26 +91,38 @@ class Addarticle extends Component {
             .catch(error => console.log(error))
     }
 
-  
 
-    componentDidMount(){
-        let _this = this;
+    componentDidMount() {
         axios.get("http://localhost:8000/api/admin/Article/class/list")
-            .then((response) => {
-                console.log(response);
-                if (response.data.error) {
-                    _this.setState({ loading: false })
-                } else {
-                    let newData = this.state.data;
-                    newData.ArticleClass = response.data[0]._id;
-                    _this.setState({ ArticleClasses: response.data, loading: false })
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        .then((response) => {
+            if (response.data.error) {
+                this.setState({ loading: false })
+            } else {
+                let newData = this.state.data;
+                newData.ArticleClass = response.data[0]._id;
+                this.setState({ ArticleClasses: response.data, loading: false })
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+        axios.get('http://localhost:8000/api/isloggedin')
+        .then((res) => {
+            if (res.data.error) {
+                this.setState({ loading: false })
+            } else if (res.data.jobTitle === 'SuperAdmin' || res.data.jobTitle === 'Admin') {
+                this.setState({ admin: res.data, loading: false })
+            } else {
+                window.location.href = "/adminwsq"
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        });
 
     }
+    
     render() {
         return (
             <div className="register-std">
@@ -134,17 +149,17 @@ class Addarticle extends Component {
                                 <input type="text" name="location" value={this.state.data.location} onChange={this.handleChange} className="form-control" id="exampleInputLocation" placeholder="Plaats" />
                             </div>
                             <p className="text-danger">{this.state.error.location}</p>
- 
+
                             <div className="form-group">
                                 <label htmlFor="exampleInputShortDescription">Nieuwsartikel</label>
                                 <textarea type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Schrijf uw nieuwsartikel hier"></textarea>
                             </div>
                             <p className="text-danger">{this.state.error.shortDescription}</p>
-                            </div>
+                        </div>
                         <div className="right-side">
                             <div className="form-group">
                                 <label htmlFor="exampleInputPhoto">Foto</label>
-                                <input type="file" name="photo"  onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" />
+                                <input type="file" name="photo" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" />
                             </div>
                             <p className="text-danger">{this.state.error.photo}</p>
                             <div className="form-group">
