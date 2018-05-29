@@ -52,8 +52,8 @@ class Dashboardvolunteers extends Component {
           <table className="table table-hover">
             <thead>
               <tr>
-              
-                <th scope="col" colSpan={1}>name</th>
+              <th scope="col" colSpan={0}>Name</th>
+                <th scope="col" colSpan={1}></th>
                 <th scope="col" colSpan={2}>Received at</th>
                 <th scope="col" colSpan={3}>More</th>
 
@@ -65,7 +65,7 @@ class Dashboardvolunteers extends Component {
                 console.log(Form);
                 return (
                   <tr key={Form._id}>
-                  <td colSpan={1}>{Form.name}</td>
+                  <td colSpan={0}>{Form.name}</td>
                   <td colSpan={2}>
                       <Moment className="text-muted" format="Do MMM YYYY">
                         {Form.createdAt}

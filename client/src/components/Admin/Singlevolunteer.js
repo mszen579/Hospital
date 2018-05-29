@@ -67,26 +67,18 @@ export default class Singlevolunteer extends Component {
                   axios
                       .delete(`http://localhost:8000/api/admin/vol/delete/${this.props.match.params.id}`)
                       .then(function (response) {
-                        
-                          
-                        
+  
                       })
                       .catch(function (error) {
                           console.log(error);
                       });
-
-
                   swalWithBootstrapButtons(
                       'Deleted!',
                       'Your file has been deleted.',
                       'success',
                       window.location.href = "/Admin-panel/Dashboardvolunteers"
                   )
-
-                      
-
-                  
-               
+              
               } else if 
               
               (
@@ -99,14 +91,9 @@ export default class Singlevolunteer extends Component {
                       'error'
                   )
                   
-
               }
-
-
           })
 
-         
-        
       }
 
       componentDidMount() {
