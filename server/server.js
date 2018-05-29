@@ -327,58 +327,56 @@ app.get("/api/update/:_id", function findOneUser(req, res, next) {
 //     email: admin.email,
 //     firstName: admin.firstName,
 //   }).populate(admin)
-
-
-
-
 //Admin Editting the Article
-app.post('/api/:ArticleID/update',
-    // upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
-    // [
-    //   check('title').not().isEmpty().withMessage('Title is required')
-    //     .isLength({ min: 2 }).withMessage('Title should be at least 2 letters')
-    //     ,
-    //   check('location')
-    //     .not().isEmpty().withMessage('Location is required')
-    //     .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
-    //     ,
-    //      check('shortDescription')
-    //     .not().isEmpty().withMessage('Please enter minimum of 10 words').isLength({ min: 10 }),
+app.post('/api/:_id/update',
+    upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
+    [
+      check('title').not().isEmpty().withMessage('Title is required')
+        .isLength({ min: 2 }).withMessage('Title should be at least 2 letters')
+        ,
+      check('location')
+        .not().isEmpty().withMessage('Location is required')
+        .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
+    
 
-    // ],
+    ],
 
-    function (req, res) {
+
+   
+
+
+
+    function (req, res,next) {
         var errors = validationResult(req);
 
         if (!errors.isEmpty()) {
             return res.send({ errors: errors.mapped() });
         }
         console.log(req.body)
-        Article.findOne({ _id: req.params.id })
-        .then(function (Article) {
-            Article.title = req.body.title
-            Article.location = req.body.location
-            Article.Video = req.body.Video
-            if (req.files.photo) {
-                Article.profilePic = req.files.photo[0].filename
+
+        Article.findByIdAndUpdate(req.params._id, req.body, function (err, article) {
+            if (!article)
+                return next(new Error('you not load Document'));
+            else {
+                // do your updates here
+                article.title = req.body.title
+                article.location = req.body.location
+                article.Video = req.body.Video
+                if (req.files.photo) {
+                    article.profilePic = req.files.photo[0].filename
+                }
+                article.ShortDescription = req.body.ShortDescription
+
+                article.save().then(item => {
+                    res.json('Update complete');
+                })
+                    .catch(err => {
+                        res.status(400).send("unable to update the database");
+                    });
             }
-            Article.ShortDescription = req.body.ShortDescription
-
-
-            Article.save()
-                .then(function (article) {
-                    res.send(article);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                    res.send(error);
-                })
         })
-    .catch(function (error) {
-        console.log(error);
-        res.send(error);
-    })
-});
+    });
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 //Uncomment the code below to add a super admin user
