@@ -17,6 +17,7 @@ class Articles extends Component {
 
     }
   
+<<<<<<< HEAD
   }
   handleAddscore() {
     window.location.href = '/admin/addscore';
@@ -56,6 +57,41 @@ class Articles extends Component {
 
 
 
+=======
+  }
+  handleAddscore() {
+    window.location.href = '/admin/addscore';
+  }
+  handleEdit()
+  {
+    window.location.href='/admin/editdetails';
+  }
+
+
+  componentDidMount() {
+    let _this = this;
+    axios.get("http://localhost:8000/api/listofArticles")
+      .then((response) => {
+
+        // console.log(response);
+        if (response.data.error) {
+          _this.setState({ loading: false })
+        } else {
+          _this.setState({ Articles: response.data, loading: false ,})
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+
+  }
+
+ render() {
+    let _this = this;
+    // console.log(this.state.Articles);
+    return (
+>>>>>>> 8b3a3f129e2edee80a26fbe813d84c9d03bc3bc5
       <div>
         <h1>All News</h1>
         <div className="table-responsive-md">
