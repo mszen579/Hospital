@@ -16,13 +16,39 @@ class Articles extends Component {
 
 
 
+        }
+        this.componentDidMount = this.componentDidMount.bind(this)
+        
+    }
+  
+    handleEdit() {
+        window.location.href = '/admin/editdetails';
+    }
+
+
+    componentDidMount() {
+
+        axios.get("http://localhost:8000/api/listofArticles")
+            .then((response) => {
+
+                // console.log(response);
+                if (response.data.error) {
+                    this.setState({ loading: false })
+                } else {
+                    this.setState({ Articles: response.data, loading: false, })
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
+
+
     }
   
 
-  }
-  handleAddscore() {
-    window.location.href = '/admin/addscore';
-  }
+  
+
   handleEdit()
   {
     window.location.href='/admin/editdetails';

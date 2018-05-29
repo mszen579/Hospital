@@ -4,6 +4,7 @@ import axios from 'axios';
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Moment from "react-moment";
+import {Link} from 'react-router-dom';
 const swal = withReactContent(Swal);
 
 
@@ -162,7 +163,9 @@ export default class Singlevolunteer extends Component {
                     <br />
                     <br />
                     <button className="btn btn-danger" onClick={this.deleteVol}>Delete</button>
+                    <Link className="btn btn-warning" to="/Admin-panel/Dashboardvolunteers">Back</Link>
                 </div>
+               
             </div>
         )
     }

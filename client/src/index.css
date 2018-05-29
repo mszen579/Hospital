@@ -68,3 +68,12 @@ li a {
 li a:hover {
   background-color: lightblue;
 }
+
+.admins{
+  background-color: transparent;
+  width: 30%;
+  
+}
+.card-title{
+  color: black;
+}

@@ -125,7 +125,7 @@ app.get('/Article/profileinfo/:id', function (req, res) {
     })
 })
 
-
+////////////////////////////////////////////////////////////////////////
 /////////////Admin login////////////////////////////
 const logValidation = [
     check("email")
@@ -180,7 +180,7 @@ isLoggedIn = (req, res, next) => {
 app.get("/api/isloggedin", isLoggedIn);
 
 
-////////////////////////////
+///////////Session for current admin/////////////////////////////////////////////////////
 app.get('/api/current_Admin', function (req, res) {
   console.log(req.session)
   if (req.session.admin) {
@@ -197,14 +197,15 @@ app.get('/api/current_Admin', function (req, res) {
   }
 });
 
-
+////////////////////////////////////////////////////////////////////////////////////////
 ///Log Out
 app.get('/api/admin/logout', function (req, res) {
   req.session.destroy();
   res.send({ message: 'session destroyed' })
 });
 
-//Adding article/ create User and Validation
+///////////////////////////////////////////////////////////////////////////////////////////////
+//Adding article and Validation
 app.post('/api/Article/register',
     upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
     [
@@ -259,7 +260,7 @@ app.get('/api/listofArticles', function (req, res) {
     })
 })
 
-
+/////////////////////////////////////////////////////////////////////////////////////
 
 //Admin Article View Profile
 app.get('/api/Article/:ArticleID/viewprofile', function (req, res) {
@@ -294,23 +295,9 @@ app.post('/api/admin/:ArticleID/enablebadges',function(req,res){
 
 })
 
-
+///////////////////////////EDITING///////////////////////////////////////////////////
 
 //Admin Getting Article to Edit
-
-// app.get('/api/:ArticleID/getedititem', function (req, res) {
-
-//   console.log('request get', req.body);
-
-//   Article.findOne({ArticleID:req.params.id})
-//     .then(article => {
-//       res.json(article);
-//     })
-//     .catch(function(error) {
-//       console.log(error);
-//     });
-// })
-
 
 
 app.get("/api/update/:_id", function findOneUser(req, res, next) {
@@ -320,6 +307,7 @@ app.get("/api/update/:_id", function findOneUser(req, res, next) {
 });
 
 
+<<<<<<< HEAD
 
 // .then(function (admin) {
 //   res.send({
@@ -344,6 +332,10 @@ app.post('/api/:_id/update',
 
    
 
+=======
+//Admin Editting the Article
+app.post('/api/update/:ArticleID',
+>>>>>>> 35714c98657a7d0e01621dab36455d93e2a03a54
 
 
     function (req, res,next) {
@@ -384,7 +376,7 @@ app.post('/api/:_id/update',
                     // name: 'Mohammad',
                     // email: 'mmm@gmail.com',
                     // password: '123123',
-                    // jobTitle: "super"
+                    // jobTitle: "SuperAdmin" //this one will define the Admin level
                     // })
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -440,8 +432,9 @@ app.post("/api/admin/register",
     registerAdmin
 );
 ///////////////////////////////////////////////////////////////////////////////////////////
+
 ///All Admins///////////////////////////////////////////////////////////////////////
-//all users
+
 app.get('/api/admin/alladmins', function (req, res, next) {
   Admin.find({}, ['name', 'email', 'jobTitle'], (err, admins) => {
       if (err) {
@@ -540,6 +533,7 @@ app.delete('/api/admin/vol/delete/:id', function (req, res) {
     });
 });
 
+/////////////////////////////////////////////////////////////////////////
 ///Single volunteers/////////////////////////////////////////////////////
 app.get('/api/admin/singleVolunteer/:_id', (req, res, next) => {
   Form.findOne({ _id: req.params._id }, (err, form) => {
@@ -563,9 +557,7 @@ app.delete('/api/admin/article/delete/:id', function (req, res) {
     });
 });
 /////////////////////////////////////////////////////////////////////////
-//sending a contact form..
-
-// POST route from contact form
+// Send email using contact form////////////////////////////////////
 app.post('/api/contactus', function (req, res) {
   let mailOpts, smtpTrans;
   smtpTrans = nodemailer.createTransport({

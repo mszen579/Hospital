@@ -197,7 +197,7 @@ class Editarticledetails extends Component {
     }
     render() {
 
-        return <div className="editStudentDetails">
+        return <div className="editArticleDetails">
             <AdminNav />
             <h3>Edit your message</h3>
             <form onSubmit={this.handleUpdate}>
@@ -238,7 +238,7 @@ class Editarticledetails extends Component {
                         <label htmlFor="exampleInputPhoto">
                             Profile Photo
                   </label>
-                        <input type="file" name="photo" accept="image/*" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
+                        <input type="file" name="photo" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
                     </div>
                     <p className="text-danger">
                         {this.state.error.profilePic}
