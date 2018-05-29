@@ -8,6 +8,8 @@
     "dateformat": "^3.0.3",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "jquery": "^3.3.1",
+    "jsdom": "^11.11.0",
     "moment": "^2.22.1",
     "mongoose": "^5.0.16",
     "params": "^0.1.1",
@@ -29,5 +31,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "babel-plugin-dynamic-import-node": "^1.2.0"
   }
 }
