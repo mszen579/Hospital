@@ -15,7 +15,7 @@ import Articles from './components/UserPanel/Articles';
 import Aboutus from './components/UserPanel/Aboutus';
 import Header from './components/UserPanel/Header';
 import Footer from './components/UserPanel/Footer';
-// import Singlearticle from './components/UserPanel/Singlearticle';
+import Singlearticle from './components/UserPanel/Singlearticle';
 
 
 
@@ -53,7 +53,7 @@ class App extends Component {
             <Route path='/Admin-panel/DashboardArticle' component={Dashboardarticle} />
             <Route path='/Admin-panel/Dashboardvolunteers' component={Dashboardvolunteers} />
             <Route path='/Admin-panel/:id/EditArticle' component={Editarticledetails} />
-            {/* <Route path='/:id/SingleArticle' component={Singlearticle} /> */}
+            <Route path='/:id/SingleArticle' component={Singlearticle} />
             <Route path='/Admin-panel/allAdmins' component={Listofadmins} />
             <Route path='/Admin-panel/:id/Singlevolunteer' component={Singlevolunteer} />
             
