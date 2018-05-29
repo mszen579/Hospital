@@ -32,7 +32,7 @@ class Articles extends Component {
     axios.get("http://localhost:8000/api/listofArticles")
       .then((response) => {
 
-        console.log(response);
+        // console.log(response);
         if (response.data.error) {
           _this.setState({ loading: false })
         } else {
@@ -46,12 +46,9 @@ class Articles extends Component {
 
   }
 
- 
-
-
-  render() {
+ render() {
     let _this = this;
-    console.log(this.state.Articles);
+    // console.log(this.state.Articles);
     return (
       <div>
         <h1>All News</h1>

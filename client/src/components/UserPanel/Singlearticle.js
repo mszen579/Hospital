@@ -38,8 +38,9 @@ export default class Singlearticle extends Component {
 
         
         return (
+     
             <div>
-                <div>
+                <div id="print-mount">
                 {this.state.data && <h1>{this.state.data.title}</h1>}
                 {this.state.data && <p><strong>Video link: </strong> {this.state.data.Video}</p>}<br />
                 {this.state.data &&
@@ -57,6 +58,7 @@ export default class Singlearticle extends Component {
                 <br />
                 </div>
             </div>
+          
         )
     }
 }
