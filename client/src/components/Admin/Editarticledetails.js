@@ -22,15 +22,14 @@ class Editarticledetails extends Component {
                 title: '',
                 location: '',
                 ShortDescription: '',
-                Video: '',
-                profilePic: ''
+                Video: ''
+               
             },
             error: {
                 title: '',
                 location: '',
                 ShortDescription: '',
-                video: '',
-                profilePic: ''
+                video: ''                
             },
             success: '',
             loading: true,
@@ -38,7 +37,6 @@ class Editarticledetails extends Component {
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handlePhotoChange = this.handlePhotoChange.bind(this);
-        this.componentDidMount = this.componentDidMount.bind(this);
         this.deleteArt = this.deleteArt.bind(this);
     }
 
@@ -103,10 +101,10 @@ class Editarticledetails extends Component {
 
         let formData = new FormData();
         formData.append('title', this.state.data.title);
-        formData.append('Location', this.state.data.location);
-        formData.append('shortDescription', this.state.data.ShortDescription);
-        formData.append('video', this.state.data.video);
-        formData.append("profilePic", this.state.data.profilePic);
+        formData.append('location', this.state.data.location);
+        formData.append('ShortDescription', this.state.data.ShortDescription);
+        formData.append('Video', this.state.data.video);
+        formData.append("photo", this.state.data.photo);
 
         axios.post(`http://localhost:8000/api/${this.props.match.params.id}/update`, formData)
             .then(res => {
@@ -116,7 +114,8 @@ class Editarticledetails extends Component {
                     let errMsg = {
                         title: mainErr.title ? mainErr.title.msg : '',
                         location: mainErr.location ? mainErr.location.msg : '',
-                        ShortDescription: mainErr.ShortDescription ? mainErr.ShortDescription.msg : ''
+                        ShortDescription: mainErr.ShortDescription ? mainErr.ShortDescription.msg : '',
+                        photo: mainErr.photo ? mainErr.photo.msg : ''
                     }
                     this.setState({
                         error: errMsg
@@ -159,23 +158,21 @@ class Editarticledetails extends Component {
     }
 
     componentDidMount() {
+
+
         axios.get(`http://localhost:8000/api/update/${this.props.match.params.id}`)
-            .then(function (response) {
-                console.log(response.data);
+            .then( (res)=> {
+                console.log(res.data);
                 // _this.setState({data:response.data})
-                if (response.data.error) {
+                if (res.data.error) {
                     this.setState({ loading: false });
                 } else {
-                    let newData = this.state.data;
-                    newData.title = response.data.title;
-                    newData.location = response.data.location;
-                    newData.ShortDescription = response.data.ShortDescription;
-                    newData.Video = response.data.Video;
+                  
 
                     this.setState({
-                        data: newData,
+                        data: res.data,
                         currentPicture: `http://localhost:8000/uploads/${
-                            response.data.profilePic
+                            res.data.profilePic
                             }`
                     });
                 }
@@ -183,6 +180,8 @@ class Editarticledetails extends Component {
             .catch(function (error) {
                 console.log(error);
             });
+
+
         axios.get('http://localhost:8000/api/isloggedin')
             .then((res) => {
                 console.log(res);
