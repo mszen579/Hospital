@@ -125,7 +125,7 @@ app.get('/Article/profileinfo/:id', function (req, res) {
     })
 })
 
-
+////////////////////////////////////////////////////////////////////////
 /////////////Admin login////////////////////////////
 const logValidation = [
     check("email")
@@ -180,7 +180,7 @@ isLoggedIn = (req, res, next) => {
 app.get("/api/isloggedin", isLoggedIn);
 
 
-////////////////////////////
+///////////Session for current admin/////////////////////////////////////////////////////
 app.get('/api/current_Admin', function (req, res) {
   console.log(req.session)
   if (req.session.admin) {
@@ -197,14 +197,15 @@ app.get('/api/current_Admin', function (req, res) {
   }
 });
 
-
+////////////////////////////////////////////////////////////////////////////////////////
 ///Log Out
 app.get('/api/admin/logout', function (req, res) {
   req.session.destroy();
   res.send({ message: 'session destroyed' })
 });
 
-//Adding article/ create User and Validation
+///////////////////////////////////////////////////////////////////////////////////////////////
+//Adding article and Validation
 app.post('/api/Article/register',
     upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
     [
@@ -259,7 +260,7 @@ app.get('/api/listofArticles', function (req, res) {
     })
 })
 
-
+/////////////////////////////////////////////////////////////////////////////////////
 
 //Admin Article View Profile
 app.get('/api/Article/:ArticleID/viewprofile', function (req, res) {
@@ -294,23 +295,9 @@ app.post('/api/admin/:ArticleID/enablebadges',function(req,res){
 
 })
 
-
+///////////////////////////EDITING///////////////////////////////////////////////////
 
 //Admin Getting Article to Edit
-
-// app.get('/api/:ArticleID/getedititem', function (req, res) {
-
-//   console.log('request get', req.body);
-
-//   Article.findOne({ArticleID:req.params.id})
-//     .then(article => {
-//       res.json(article);
-//     })
-//     .catch(function(error) {
-//       console.log(error);
-//     });
-// })
-
 
 
 app.get("/api/update/:_id", function findOneUser(req, res, next) {
@@ -320,32 +307,8 @@ app.get("/api/update/:_id", function findOneUser(req, res, next) {
 });
 
 
-
-// .then(function (admin) {
-//   res.send({
-//     _id: admin._id,
-//     email: admin.email,
-//     firstName: admin.firstName,
-//   }).populate(admin)
-
-
-
-
 //Admin Editting the Article
-app.post('/api/:ArticleID/update',
-    // upload.fields([{ name: 'photo', maxCount: 1 }]), //multer files upload
-    // [
-    //   check('title').not().isEmpty().withMessage('Title is required')
-    //     .isLength({ min: 2 }).withMessage('Title should be at least 2 letters')
-    //     ,
-    //   check('location')
-    //     .not().isEmpty().withMessage('Location is required')
-    //     .isLength({ min: 2 }).withMessage('Lastname should be at least 2 letters')
-    //     ,
-    //      check('shortDescription')
-    //     .not().isEmpty().withMessage('Please enter minimum of 10 words').isLength({ min: 10 }),
-
-    // ],
+app.post('/api/update/:ArticleID',
 
     function (req, res) {
         var errors = validationResult(req);
@@ -386,7 +349,7 @@ app.post('/api/:ArticleID/update',
                     // name: 'Mohammad',
                     // email: 'mmm@gmail.com',
                     // password: '123123',
-                    // jobTitle: "SuperAdmin"
+                    // jobTitle: "SuperAdmin" //this one will define the Admin level
                     // })
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -442,8 +405,9 @@ app.post("/api/admin/register",
     registerAdmin
 );
 ///////////////////////////////////////////////////////////////////////////////////////////
+
 ///All Admins///////////////////////////////////////////////////////////////////////
-//all users
+
 app.get('/api/admin/alladmins', function (req, res, next) {
   Admin.find({}, ['name', 'email', 'jobTitle'], (err, admins) => {
       if (err) {
@@ -542,6 +506,7 @@ app.delete('/api/admin/vol/delete/:id', function (req, res) {
     });
 });
 
+/////////////////////////////////////////////////////////////////////////
 ///Single volunteers/////////////////////////////////////////////////////
 app.get('/api/admin/singleVolunteer/:_id', (req, res, next) => {
   Form.findOne({ _id: req.params._id }, (err, form) => {
@@ -565,9 +530,7 @@ app.delete('/api/admin/article/delete/:id', function (req, res) {
     });
 });
 /////////////////////////////////////////////////////////////////////////
-//sending a contact form..
-
-// POST route from contact form
+// Send email using contact form////////////////////////////////////
 app.post('/api/contactus', function (req, res) {
   let mailOpts, smtpTrans;
   smtpTrans = nodemailer.createTransport({

@@ -56,10 +56,11 @@ class AdminNav extends Component {
                         {this.state.admin && <h1> Hello, {this.state.admin.name}</h1>}&nbsp;&nbsp;&nbsp;&nbsp;
                         <NavLink exact to="/Admin-panel/DashboardArticle" style={{ color: 'white' }}>List of articles</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
                         <NavLink exact to="/Admin-panel/AddArticle" style={{ color: 'white' }}>Adding article</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <NavLink exact to="/Admin-panel/Register" style={{ color: 'white' }}>Add Admin</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                       
                         <NavLink exact to="/Admin-panel/allAdmins" style={{ color: 'white' }}>List of Admins</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <NavLink exact to="/Admin-panel/Register" style={{ color: 'white' }}>Add Admin</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
                         <NavLink exact to="/Admin-panel/Dashboardvolunteers" style={{ color: 'white' }}>List of Volunteer Aplications</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a style={{ cursor: 'pointer' }} className="text-danger" onClick={this.handleLogOut}><strong>Logout</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a style={{ cursor: 'pointer' }} style={{ color: 'red' }} onClick={this.handleLogOut}><strong style={{ color: 'red' }}>Logout</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
                     </ul>
                     <br />
                 </nav>

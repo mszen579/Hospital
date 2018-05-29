@@ -54,7 +54,7 @@ class Listofadmins extends Component {
         return (
             <div>
                 <AdminNav />
-                <h1>All Registered admins</h1>
+                <h1>All registered admins</h1>
 
                 {this.state.admins && this.state.admins.map((admin =>{
                     return(
@@ -63,10 +63,10 @@ class Listofadmins extends Component {
                                 <h3 className="card-title">Admin name: {admin.name}
                                     <br />Email: {admin.email}
                                     <br />Admin Rank: {admin.jobTitle}</h3>
-                                <DeleteAdmin key={admin._id} id={admin._id} />
-                                
+                                <DeleteAdmin key={admin._id} id={admin._id} /><br/>
                                 <hr />
                             </div>
+                            
                         </ul>
                     )
                 }))}
