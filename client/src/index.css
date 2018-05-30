@@ -7,7 +7,8 @@ body {
     left: 0px; 
     top: 0px; 
     z-index: -1; /* Ensure div tag stays behind content; -999 might work, too. */
-}
+     text-shadow: 1px 1px  lightgray; 
+  }
 hr{
   border-top:solid 1px;
   width: 100%;
@@ -49,7 +50,8 @@ ul {
   background-image: url("../src/components/UserStyling/header.jpg");
   opacity: 0.8;
   border-radius: 8px;
-  width: 99.5%
+  width: 99.5%;
+  text-shadow: none; 
 }
 
 li {
@@ -70,9 +72,8 @@ li a:hover {
 }
 
 .admins{
-  background-color: transparent;
+  background-image: none;
   width: 30%;
-  
 }
 .card-title{
   color: black;
@@ -101,15 +102,7 @@ tr:nth-child(even) {
   
 }
 
-footer{
-  position: relative;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  color: white;
-  text-align: center;
-  margin-top: 250px;
-}
+
 
 
 
