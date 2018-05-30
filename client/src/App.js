@@ -59,7 +59,7 @@ class App extends Component {
             
             <Route render={function(){
                 return (
-                <p> Not Found
+                <p> 404 Page Not Found
                 <br />
                       <Link className='btn nav-link btn-success' to='/'>
                       Back to Homepage

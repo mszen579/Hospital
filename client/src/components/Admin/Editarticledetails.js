@@ -4,6 +4,7 @@ import moment from 'moment';
 import AdminNav from './AdminNav';
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+
 const swal = withReactContent(Swal);
 const swalWithBootstrapButtons = swal.mixin({
     confirmButtonClass: 'btn btn-success',
@@ -29,7 +30,7 @@ class Editarticledetails extends Component {
                 title: '',
                 location: '',
                 ShortDescription: '',
-                video: ''                
+                Video: ''                
             },
             success: '',
             loading: true,
@@ -62,7 +63,6 @@ class Editarticledetails extends Component {
                 axios
                     .delete(`http://localhost:8000/api/admin/article/delete/${this.props.match.params.id}`)
                     .then(function (response) {
-
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -71,13 +71,11 @@ class Editarticledetails extends Component {
                     'Deleted!',
                     'Your file has been deleted.',
                     'success',
-                    window.location.href = "/Admin-panel/DashboardArticle"
+                     window.location.href = "/Admin-panel/DashboardArticle"
+                    // this.props.history.push(`/Admin-panel/DashboardArticle`)
                 )
-
             } else if
-
             (
-                // Read more about handling dismissals
                 result.dismiss === swal.DismissReason.cancel
             ) {
                 swalWithBootstrapButtons(
@@ -103,7 +101,7 @@ class Editarticledetails extends Component {
         formData.append('title', this.state.data.title);
         formData.append('location', this.state.data.location);
         formData.append('ShortDescription', this.state.data.ShortDescription);
-        formData.append('Video', this.state.data.video);
+        formData.append('Video', this.state.data.Video);
         formData.append("photo", this.state.data.photo);
 
         axios.post(`http://localhost:8000/api/${this.props.match.params.id}/update`, formData)
@@ -126,7 +124,9 @@ class Editarticledetails extends Component {
                         success: 'Article details updated successfully'
                         
                     })
-                }window.location.href = '/Admin-panel/DashboardArticle'
+                } window.location.href = "/Admin-panel/DashboardArticle"
+                // this.props.history.push(`/Admin-panel/DashboardArticle`)
+
             })
             .catch(error => console.log(error))
 
@@ -233,20 +233,24 @@ class Editarticledetails extends Component {
                     </p>
                 </div>
 
-                <div className="right-side">
+
+                <div>
                     <div className="form-group">
                         {this.state.currentPicture && <img src={this.state.currentPicture} width="100" height="100" />}
-                        <label htmlFor="exampleInputPhoto">
-                            Profile Photo
-                  </label>
-                        <input type="file" name="photo" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" placeholder="Photo" />
+                        <label class="custom-file-upload" htmlFor="exampleInputPhoto">
+                        <i class="fa fa-cloud-upload"></i> Profile Photo
+                        <input type="file" name="photo" onChange={this.handlePhotoChange} id="exampleInputPhoto" placeholder="Photo" />
+                        </label>
                     </div>
                     <p className="text-danger">
                         {this.state.error.profilePic}
                     </p>
                 </div>
                 <p className="text-success">{this.state.success}</p>
-                <button type="submit" className="btn btn-primary submit">
+
+
+
+            <button type="submit" className="btn btn-primary submit">
                     Update
               </button>
                 <button className="btn btn-danger" onClick={this.deleteArt}>Delete</button>

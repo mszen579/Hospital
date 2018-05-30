@@ -29,6 +29,7 @@ class AdminNav extends Component {
                 console.log(error);
             })
         window.location.href = '/adminwsq'
+       
     }
 
     componentDidMount() {
@@ -53,10 +54,9 @@ class AdminNav extends Component {
                 <nav className="navbar navbar-expand-lg navbar-dark">
 
                     <ul className="nav navbar-nav">
-                        {this.state.admin && <h1> Hello, {this.state.admin.name}</h1>}&nbsp;&nbsp;&nbsp;&nbsp;
+                        {this.state.admin && <h1 style={{ color: 'white' }}> Welcome, {this.state.admin.name}, your level is: <span style={{ color: 'red' }}>"{this.state.admin.jobTitle}"</span></h1>}&nbsp;&nbsp;&nbsp;&nbsp;
                         <NavLink exact to="/Admin-panel/DashboardArticle" style={{ color: 'white' }}>List of articles</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
                         <NavLink exact to="/Admin-panel/AddArticle" style={{ color: 'white' }}>Adding article</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                       
                         <NavLink exact to="/Admin-panel/allAdmins" style={{ color: 'white' }}>List of Admins</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
                         <NavLink exact to="/Admin-panel/Register" style={{ color: 'white' }}>Add Admin</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
                         <NavLink exact to="/Admin-panel/Dashboardvolunteers" style={{ color: 'white' }}>List of Volunteer Aplications</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;

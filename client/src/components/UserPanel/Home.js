@@ -17,17 +17,8 @@ import "../UserStyling/home.css";
 
 class Home extends Component {
 
-
-
-
-
-
     // componentDidMount = () => {
-    
-  
-
-    
-    // }
+      // }
     render() {
 
         return (

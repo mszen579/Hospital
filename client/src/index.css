@@ -1,7 +1,5 @@
 body {
-  margin-right: 5px;
-  margin-left: 5px;
-  padding: 5px;
+  
   font-family: sans-serif;
   text-align: center;
     width: 100%; 
@@ -11,8 +9,9 @@ body {
     z-index: -1; /* Ensure div tag stays behind content; -999 might work, too. */
 }
 hr{
-  border-top:solid 5px;
-  width: 300px;
+  border-top:solid 1px;
+  width: 100%;
+  
 }
 h1{
   color: gray;
@@ -47,21 +46,22 @@ ul {
   margin: auto;
   padding: auto;
   overflow: hidden;
-  background-color: gray;
+  background-image: url("../src/components/UserStyling/header.jpg");
   opacity: 0.8;
   border-radius: 8px;
-  width: 98%
+  width: 99.5%
 }
 
 li {
   float: left;
+  height:50px;
 }
 
 li a {
   display: block;
   color: white;
   text-align: center;
-  padding: 10px 10px; 
+  padding: 1px 1px; 
   text-decoration: none;
 }
 
@@ -77,3 +77,61 @@ li a:hover {
 .card-title{
   color: black;
 }
+
+
+
+
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  
+}
+
+tr:nth-child(even) {
+  background-color: #87D5EC;
+  
+}
+
+footer{
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  margin-top: 250px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* //attachment css */
+
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+

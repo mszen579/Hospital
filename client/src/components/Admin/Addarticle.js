@@ -68,6 +68,7 @@ class Addarticle extends Component {
                     });
                 } else {
                     this.setState({
+                        currentPicture: null,
                         data: {
                             title: '',
                             location: '',
@@ -91,6 +92,25 @@ class Addarticle extends Component {
             .catch(error => console.log(error))
     }
 
+
+    handlePhotoChange(event) {
+        if (event.target.files && event.target.files[0]) {
+            let reader = new FileReader();
+            let file = event.target.files[0];
+
+            var formData = this.state.data;
+            formData[event.target.name] = event.target.files[0]
+
+            reader.onloadend = () => {
+                this.setState({
+                    currentPicture: reader.result, // this is an image url
+                    data: formData,
+                });
+            }
+
+            reader.readAsDataURL(file)
+        }
+    }
 
     componentDidMount() {
         axios.get("http://localhost:8000/api/admin/Article/class/list")
@@ -155,19 +175,24 @@ class Addarticle extends Component {
                                 <textarea type="text" name="shortDescription" value={this.state.data.shortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Schrijf uw nieuwsartikel hier"></textarea>
                             </div>
                             <p className="text-danger">{this.state.error.shortDescription}</p>
-                        </div>
-                        <div className="right-side">
-                            <div className="form-group">
-                                <label htmlFor="exampleInputPhoto">Foto</label>
-                                <input type="file" name="photo" onChange={this.handlePhotoChange} className="form-control" id="exampleInputPhoto" />
-                            </div>
-                            <p className="text-danger">{this.state.error.photo}</p>
+                                </div>
+
+ {this.state.currentPicture && <img src={this.state.currentPicture} width="100" height="100" />}
+                                <div>   
+                                <label class="custom-file-upload">
+                                <input type="file" name="photo" onChange={this.handlePhotoChange}/>
+                                <i class="fa fa-cloud-upload"></i> Upload
+                                </label>
+                                <br/>
+                                <p className="text-danger">{this.state.error.photo}</p>
+                                </div>
+
+
                             <div className="form-group">
                                 <label htmlFor="exampleInputVideo">Video-Link</label>
                                 <input type="text" name="video" value={this.state.video} onChange={this.handleChange} className="form-control" id="exampleInputVideo" placeholder="Video-link toevoegen (optioneel)" />
                             </div>
-                            <p className="text-danger">{this.state.error.video}</p>
-                        </div>
+                            <p className="text-danger">{this.state.error.Video}</p>
                         <p className="text-success">{this.state.success}</p>
 
                         <button type="submit" className="btn btn-primary subbut">Add news</button>

@@ -51,7 +51,7 @@ export default class Singlearticle extends Component {
                 {this.state.data && <p><strong>Location: </strong>{this.state.data.location}</p>}
                 {this.state.data && <p><strong>Description: </strong>{this.state.data.ShortDescription}</p>}
                 <button className="btn btn-secondary" onClick={() => window.print()}>PRINT</button>
-                <Link className="btn btn-warning" to="/News">Back</Link>
+                <Link className="btn btn-warning" to="/News">Back to News</Link>
                
                 <br />
                 

@@ -117,6 +117,7 @@ export default class Contactus extends Component {
             <textarea
               type="text"
               name="desc"
+              rows="7"
               value={this.state.data.desc}
               onChange={this.handleChange}
               className="form-control"
@@ -143,22 +144,7 @@ export default class Contactus extends Component {
           </button>
         </form>
         <br/>
-              <table style={{width:"100%"}}>
-              <tr>
-              <th>Address</th>
-              <th>Contact</th> 
-              <th>Opening hours</th>
-              <th>Social Media</th>
-              </tr>
-              <tr>
-                          <td>Kelbergen 189 1104 LJ Amsterdam</td>
-                          <td>(06) 442 70 584
-                          info@hospiceamsterdamzuidoost.nl </td> 
-                          <td>Mon-Fri: 9:00 am to 5:30 pm
-                          (after opening the hospice is available 24 hours)</td>
-                          <td></td>
-              </tr>
-              </table>
+        
               <br/>
         <section id="googleMap">
           <iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Kelbergen+189,+1104+LJ+Amsterdam&amp;aq=&amp;sll=30.977609,-95.712891&amp;sspn=42.157377,86.572266&amp;ie=UTF8&amp;hq=&amp;hnear=Kelbergen+189,+1104+LJ+Amsterdam&amp;t=m&amp;z=14&amp;ll=52.310129,4.974043&amp;output=embed"></iframe>
