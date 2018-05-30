@@ -1,7 +1,7 @@
 import { createConfirmation } from 'react-confirm';
 
 // create confirm function
-const confirm = createConfirmation('Want to delete?');
+const confirm = createConfirmation('Wilt u Verwijderen?');
 
 // This is optional. But I recommend to define your confirm function easy to call.
 export default function(confirmation, options = {}) {

@@ -78,7 +78,7 @@ class Singleadmin extends Component {
 
                 {this.state.admininfo && <Detail adminData={this.state.admininfo} />}
                 <br />
-                <Link className="btn btn-danger" onClick={this.deleteadmin} to="/">Delete this admin</Link>
+                <Link className="btn btn-danger" onClick={this.deleteadmin} to="/">Verwijder deze Admin</Link>
             </div>
         );
     }

@@ -63,7 +63,7 @@ export default class DeleteAdmin extends Component {
     render() {
         return (
             <div>
-                <button className="btn btn-danger" onClick={this.deleteadmin} >Delete</button>
+                <button className="btn btn-danger" onClick={this.deleteadmin} >Verwijderen</button>
             </div>
         )
     }

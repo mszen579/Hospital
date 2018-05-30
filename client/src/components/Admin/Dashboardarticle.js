@@ -63,7 +63,7 @@ class Dashboardarticle extends Component {
         return (
             <div>
                 <AdminNav />
-                <h1>Admin Dashboard</h1>
+                <h1>Alle Nieuws Artikelen</h1>
 
                 <div className="table-responsive-md">
                     <table className="table table-hover">
@@ -88,8 +88,8 @@ class Dashboardarticle extends Component {
                                         </td>
                                         <td colSpan={3}>{Article.title}</td>
 
-                                        <td><Link className="btn btn-primary" to={`/Admin-Panel/${Article._id}/EditArticle`}>Edit</Link></td>
-                                        <td><Link className="btn btn-primary" to={`/${Article._id}/SingleArticle`}>View details</Link></td>
+                                        <td><Link className="btn btn-primary" to={`/Admin-Panel/${Article._id}/EditArticle`}>Bewerken</Link></td>
+                                        <td><Link className="btn btn-primary" to={`/${Article._id}/SingleArticle`}>Bekijk details</Link></td>
                                     </tr>
                                 )
                             }.bind(this))}

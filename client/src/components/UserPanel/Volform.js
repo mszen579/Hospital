@@ -353,7 +353,7 @@ export default class Volform extends Component {
          <div className="form-group">
                         <label htmlFor="exampleInputmarigeStatus">Marige Status</label>
                         <select className="form-control" name="marigeStatus" id="exampleInputmarigeStatus" onChange={this.handleChange} value={this.state.data.marigeStatus}>
-                            <option key={1} value='Getrouwdt'>Getrouwdt</option>
+                            <option key={1} value='Getrouwdt'>Getrouwd</option>
                             <option key={2} value='Ongehuwd'>Ongehuwd</option>
                             <option key={3} value='Gescheiden'>Gescheiden</option>
                         </select>
