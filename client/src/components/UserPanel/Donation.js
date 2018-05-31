@@ -11,7 +11,7 @@ class Donation extends Component {
       <br/>
       <br/>
       <br/>
-      <h1> Fundraising </h1>
+      <h1> Fund Raising </h1>
 
 
 
