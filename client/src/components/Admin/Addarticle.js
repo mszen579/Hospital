@@ -146,7 +146,10 @@ class Addarticle extends Component {
     render() {
         return (
             <div className="register-std">
-
+  <br />
+            <br />
+            <br />
+         
                 <AdminNav />
 
                 <h1>Artikel Toevoegen</h1>
@@ -179,9 +182,9 @@ class Addarticle extends Component {
 
  {this.state.currentPicture && <img src={this.state.currentPicture} width="100" height="100" />}
                                 <div>   
-                                <label class="custom-file-upload">
-                                <input type="file" name="photo" onChange={this.handlePhotoChange}/>
-                                <i class="fa fa-cloud-upload"></i> Foto
+                                <label className="custom-file-upload">
+                                <i className="fa fa-cloud-upload"></i> Foto
+                                <input  type="file" name="photo" style={{display: "none"}} onChange={this.handlePhotoChange}/>
                                 </label>
                                 <br/>
                                 <p className="text-danger">{this.state.error.photo}</p>

@@ -27,11 +27,11 @@ export default class Header extends Component {
                       </button>
                       <a className="navbar-brand logoicon" href="index.html">
                         {" "}
-                        <Link className="" to={"/"}>
-                          <img src={require("../../assests/logoicon.ico")} width="60" alt="logo" />
+                        <Link  to={"/"}>
+                          <img className="logoicon" style={{"margin-top" : "-20px"}}  src={require("../../assests/logoicon.ico")} width="60" alt="logo" />
                         </Link>
                       </a>
-                      <a className="navbar-brand" href="index.html">
+                      <a className="navbar-brand" style={{"margin-top" : "5px"}} href="index.html">
                         Hospice <br /> <span>Amsterdam Zuid-Oost</span>
                       </a>
                     </div>

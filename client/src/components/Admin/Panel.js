@@ -32,6 +32,9 @@ class Panel extends Component {
     render() {
         return (
             <div className="Panel">
+              <br />
+            <br />
+      
                 <AdminNav />
                 <h1>Het Admin Paneel</h1>
                 <p>

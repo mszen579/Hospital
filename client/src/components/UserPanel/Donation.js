@@ -7,6 +7,10 @@ class Donation extends Component {
   render() {
     return (
       <div className="Donation">
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <h1> Fundraising </h1>
 
 

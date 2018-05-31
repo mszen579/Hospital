@@ -48,6 +48,11 @@ class Login extends Component {
         var changeHandler= this.changeHandler;
         return (
             <div className='loginform'>
+            <br />
+            <br />
+            <br />
+            <br />
+         
                 <h1>Inloggen</h1>
                 {this.state.err && <h3>{this.state.err}</h3> }
                 <form onSubmit={this.submitHandler}>

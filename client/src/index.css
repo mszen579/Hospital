@@ -19,7 +19,7 @@
 	.Volunteer2{
 	 display: block;
 		
-			margin-left:340px;
+			margin-left:380px;
 			width: 70%;
 			text-align: center;
 			
@@ -30,15 +30,10 @@
 	margin-top: -370px;
 	
 	}
-	.logoicon{
-	margin-top: auto;
-	margin-bottom: auto;
-	padding-top:0px;
 	
-	}
-	
+
+
 	.table-responsive-md{
-	
 		height:250px;
 	}
 	
@@ -52,3 +47,19 @@ body{
 	margin-right: auto;
 	width: 40%;
 }	
+
+
+
+
+/* //attachment css */
+
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}

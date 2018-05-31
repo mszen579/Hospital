@@ -239,7 +239,7 @@ class Editarticledetails extends Component {
                         {this.state.currentPicture && <img src={this.state.currentPicture} width="100" height="100" />}
                         <label class="custom-file-upload" htmlFor="exampleInputPhoto">
                         <i class="fa fa-cloud-upload"></i> Foto
-                        <input type="file" name="photo" onChange={this.handlePhotoChange} id="exampleInputPhoto" placeholder="Photo" />
+                        <input type="file" style={{display: "none"}}  name="photo" onChange={this.handlePhotoChange} id="exampleInputPhoto" placeholder="Photo" />
                         </label>
                     </div>
                     <p className="text-danger">
