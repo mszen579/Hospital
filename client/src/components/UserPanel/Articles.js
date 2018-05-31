@@ -93,7 +93,7 @@ class Articles extends Component {
                     <Moment className="text-muted" format="DD MMM YYYY">
                     {article.createdAt}
                     </Moment>
-                    <div><Link className="btn btn-primary" to={`/${article._id}/SingleArticle`}>Read this article</Link></div><br/><hr/>
+                    <div><Link className="text-primary" to={`/${article._id}/SingleArticle`}>Read more</Link></div><br/><hr/>
                  </div>
                 )
           }.bind(this))}

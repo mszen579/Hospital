@@ -81,7 +81,7 @@ export default class Volform extends Component {
     axios
       .post("http://localhost:8000/api/formRegister", this.state.data)
       .then(res => {
-        console.log("res", res);
+       // console.log("res", res);
         if (res.data.errors) {
           let mainErrors = res.data.errors;
           let err_msg = {

@@ -22,7 +22,7 @@ Hospice Amsterdam Zuidoost is therefore looking for a group of 75 - 100 voluntee
 
 If you are interested, fill in the form below (by pressing the button) and  mail it to: info@hospiceamsterdamzuidoost.nl . For more information please call (06) 442 70 584.
 <hr />
-<Link className="btn btn-primary" to='/Volform'>Be Volunteer, Register with us</Link>
+<Link className="btn btn-primary" to='/Volform'>Be a Volunteer, Register here</Link>
       </div>
     );
   }

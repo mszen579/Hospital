@@ -7,10 +7,12 @@ class Footer extends Component {
     render() {
         return (
 
-<footer >
+
+<footer className="footer-distributed">
 footer
 </footer>
-      
+
+     
         );
     }
 }
