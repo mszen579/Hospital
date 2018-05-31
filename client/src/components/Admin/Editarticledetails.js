@@ -200,17 +200,17 @@ class Editarticledetails extends Component {
 
         return <div className="editArticleDetails">
             <AdminNav />
-            <h3>Edit your message</h3>
+            <h3>Nieuws Artikel Bijwerken</h3>
             <form onSubmit={this.handleUpdate}>
                 <div className="left-side">
                     <div className="form-group">
-                        <label htmlFor="exampleInputtitle">Title</label>
-                        <input type="text" name="title" value={this.state.data.title} onChange={this.handleChange} className="form-control" id="exampleInputtitle" placeholder="Title" />
+                        <label htmlFor="exampleInputtitle">Titel</label>
+                        <input type="text" name="title" value={this.state.data.title} onChange={this.handleChange} className="form-control" id="exampleInputtitle" placeholder="Titel" />
                     </div>
                     <p className="text-danger">{this.state.error.title}</p>
                     <div className="form-group">
-                        <label htmlFor="exampleInputLocation">Location</label>
-                        <input type="text" name="location" value={this.state.data.location} onChange={this.handleChange} className="form-control" id="exampleInputLocation" placeholder="Location" />
+                        <label htmlFor="exampleInputLocation">Locatie</label>
+                        <input type="text" name="location" value={this.state.data.location} onChange={this.handleChange} className="form-control" id="exampleInputLocation" placeholder="Locatie" />
                     </div>
                     <p className="text-danger">
                         {this.state.error.location}
@@ -218,9 +218,9 @@ class Editarticledetails extends Component {
 
                     <div className="form-group">
                         <label htmlFor="exampleInputShortDescription">
-                            Short Description
+                            Nieuwsartikel
                   </label>
-                        <textarea rows="4" cols="50" type="text" name="ShortDescription" value={this.state.data.ShortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Description" />
+                        <textarea rows="4" cols="50" type="text" name="ShortDescription" value={this.state.data.ShortDescription} onChange={this.handleChange} className="form-control" id="exampleInputShortDescription" placeholder="Nieuwsartikel" />
                     </div>
 
                     <div className="form-group">
@@ -238,7 +238,7 @@ class Editarticledetails extends Component {
                     <div className="form-group">
                         {this.state.currentPicture && <img src={this.state.currentPicture} width="100" height="100" />}
                         <label class="custom-file-upload" htmlFor="exampleInputPhoto">
-                        <i class="fa fa-cloud-upload"></i> Profile Photo
+                        <i class="fa fa-cloud-upload"></i> Foto
                         <input type="file" name="photo" onChange={this.handlePhotoChange} id="exampleInputPhoto" placeholder="Photo" />
                         </label>
                     </div>
@@ -251,9 +251,9 @@ class Editarticledetails extends Component {
 
 
             <button type="submit" className="btn btn-primary submit">
-                    Update
+                    Bijwerken
               </button>
-                <button className="btn btn-danger" onClick={this.deleteArt}>Delete</button>
+                <button className="btn btn-danger" onClick={this.deleteArt}>Verwijder</button>
             </form>
         </div>;
     }

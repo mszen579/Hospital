@@ -76,30 +76,73 @@ class Articles extends Component {
 
  render() {
     // console.log(this.state.Articles);
-    return (
+    return <div>
+       
+     
+       
+         
+
+          <section id="imgBanner">
+            <h2>All News</h2>
+          </section>
 
 
-      <div>
-        <h1>All News</h1>
-        <div className="table-responsive-md">
-              {this.state.Articles && this.state.Articles.map(function (article) {
-                return (
-                  <div key={article._id}>
-                    <div>
-                    <h3 style={{color: "red"}}>Title: {article.title}</h3>
-                      {article.profilePic &&
-                        <img src={`http://localhost:8000/uploads/${article.profilePic}`} width="100" height="120" />}
+ {this.state.Articles && this.state.Articles.map(function(article) {
+                return(
+          <section id="courseArchive">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-8 col-md-8 col-sm-8">
+                  <div className="courseArchive_content">
+                    <div className="row">
+                      <div className="col-lg-12 col-12 col-sm-12">
+                        <div className="single_blog_archive wow fadeInUp">
+                          <div className="blogimg_container">
+                            <a href="#" className="blog_img">
+                                      <img alt="img" src={`http://localhost:8000/uploads/${article.profilePic}`}  />
+                            </a>
+                          </div>
+                          <h2 className="blog_title">
+                            <a href="events-single.html">
+                              {" "}
+                                      {article.title}
+                            </a>
+                          </h2>
+                          <div className="blog_commentbox">
+                            <p>
+                                      <i className="fa fa-clock-o" /><Moment className="text-muted" format="DD MMM YYYY">
+                                        {article.createdAt}
+                                      </Moment>
+                            </p>
+                            <p>
+                                      <i className="fa fa-map-marker" /> {article.location}
+                            </p>
+                          </div>
+                          <p className="blog_summary">
+
+                                      { article.ShortDescription}
+                          </p>
+                          
+                                    <Link className="blog_readmore" href="events-single.html" to={`/${article._id}/SingleArticle`}>
+                                      Read this article
+                      </Link>
+                         
+                          
+                        </div>
+                      </div>
                     </div>
-                    <Moment className="text-muted" format="DD MMM YYYY">
-                    {article.createdAt}
-                    </Moment>
-                    <div><Link className="text-primary" to={`/${article._id}/SingleArticle`}>Read more</Link></div><br/><hr/>
-                 </div>
-                )
-          }.bind(this))}
-    </div>
-  </div>
-  )
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          );
+                                      }
+                                    )}
+                            
+                            
+     
+      </div>;
   }
 
 }

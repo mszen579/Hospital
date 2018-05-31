@@ -28,7 +28,7 @@ class Login extends Component {
         if (res.data.err) {
         return  this.setState({err:res.data.message})
         } 
-        return this.props.history.push("/Admin-panel/DashboardArticle");
+        return this.props.history.push("/Admin-panel");
         });
     }
     
@@ -48,18 +48,18 @@ class Login extends Component {
         var changeHandler= this.changeHandler;
         return (
             <div className='loginform'>
-                <h1>Login</h1>
+                <h1>Inloggen</h1>
                 {this.state.err && <h3>{this.state.err}</h3> }
                 <form onSubmit={this.submitHandler}>
                     <div className="form-group">
-                                <label htmlFor="email">Email address</label>
+                                <label htmlFor="email">Email adres</label>
                                 <input type="email" value={this.state.data.email} name="email" onChange={changeHandler} className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>
                     </div>
                     <div className="form-group">
-                                <label htmlFor="password">Password</label>
+                                <label htmlFor="password">Passwoord</label>
                                 <input onChange={changeHandler} value={this.state.data.password} name="password" type="password" className="form-control" id="password" placeholder="Password"/>
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary">Aanmelden</button>
                 </form>
             </div>
         )

@@ -54,13 +54,14 @@ class AdminNav extends Component {
                 <nav className="navbar navbar-expand-lg navbar-dark">
 
                     <ul className="nav navbar-nav">
-                        {this.state.admin && <h1 style={{ color: 'white' }}> Welcome, {this.state.admin.name}, your level is: <span style={{ color: 'red' }}>"{this.state.admin.jobTitle}"</span></h1>}&nbsp;&nbsp;&nbsp;&nbsp;
-                        <NavLink exact to="/Admin-panel/DashboardArticle" style={{ color: 'white' }}>List of articles</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <NavLink exact to="/Admin-panel/AddArticle" style={{ color: 'white' }}>Adding article</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <NavLink exact to="/Admin-panel/allAdmins" style={{ color: 'white' }}>List of Admins</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <NavLink exact to="/Admin-panel/Register" style={{ color: 'white' }}>Add Admin</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <NavLink exact to="/Admin-panel/Dashboardvolunteers" style={{ color: 'white' }}>List of Volunteer Aplications</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a style={{ cursor: 'pointer' }} style={{ color: 'red' }} onClick={this.handleLogOut}><strong style={{ color: 'red' }}>Logout</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        {this.state.admin && <h1 style={{ color: 'white' }}> Welkom, {this.state.admin.name}. <br/> Uw admin rang is: <span style={{ color: 'red' }}>{this.state.admin.jobTitle}</span></h1>}&nbsp;&nbsp;&nbsp;&nbsp;
+                        <NavLink exact to="/Admin-panel" style={{ color: 'white' }}>Admin hoe & wat</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <NavLink exact to="/Admin-panel/DashboardArticle" style={{ color: 'white' }}>Nieuws Artikelen</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <NavLink exact to="/Admin-panel/AddArticle" style={{ color: 'white' }}>Artikel Toevoegen</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <NavLink exact to="/Admin-panel/allAdmins" style={{ color: 'white' }}>Admin Lijst</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <NavLink exact to="/Admin-panel/Register" style={{ color: 'white' }}>Admin Toevoegen</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <NavLink exact to="/Admin-panel/Dashboardvolunteers" style={{ color: 'white' }}>Lijst van Vrijwilligers</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a style={{ cursor: 'pointer' }} style={{ color: 'red' }} onClick={this.handleLogOut}><strong style={{ color: 'red' }}>Afmelden</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
                     </ul>
                     <br />
                 </nav>

@@ -81,20 +81,17 @@ validateArticleId= [
 ]
 
 app.post('/Article/search', validateArticleId, function (req, res) {
-  //console.log(req);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     //console.log(errors);
     return res.status(422).json({ errors: errors.mapped() });
   }
 
-  //console.log(req.body);
   Article.findOne(req.body)
     .then(function (user) {
       if (!user) {
         return res.send({ status: 'error', message: 'Article not found' });
       }
-      //console.log(user);
       res.send(user);
     })
     .catch(function (error) {
@@ -108,15 +105,12 @@ app.post('/Article/search', validateArticleId, function (req, res) {
 
 
 app.get('/Article/profileinfo/:id', function (req, res) {
-  console.log(req.params.id);
-  console.log(req.body);
 
   Article.findOne({"_id" : req.params.id})
     .then(function (article) {
       if (!article) {
         return res.send({ status: 'error', message: 'Article not found' });
       }
-      console.log(article);
       res.send(article);
     })
     .catch(function (error) {
@@ -157,7 +151,6 @@ var login = (req, res) => {
         //user is found
         console.log('before cookie');
         req.session.admin = admin;
-        console.log(req.session.admin);
         req.session.save();
         res.status(200).json(admin);
     }).catch(error => {
@@ -182,7 +175,6 @@ app.get("/api/isloggedin", isLoggedIn);
 
 ///////////Session for current admin/////////////////////////////////////////////////////
 app.get('/api/current_Admin', function (req, res) {
-  console.log(req.session)
   if (req.session.admin) {
     Admin.findById(req.session.admin._id)
       .then(function (admin) {
@@ -221,8 +213,6 @@ app.post('/api/Article/register',
         var errors = validationResult(req);
         console.log(errors.mapped());
         if (!errors.isEmpty()) {
-            // console.log('errors')
-            // console.log(errors.mapped());
             return res.send({ errors: errors.mapped() });
         }
 
@@ -234,7 +224,7 @@ app.post('/api/Article/register',
         Article.create({
             title: req.body.title,
             location: req.body.location,
-            Video: req.body.video,
+            Video: req.body.Video,
             profilePic: filename,
             ShortDescription: req.body.shortDescription,
 
@@ -264,12 +254,10 @@ app.get('/api/listofArticles', function (req, res) {
 
 //Admin Article View Profile
 app.get('/api/Article/:ArticleID/viewprofile', function (req, res) {
-  console.log(req.params);
   Article.findOne({ _id: req.params.id })
 
     .then(function (result) {
       res.send(result);
-      console.log(result);
     })
     .catch(function (error) {
       console.log(error);
@@ -277,19 +265,15 @@ app.get('/api/Article/:ArticleID/viewprofile', function (req, res) {
 })
 
 app.post('/api/admin/:ArticleID/enablebadges',function(req,res){
-  console.log(req.body);
-  console.log(req.params.ArticleID);
   var badgeName=req.body.enablebadge;
   Badge.findOne({
         ArticleID:req.params.ArticleID
       }).update({badgeName:1})
   .then(function (badges) {
-    // console.log(badges)
     res.send(badges);
 
   })
   .catch(function (error) {
-    // console.log(error);
     res.send(error);
   })
 
@@ -334,7 +318,6 @@ app.post('/api/:_id/update',
         if (!errors.isEmpty()) {
             return res.send({ errors: errors.mapped() });
         }
-        console.log(req.body)
 
         Article.findByIdAndUpdate(req.params._id, req.body, function (err, article) {
             if (!article)

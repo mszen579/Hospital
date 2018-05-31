@@ -149,7 +149,7 @@ class Addarticle extends Component {
 
                 <AdminNav />
 
-                <h1>Article Register</h1>
+                <h1>Artikel Toevoegen</h1>
 
 
                 {this.state.success && <p>{this.state.success}</p>
@@ -181,7 +181,7 @@ class Addarticle extends Component {
                                 <div>   
                                 <label class="custom-file-upload">
                                 <input type="file" name="photo" onChange={this.handlePhotoChange}/>
-                                <i class="fa fa-cloud-upload"></i> Upload
+                                <i class="fa fa-cloud-upload"></i> Foto
                                 </label>
                                 <br/>
                                 <p className="text-danger">{this.state.error.photo}</p>

@@ -1,60 +1,84 @@
-//Header.js
 import React, { Component } from "react";
-import { Link } from "react-router-dom"; //this is for routing
+// import Script from "react-script-tag";
+import { Link } from "react-router-dom";
+
+
+
+
+
+
 
 export default class Header extends Component {
     render() {
-        return (
-            <div>
-                <nav className="">
-                    <div className="">
-                        <ul className="nav navbar-nav">
-                            <li className="active">
-                                <Link className="" to={"/"}>
-                                    <img src={require("../../assests/logoicon.ico")} width="30" alt="logo"/> 
-                                </Link>
-                            </li>
-                            <li className="active">
-                                <Link className="" to={"/"}>
-                                    Home
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className="" to={"/Volunteer"}>
-                                    Volunteer
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className="" to={"/News"}>
-                                    News
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className="" to={"/Aboutus"}>
-                                    About us
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className="" to={"/Contactus"}>
-                                    Contact us
-                                </Link>
-                            </li>
-                            <li>
-                                <Link className="" to={"/Donation"}>
-                                    Donation
-                                </Link>
-                            </li>
-                            <li>
-                                <a style={{ color: "white" }} href="https://www.doneeractie.nl/stichting-hospice-amsterdam-zuidoost/-28298" className="btn btn-danger">DONATE</a>
-                            </li>
-                        </ul>
+        return <div>
+            <header id="header">
+              <div className="menu_area">
+                <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
+                  {" "}
+                  <div className="container">
+                    <div className="navbar-header">
+                      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span className="sr-only">
+                          Toggle navigation
+                        </span>
+                        <span className="icon-bar" />
+                        <span className="icon-bar" />
+                        <span className="icon-bar" />
+                      </button>
+                      <a className="navbar-brand logoicon" href="index.html">
+                        {" "}
+                        <Link className="" to={"/"}>
+                          <img src={require("../../assests/logoicon.ico")} width="60" alt="logo" />
+                        </Link>
+                      </a>
+                      <a className="navbar-brand" href="index.html">
+                        Hospice <br /> <span>Amsterdam Zuid-Oost</span>
+                      </a>
                     </div>
+                    <div id="navbar" className="navbar-collapse collapse">
+                      <ul id="top-menu" className="nav navbar-nav navbar-right main-nav">
+                        <li className="active">
+                          <Link className="" to={"/"}>
+                            {" "}
+                            Home
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="" to={"/Volunteer"}>
+                            {" "}
+                            Volunteer
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="" to={"/News"}>
+                            {" "}
+                            News
+                          </Link>
+                        </li>
+                   
+                        <li>
+                          <Link className="" to={"/Contactus"}>
+                            {" "}
+                            Contact us
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="" to={"/Donation"}>
+                            {" "}
+                            Donation
+                          </Link>
+                        </li>
+                        <li>
+                          <a style={{ color: "white" }} href="https://www.doneeractie.nl/stichting-hospice-amsterdam-zuidoost/-28298" className="btn btn-danger">
+                            DONATE
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </nav>
-                <br />
-                <br />
-                <br />
-            </div>
-        );
+              </div>
+            </header>
+          </div>;
     }
 }
-

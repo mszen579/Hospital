@@ -54,16 +54,16 @@ class Dashboardvolunteers extends Component {
         return (
             <div>
                 <AdminNav />
-                <h1>Volunteer Dashboard</h1>
+                <h1>Lijst van Vrijwilligers</h1>
 
                 <div className="table-responsive-md">
                     <table className="table table-hover">
                         <thead>
                             <tr>
 
-                                <th scope="col" colSpan={1}>name</th>
-                                <th scope="col" colSpan={2}>Received at</th>
-                                <th scope="col" colSpan={3}>More</th>
+                                <th scope="col" colSpan={1}>Naam:</th>
+                                <th scope="col" colSpan={2}>Toegevoegd op:</th>
+                                <th scope="col" colSpan={3}>Meer</th>
 
                             </tr>
                         </thead>
@@ -79,7 +79,7 @@ class Dashboardvolunteers extends Component {
                                             </Moment>
 
                                         </td>
-                                        <td colSpan={3}><Link className="btn btn-primary" to={`/Admin-panel/${Form._id}/Singlevolunteer`}>View details</Link></td>
+                                        <td colSpan={3}><Link className="btn btn-primary" to={`/Admin-panel/${Form._id}/Singlevolunteer`}>Bekijk Details</Link></td>
                                     </tr>
                                 )
                             }.bind(this))}

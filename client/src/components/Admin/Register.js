@@ -122,10 +122,10 @@ class Register extends Component {
         return (
             <div>
                 <AdminNav />
-                <h1>Register</h1>
+                <h1>Admin Toevoegen</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="exampleInputname">Full Name</label>
+                        <label htmlFor="exampleInputname">Volle Naam</label>
                         <input
                             type="text"
                             name="name"
@@ -133,12 +133,12 @@ class Register extends Component {
                             onChange={this.handleChange}
                             className="form-control"
                             id="exampleInputname"
-                            placeholder="Full Name"
+                            placeholder="Volle Naam"
                         />
                         <p className="text-danger">{this.state.error.name}</p>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">Email address</label>
+                        <label htmlFor="exampleInputEmail1">Email adres</label>
                         <input
                             type="text"
                             name="email"
@@ -147,7 +147,7 @@ class Register extends Component {
                             className="form-control"
                             id="exampleInputEmail1"
                             aria-jobTitleribedby="emailHelp"
-                            placeholder="Enter email"
+                            placeholder="Vul email in..."
                         />
                         <p className="text-danger">{this.state.error.email}</p>
                     </div>
@@ -167,7 +167,7 @@ class Register extends Component {
           </div> */}
 
                     <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">Password</label>
+                        <label htmlFor="exampleInputPassword1">Passwoord</label>
                         <input
                             type="password"
                             name="password"
@@ -175,13 +175,13 @@ class Register extends Component {
                             onChange={this.handleChange}
                             className="form-control"
                             id="exampleInputPassword1"
-                            placeholder="Password"
+                            placeholder="Passwoord"
                         />
                         <p className="text-danger">{this.state.error.password}</p>
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputConfirmationPassword">
-                            Confirm Password
+                            Passwoord Bevestigen
             </label>
                         <input
                             type="password"
@@ -190,12 +190,12 @@ class Register extends Component {
                             onChange={this.handleChange}
                             className="form-control"
                             id="exampleInputConfirmationPassword"
-                            placeholder="Confirm Password"
+                            placeholder="Passwoord Bevestigen"
                         />
                         <p className="text-danger">{this.state.error.con_password}</p>
                     </div>
                     <button type="submit" className="btn btn-primary">
-                        Submit
+                        Voeg Admin Toe
           </button>
                 </form>
                 {this.state.success === "" ? (

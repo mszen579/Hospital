@@ -158,12 +158,12 @@ export default class Singlevolunteer extends Component {
                         {this.state.data && this.state.data.workPreferences}</p>
                     <p><b>7. Wat verwacht u van het werk binnen het hospice?</b><br />
                         {this.state.data && this.state.data.workExpectations}</p>
-                    <button className="btn btn-secondary" onClick={() => window.print()}>PRINT</button>
+                    <button className="btn btn-secondary" onClick={() => window.print()}>UITPRINTEN</button>
                     <br />
                     <br />
                     <br />
-                    <button className="btn btn-danger" onClick={this.deleteVol}>Delete</button>
-                    <Link className="btn btn-warning" to="/Admin-panel/Dashboardvolunteers">Back</Link>
+                    <button className="btn btn-danger" onClick={this.deleteVol}>Verwijder</button>
+                    <Link className="btn btn-warning" to="/Admin-panel/Dashboardvolunteers">Terug</Link>
                 </div>
                
             </div>
