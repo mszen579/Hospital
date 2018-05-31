@@ -1,8 +1,34 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import AdminNav from './AdminNav';
 
 
 class Panel extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+        this.componentWillMount = this.componentWillMount.bind(this);
+        
+    }
+    
+    
+    componentWillMount() {
+        axios.get('http://localhost:8000/api/isloggedin')
+        .then((res) => {
+            if (res.data.error) {
+                this.setState({ loading: false })
+            } else if (res.data.jobTitle === 'SuperAdmin' || res.data.jobTitle === 'Admin') {
+                this.setState({ admin: res.data, loading: false })
+            } else {
+                window.location.href = "/Admin-panel/DashboardArticle"
+            }
+        });
+    }
+    
+
     render() {
         return (
             <div className="Panel">
