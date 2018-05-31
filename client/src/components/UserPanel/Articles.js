@@ -87,7 +87,7 @@ class Articles extends Component {
           </section>
 
 
- {this.state.Articles && this.state.Articles.slice(0, 3).map(function(article) {
+ {this.state.Articles && this.state.Articles.map(function(article) {
                 return(
           <section id="courseArchive">
             <div className="container">

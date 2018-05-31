@@ -224,7 +224,7 @@ app.post('/api/Article/register',
         Article.create({
             title: req.body.title,
             location: req.body.location,
-            Video: req.body.video,
+            Video: req.body.Video,
             profilePic: filename,
             ShortDescription: req.body.shortDescription,
 
