@@ -9,15 +9,15 @@ export default class Footer extends Component {
         Articles: null,
         loading: true,
         admin: ""
-    
-     
+
     }
     axios.get('http://localhost:8000/api/isloggedin')
     .then((res) => {
         if (res.data.error) {
             this.setState({ loading: false })
         } else if (res.data.jobTitle === 'Admin' || res.data.jobTitle === 'SuperAdmin') {
-            this.setState({ admin: res.data, loading: false })
+            
+          this.setState({ admin: res.data, loading: false })
         } 
     });
 
@@ -26,9 +26,8 @@ export default class Footer extends Component {
 
 
 
-
   render() {
-    return    !this.state.admin  ? (<div>
+    return    !this.state.admin ?(<div>
  
 
         <footer id="footer">
