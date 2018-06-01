@@ -91,7 +91,7 @@ class Home extends Component {
             <div className="row">
               <div className="col-lg-6 col-md-6 col-sm-6">
                 <div className="aboutus_area wow fadeInLeft">
-                  <h2 className="titile">About Us</h2>
+                  <h2 className="titile">Over Ons</h2>
 
                   <h5>
                     <b> Wie zijn wij?</b>
@@ -137,7 +137,7 @@ class Home extends Component {
                   <ul className="nav nav-tabs feed_tabs" id="myTab2">
                     <li className="active">
                       <a href="#news" data-toggle="tab">
-                        News
+                        Nieuws
                       </a>
                     </li>
                   </ul>
@@ -184,7 +184,7 @@ class Home extends Component {
                           )}
                       </ul>
                       <Link className="see_all" style={{ fontSize: "22px" }} to="/News">
-                        See All
+                        Alles Zien
                       </Link>
                     </div>
                   </div>

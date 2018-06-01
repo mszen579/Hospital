@@ -49,31 +49,31 @@ export default class Header extends Component {
                         <li>
                           <Link className="" to={"/Volunteer"}>
                             {" "}
-                            Volunteer
+                            vrijwilliger worden?
                           </Link>
                         </li>
                         <li>
                           <Link className="" to={"/News"}>
                             {" "}
-                            News
+                            Nieuws
                           </Link>
                         </li>
                    
                         <li>
                           <Link className="" to={"/Contactus"}>
                             {" "}
-                            Contact us
+                            Contact
                           </Link>
                         </li>
                         <li>
                           <Link className="" to={"/Donation"}>
                             {" "}
-                            Donation
+                            Donaties
                           </Link>
                         </li>
                         <li>
                           <a style={{ color: "white" }} href="https://www.doneeractie.nl/stichting-hospice-amsterdam-zuidoost/-28298" className="btn btn-danger">
-                            DONATE
+                            doneer
                           </a>
                         </li>
                       </ul>
