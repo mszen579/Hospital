@@ -35,7 +35,7 @@ Met uw bijdrage kunnen wij het hospice verder realiseren en spoedig onze deuren 
                       Met uw bijdrage kunnen wij het hospice verder realiseren en spoedig onze deuren openen. Enorm bedankt!
                     </blockquote>
                     <p>Daarnaast hebben wij op doneeractie.nl een pagina aangemaakt waar losse donaties gedaan kunnen worden. Wilt u uw bijdrage leveren aan de verbouwing van het hospice volg dan de link via onderstaande knop.</p>
-                    <a href="https://www.doneeractie.nl/stichting-hospice-amsterdam-zuidoost/-28298" classNameName="btn btn-danger" style= {{ color: "white"}}>Overeenkomst voor periodieke gift
+                    <a href="https://www.doneeractie.nl/stichting-hospice-amsterdam-zuidoost/-28298" className="btn btn-danger" style= {{ color: "white"}}>Overeenkomst voor periodieke gift
                     Doneer actie verbouwing <br /> Hospice Amsterdam Zuidoost</a>
 
                         <h2 className="blog_title"><a href="blog-single.html"> Bedrijven en sponsoring</a></h2>  
@@ -101,7 +101,7 @@ Tot slot willen wij Pantar bedanken voor het werk dat zij hebben verricht in onz
                       <div className="media-body">
                       <p >Stichting Hospice Amsterdam Zuidoost is afhankelijk van donateurs en giften van particulieren en bedrijven.
                       Ook u kunt een belangrijke bijdrage leveren aan de Stichting Hospice Amsterdam Zuidoost door ons financieel te steunen.
-                      U kunt uw gift overmaken op bankrekeningnummer <p classNameName="text-danger"> NL 27 INGB 0007894849 </p> t.n.v. Stichting Hospice Amsterdam Zuidoost. </p>
+                      U kunt uw gift overmaken op bankrekeningnummer <p className="text-danger"> NL 27 INGB 0007894849 </p> t.n.v. Stichting Hospice Amsterdam Zuidoost. </p>
                       </div>
                     </div>
                   </li>
@@ -122,7 +122,7 @@ Door het verkrijgen van de ANBI-status zijn periodieke giften aan het hospice ge
                       <div className="media-left">
                    </div>
                       <div className="media-body">
-                       <a href="https://download.belastingdienst.nl/belastingdienst/docs/overeenkomst_%20period_gift_in_geld_ib0802z2fol.pdf" classNameName="btn btn-danger" style= {{ color: "white"}}>Overeenkomst voor periodieke gifty</a>
+                       <a href="https://download.belastingdienst.nl/belastingdienst/docs/overeenkomst_%20period_gift_in_geld_ib0802z2fol.pdf" className="btn btn-danger" style= {{ color: "white"}}>Overeenkomst voor periodieke gifty</a>
                       </div>
                     </div>
                   </li>                  
