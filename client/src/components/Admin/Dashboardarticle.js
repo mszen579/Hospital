@@ -95,8 +95,13 @@ class Dashboardarticle extends Component {
                             }.bind(this))}
                         </tbody>
                     </table>
+                    <br/>
+                    <br/>
+                <br/>
                 </div>
+          
             </div>
+         
         )
 
     }

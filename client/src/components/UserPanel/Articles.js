@@ -10,12 +10,8 @@ class Articles extends Component {
         super(props);
 
         this.state = {
-
             Articles: null,
             loading: true,
-
-
-
         }
         this.componentDidMount = this.componentDidMount.bind(this)
         
@@ -24,7 +20,6 @@ class Articles extends Component {
     handleEdit() {
         window.location.href = '/admin/editdetails';
     }
-
 
     componentDidMount() {
 
@@ -42,12 +37,7 @@ class Articles extends Component {
                 console.log(error)
             })
 
-
-
     }
-  
-
-  
 
   handleEdit()
   {
@@ -77,19 +67,18 @@ class Articles extends Component {
  render() {
     // console.log(this.state.Articles);
     return <div>
-       
-     
-       
-         
+
 
           <section id="imgBanner">
             <h2>All News</h2>
           </section>
 
-
  {this.state.Articles && this.state.Articles.map(function(article) {
                 return(
-          <section id="courseArchive">
+          <section style={{marginLeft: "22%",
+                  marginRight: "auto",
+                  width: "80%"}} 
+                  id="courseArchive">
             <div className="container">
               <div className="row">
                 <div className="col-lg-8 col-md-8 col-sm-8">
@@ -126,8 +115,7 @@ class Articles extends Component {
                                     <Link className="blog_readmore" href="events-single.html" to={`/${article._id}/SingleArticle`}>
                                       Read this article
                       </Link>
-                         
-                          
+
                         </div>
                       </div>
                     </div>
@@ -137,11 +125,9 @@ class Articles extends Component {
             </div>
           </section>
           );
-                                      }
-                                    )}
-                            
-                            
-     
+                }
+             )}
+
       </div>;
   }
 

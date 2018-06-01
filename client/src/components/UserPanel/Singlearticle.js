@@ -42,7 +42,9 @@ export default class Singlearticle extends Component {
             <div>
                      
 
-                <section id="courseArchive">
+                <section id="courseArchive" style={{marginLeft: "22%",
+                  marginRight: "auto",
+                  width: "80%"}} >
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-8 col-md-8 col-sm-8">

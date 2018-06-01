@@ -111,7 +111,8 @@ class App extends Component {
                 )
             }} />
             </Switch>
-        <Footer/>
+           
+        
           <Script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
             onCreate={this.handleScriptCreate.bind(this)}
             onError={this.handleScriptError.bind(this)}
@@ -180,10 +181,7 @@ class App extends Component {
 
           /> 
 
-
-
-                
-            
+           <Footer />
       </div>
       </BrowserRouter>
     );

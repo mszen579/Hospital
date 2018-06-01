@@ -10,14 +10,14 @@ class Addarticle extends Component {
                 title: '',
                 location: '',
                 shortDescription: '',
-                video: '',
+                Video: '',
                 photo: null,
             },
             error: {
                 title: '',
                 location: '',
                 shortDescription: '',
-                video: '',
+                Video: '',
                 photo: '',
             },
             success: null
@@ -73,13 +73,13 @@ class Addarticle extends Component {
                             title: '',
                             location: '',
                             shortDescription: '',
-                            video: '',
+                            Video: '',
                         },
                         error: {
                             title: '',
                             location: '',
                             shortDescription: '',
-                            video: '',
+                            Video: '',
                             photo: '',
                         },
                         admin: {
@@ -193,7 +193,7 @@ class Addarticle extends Component {
 
                             <div className="form-group">
                                 <label htmlFor="exampleInputVideo">Video-Link</label>
-                                <input type="text" name="video" value={this.state.video} onChange={this.handleChange} className="form-control" id="exampleInputVideo" placeholder="Video-link toevoegen (optioneel)" />
+                                <input type="text" name="Video" value={this.state.Video} onChange={this.handleChange} className="form-control" id="exampleInputVideo" placeholder="Video-link toevoegen (optioneel)" />
                             </div>
                             <p className="text-danger">{this.state.error.Video}</p>
                         <p className="text-success">{this.state.success}</p>

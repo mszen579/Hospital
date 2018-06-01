@@ -1,8 +1,34 @@
 import React, { Component } from "react";
-
+import axios from 'axios';
 export default class Footer extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+        Articles: null,
+        loading: true,
+        admin: ""
+    
+     
+    }
+    axios.get('http://localhost:8000/api/isloggedin')
+    .then((res) => {
+        if (res.data.error) {
+            this.setState({ loading: false })
+        } else if (res.data.jobTitle === 'Admin' || res.data.jobTitle === 'SuperAdmin') {
+            this.setState({ admin: res.data, loading: false })
+        } 
+    });
+
+  }
+
+
+
+
+
   render() {
-    return <div>
+    return    !this.state.admin  ? (<div>
  
 
         <footer id="footer">
@@ -98,7 +124,7 @@ export default class Footer extends Component {
               </div>
             </div>
           </div>
-        </footer>
-      </div>;
+        </footer>}
+      </div>): (<div></div>)
   }
 }

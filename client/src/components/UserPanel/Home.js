@@ -4,17 +4,11 @@ import "../UserStyling/home.css";
 import axios from "axios";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Footer from "./Footer";
+
 import "../UserStyling/home.css";
 import Moment from "react-moment";
 
-//  import {name} from'../UserStyling/home.js'
-
-// import { $, jQuery} from "jquery";
-// import {env} from "jsdom";
-
-// const $ = require("jquery");
-
+//this is for the slider
 import { Carousel } from "react-responsive-carousel";
 import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -63,7 +57,7 @@ class Home extends Component {
 
                       <Link
                         className="legend titlehome"
-                        style={{ fontSize: "22px" }}
+                        style={{ fontSize: "30px" }}
                         to={`/${article._id}/SingleArticle`}
                       >
                         {article.title}
@@ -199,6 +193,7 @@ class Home extends Component {
             </div>
           </div>
         </section>
+       
       </div>;
   }
 }

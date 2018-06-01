@@ -9,8 +9,11 @@ import { Link } from "react-router-dom";
 
 
 export default class Header extends Component {
+
+
     render() {
-        return <div>
+        return       <div>
+  
             <header id="header">
               <div className="menu_area">
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -78,7 +81,8 @@ export default class Header extends Component {
                   </div>
                 </nav>
               </div>
-            </header>
-          </div>;
+            </header> }
+            
+        </div>
     }
 }
