@@ -35,7 +35,7 @@ export default class Header extends Component {
                         </Link>
                       </a>
                       <a className="navbar-brand" style={{"margin-top" : "5px"}} href="index.html">
-                        Hospice <br /> <span>Amsterdam Zuid-Oost</span>
+                        Hospice <br /> <span>A.Z.O</span>
                       </a>
                     </div>
                     <div id="navbar" className="navbar-collapse collapse">

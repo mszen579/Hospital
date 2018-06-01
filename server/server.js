@@ -344,11 +344,11 @@ app.post('/api/:_id/update',
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-//Uncomment the code below to add a super admin user
+//Uncomment the code below to add a super admin user this password equal to 123123
                     // Admin.create({
                     // name: 'Mohammad',
                     // email: 'mmm@gmail.com',
-                    // password: '123123',
+                    // password: '$2b$12$giC1dNHD9vZ05.4Ke3swy.1PsbCZTHPy9TpCwLx7jIQ572VC4obvu',
                     // jobTitle: "SuperAdmin" //this one will define the Admin level
                     // })
 ////////////////////////////////////////////////////////////////////////////////////////////

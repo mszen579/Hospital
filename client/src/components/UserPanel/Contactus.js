@@ -126,7 +126,7 @@ export default class Contactus extends Component {
                     </div>
                     <div className="form-group">
                       <label htmlFor="exampleInputname">E-mail</label>
-                      <input type="text" name="email" value={this.state.data.email} onChange={this.handleChange} className="wp-form-control wpcf7-email" id="exampleInputjobemail" placeholder="Email" required />
+                      <input type="email" name="email" value={this.state.data.email} onChange={this.handleChange} className="wp-form-control wpcf7-text" id="exampleInputjobemail" placeholder="Email" required />
                       <h3 className="text-danger">
                         {this.state.error.email}
                       </h3>
@@ -164,6 +164,8 @@ export default class Contactus extends Component {
               </div>
             </div>
           </div>
+          <br/>
+          <br/>
           <div id="googleMap">
             <iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Kelbergen+189,+1104+LJ+Amsterdam&amp;aq=&amp;sll=30.977609,-95.712891&amp;sspn=42.157377,86.572266&amp;ie=UTF8&amp;hq=&amp;hnear=Kelbergen+189,+1104+LJ+Amsterdam&amp;t=m&amp;z=14&amp;ll=52.310129,4.974043&amp;output=embed" />
           </div>
