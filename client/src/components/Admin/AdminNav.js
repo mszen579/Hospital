@@ -60,13 +60,13 @@ class AdminNav extends Component {
                         <br />
                         <ul className="nav navbar-nav">
                             {this.state.admin && <h1 style={{ color: 'black' }}> Welkom, <span style={{ color: 'red' }}>{this.state.admin.name}</span> <br /> Uw admin rang is: <span style={{ color: 'red' }}>{this.state.admin.jobTitle}</span></h1>}&nbsp;&nbsp;&nbsp;&nbsp;
-                        <NavLink exact to="/Admin-panel" style={{ color: 'gray' }}>Admin hoe & wat</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <NavLink exact to="/Admin-panel/DashboardArticle" style={{ color: 'gray' }}>Nieuws Artikelen</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                       <NavLink exact to="/Admin-panel/AddArticle" style={{ color: 'gray' }}>Artikel Toevoegen</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                       {this.state.admin.jobTitle === "SuperAdmin" && <React.Fragment><NavLink exact to="/Admin-panel/allAdmins" style={{ color: 'gray' }}>Admin Lijst</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <NavLink exact to="/Admin-panel/Register" style={{ color: 'gray' }}>Admin Toevoegen</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;</React.Fragment>}
-                            <NavLink exact to="/Admin-panel/Dashboardvolunteers" style={{ color: 'gray' }}>Lijst van Vrijwilligers</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a style={{ cursor: 'pointer' }} style={{ color: 'red' }} onClick={this.handleLogOut}><strong style={{ color: 'red' }}>Afmelden</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <NavLink exact to="/Admin-panel" style={{ color: 'white'}} className=" btn btn-primary">Admin hoe & wat</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <NavLink exact to="/Admin-panel/DashboardArticle" style={{ color: 'white'}} className=" btn btn-primary">Nieuws Artikelen</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                       <NavLink exact to="/Admin-panel/AddArticle" style={{ color: 'white'}} className=" btn btn-primary">Artikel Toevoegen</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                       {this.state.admin.jobTitle === "SuperAdmin" && <React.Fragment><NavLink exact to="/Admin-panel/allAdmins" style={{ color: 'white'}} className=" btn btn-success">Admin Lijst</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <NavLink exact to="/Admin-panel/Register" style={{ color: 'white'}} className=" btn btn-success">Admin Toevoegen</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;</React.Fragment>}
+                            <NavLink exact to="/Admin-panel/Dashboardvolunteers" style={{ color: 'white'}} className=" btn btn-primary">Lijst van Vrijwilligers</NavLink>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a style={{ cursor: 'pointer' }} style={{ color: 'white'}} className=" btn btn-danger" onClick={this.handleLogOut}><strong>Afmelden</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;
                         </ul>
                         <br />
                     </nav>

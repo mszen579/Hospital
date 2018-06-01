@@ -146,7 +146,6 @@ class Addarticle extends Component {
     render() {
         return (
             <div className="register-std">
-  <br />
             <br />
             <br />
          

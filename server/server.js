@@ -409,7 +409,7 @@ app.post("/api/admin/register",
 ///All Admins///////////////////////////////////////////////////////////////////////
 
 app.get('/api/admin/alladmins', function (req, res, next) {
-  Admin.find({}, ['name', 'email', 'jobTitle'], (err, admins) => {
+  Admin.find({}, ['name', 'email', 'jobTitle', "createdAt"], (err, admins) => {
       if (err) {
           console.log("Error getting users" + err);
           return next();

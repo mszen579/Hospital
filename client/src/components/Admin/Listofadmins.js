@@ -4,6 +4,7 @@ import AdminNav from './AdminNav';
 import DeleteAdmin from './DeleteAdmin';
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import Moment from "react-moment";
 const swal = withReactContent(Swal);
 const swalWithBootstrapButtons = swal.mixin({
     confirmButtonClass: 'btn btn-success',
@@ -62,7 +63,12 @@ class Listofadmins extends Component {
                             <div className="card-body">
                                 <h3 className="card-title">Admin naam: {admin.name}
                                     <br />Email: {admin.email}
-                                    <br />Admin Rang: {admin.jobTitle}</h3>
+                                    <br />Admin Rang: {admin.jobTitle}
+                                    <br />Created At: 
+                                    <Moment format="DD MMM YYYY">
+                                        {admin.createdAt}
+                                      </Moment>
+                                    </h3>
                                 <DeleteAdmin key={admin._id} id={admin._id} /><br/>
                                 <hr />
                             </div>
