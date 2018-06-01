@@ -66,11 +66,11 @@ class Volunteer extends Component {
                   </p>
                   <blockquote>
                     <span className="fa fa-quote-left" />
-                    Duis erat purus, tincidunt vel ullamcorper ut, consequat tempus nibh. Proin condimentum risus ligula, dignissim mollis tortor hendrerit vel.
+                    &nbsp;Schrijf je in en wordt een vrijwilliger!
                   </blockquote>
 
                 <Link className="wpcf7-submit" to="/Volform">
-                    Be Volunteer,Register With Us
+                    Vrijwilliger Worden
                   </Link>
                 <br /> <br /> 
                 </div>

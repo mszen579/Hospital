@@ -84,7 +84,7 @@ class Dashboardarticle extends Component {
                                     <tr key={Article._id}>
                                         <td>
                                             {Article.profilePic &&
-                                                <img src={`http://localhost:8000/uploads/${Article.profilePic}`} width="100" height="120" />}
+                                                <img src={`http://localhost:8000/uploads/${Article.profilePic}`} height="100" />}
                                         </td>
                                         <td colSpan={3}>{Article.title}</td>
 

@@ -70,7 +70,7 @@ class Articles extends Component {
 
 
           <section id="imgBanner">
-            <h2>All News</h2>
+            <h2>Alle Nieuws</h2>
           </section>
 
  {this.state.Articles && this.state.Articles.map(function(article) {
@@ -113,7 +113,7 @@ class Articles extends Component {
                           </p>
                           
                                     <Link className="blog_readmore" href="events-single.html" to={`/${article._id}/SingleArticle`}>
-                                      Read this article
+                                      Lees dit artikel
                       </Link>
 
                         </div>

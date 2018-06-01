@@ -36,7 +36,7 @@ export default class Footer extends Component {
               <div className="row">
                 <div className="col-ld-3  col-md-3 col-sm-3">
                   <div className="single_footer_widget">
-                    <h3>About Us</h3>
+                    <h3>Over Ons</h3>
                     <p>
                       Stichting Hospice Amsterdam Zuidoost is door 2
                       enthousiaste verpleegkundige uit Amsterdam Zuidoost
@@ -49,7 +49,7 @@ export default class Footer extends Component {
                 </div>
                 <div className="col-ld-3  col-md-3 col-sm-3">
                   <div className="single_footer_widget">
-                    <h3>Community</h3>
+                    <h3>Gemeenschap</h3>
                     <ul className="footer_widget_nav">
                       <li>
                         <a href="#">Our Tutors</a>
@@ -71,7 +71,7 @@ export default class Footer extends Component {
                 </div>
                 <div className="col-ld-3  col-md-3 col-sm-3">
                   <div className="single_footer_widget">
-                    <h3>Others</h3>
+                    <h3>Overig</h3>
                     <ul className="footer_widget_nav">
                       <li>
                         <a href="#">Link 1</a>

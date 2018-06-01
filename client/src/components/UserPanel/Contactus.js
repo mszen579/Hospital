@@ -102,30 +102,30 @@ export default class Contactus extends Component {
 
   render() {
     return <div>
-        <h1>Contact us...</h1>
 
         <section id="contact">
           <div className="container">
+            <h1>Neem contact met ons op...</h1>
             <div className="row">
               <div className="col-lg-8 col-md-8 col-sm-8">
                 <div className="contact_form wow fadeInLeft">
                   <form onSubmit={this.handleSubmitEmail} className="submitphoto_form">
                     <div className="form-group">
-                      <label htmlFor="exampleInputname">Name</label>
+                      <label htmlFor="exampleInputname">Naam</label>
                       <input type="text" name="name" value={this.state.data.name} onChange={this.handleChange} className="wp-form-control wpcf7-text" id="exampleInputname" placeholder="Name" required />
                       <h3 className="text-danger">
                         {this.state.error.name}
                       </h3>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="exampleInputEmail1">Message</label>
+                      <label htmlFor="exampleInputEmail1">Bericht</label>
                       <textarea type="text" name="desc" row="100" value={this.state.data.desc} onChange={this.handleChange} className="wp-form-control " id="exampleInputdesc" placeholder="Message" required />
                       <h3 className="text-danger">
                         {this.state.error.desc}
                       </h3>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="exampleInputname">email</label>
+                      <label htmlFor="exampleInputname">E-mail</label>
                       <input type="text" name="email" value={this.state.data.email} onChange={this.handleChange} className="wp-form-control wpcf7-email" id="exampleInputjobemail" placeholder="Email" required />
                       <h3 className="text-danger">
                         {this.state.error.email}
@@ -133,7 +133,7 @@ export default class Contactus extends Component {
                     </div>
 
                     <button type="submit" className="wpcf7-submit">
-                      Send message
+                      Bericht Verzenden
                     </button>
                     <div id="googleMap" style={{ height: "400px" }} />
                   </form>
@@ -142,15 +142,15 @@ export default class Contactus extends Component {
               <div className="col-lg-4 col-md-4 col-sm-4">
                 <div className="contact_address wow fadeInRight">
                   <h3>
-                    <b>Address</b>{" "}
+                    <b>Adres</b>{" "}
                   </h3>
                   <div className="address_group">
                     <p>Kelbergen 189 1104 LJ Amsterdam</p>
                     <p>
-                      <b> Phone</b>: (06) 442 70 584
+                      <b> Telefoon Nummer</b>: (06) 442 70 584
                     </p>
                     <p>
-                      <b> Email</b>:info@hospiceamsterdamzuidoost.nl{" "}
+                      <b> E-mail</b>:info@hospiceamsterdamzuidoost.nl{" "}
                     </p>
                     <h3>
                       <b>Openingstijden</b>
