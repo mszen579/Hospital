@@ -27,21 +27,9 @@ More will be added and updated to the README file as we work on it.
 
 # About the team:
 
-
-Muslum Gezgin
-
-https://github.com/muslumgezgin
-
-
 Mohamed ALZEN
-
-https://github.com/mszen579
-
-
+Muslum Gezgin
 Tihomir Balaban
-
-https://github.com/Thibsey/
-
 
 
 # Nederlands
