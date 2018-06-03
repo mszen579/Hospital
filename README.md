@@ -27,8 +27,8 @@ More will be added and updated to the README file as we work on it.
 
 # About the team:
 
-Mohamed ALZEN
-Muslum Gezgin
+Mohamed ALZEN,
+Muslum Gezgin,
 Tihomir Balaban
 
 
