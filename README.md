@@ -1,6 +1,7 @@
 To view this project online check the below link:
 https://hospital-front.herokuapp.com/  OR 
 https://hospital-front.herokuapp.com/adminwsq   "for admin cp"
+Please note that photos will note be shown as I am using a free Heroku account
 
 # TMG Hospice
 
